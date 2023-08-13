@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
-class Zoo implements Serializable {
+public class Zoo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

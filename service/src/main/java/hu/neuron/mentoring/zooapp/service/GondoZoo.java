@@ -58,7 +58,7 @@ public class GondoZoo extends Employee {
 
     @Override
     public String toString() {
-        return super.toString() + "Supplied Animals" + suppliedAnimals;
+        return super.toString() + "Supplied Animals=" + suppliedAnimals;
     }
 
     @Override
