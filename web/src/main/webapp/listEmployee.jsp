@@ -2,6 +2,7 @@
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@page import="hu.neuron.mentoring.zooapp.service.*"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
@@ -9,22 +10,19 @@
 <html>
 <head></head>
 <body>
+<h2>
 <%
-Zoo zoo1 = new Zoo();
-zoo1.addEmployee(new GondoZoo("Adam",null,null,'f',null));
-zoo1.addEmployee(new GondoZoo("Gabor",null,null,'f',null));
-zoo1.addEmployee(new GondoZoo("Mihály",null,null,'f',null));
-zoo1.addEmployee(new GondoZoo("Bela",null,null,'f',null));
-List<Employee> zoo1Employees = zoo1.getEployees();
-pageContext.setAttribute("list1",zoo1Employees);
+Zoo zoo1 = (Zoo)request.getSession().getAttribute("zoo");
 %>
-<c:forEach var="Employee" items="${list1}">
+<c:out value="${currentZoo.getDirector()}"/>
+<c:forEach var="employee" items="${zoo1.getEployees()}">
     <table>
         <tr>
-            <c:out value="${Employee}"/>
+            <c:out value="${employee}"></c:out>
         </tr>
     </table>
 </c:forEach>
+</h2>
 
 </body>
 </html>
