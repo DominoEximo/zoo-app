@@ -10,17 +10,53 @@
 <html>
 <head></head>
 <body>
-<h2>
 <%
-Zoo zoo1 = (Zoo)request.getSession().getAttribute("zoo");
+    Zoo zoo1 = new Zoo(new Director("Elemer",null,null,'m'));
+    Zoo zoo2 = new Zoo(new Director("David",null,null,'m'));
+    zoo1.addEmployee(new GondoZoo("Adam",null,null,'m',null));
+    zoo1.addEmployee(new GondoZoo("Gabor",null,null,'m',null));
+    zoo1.addEmployee(new GondoZoo("Mihály",null,null,'m',null));
+    zoo1.addEmployee(new GondoZoo("Bela",null,null,'m',null));
+    zoo2.addEmployee(new GondoZoo("Eva",null,null,'f',null));
+    zoo2.addEmployee(new GondoZoo("Carl",null,null,'m',null));
+    zoo2.addEmployee(new GondoZoo("Ed",null,null,'m',null));
+    List<Zoo> zooList = new ArrayList();
+    pageContext.setAttribute("zooList",zooList);
+    zooList.add(zoo1);
+    zooList.add(zoo2);
+    %>
+<h2>
+
+<%String name= request.getParameter("director");%>
+Director:
+<%out.write(name.trim());%>
+
+
+<br />
+<%
+    for(Zoo zoo : zooList)
+    {
+        if (name.equals(zoo.getDirector().getName())) {
+        pageContext.setAttribute("currentZoo",zoo);
+        }
+
+    }
+
+
 %>
-<c:out value="${currentZoo.getDirector()}"/>
-<c:forEach var="employee" items="${zoo1.getEployees()}">
-    <table>
-        <tr>
-            <c:out value="${employee}"></c:out>
-        </tr>
-    </table>
+
+
+<br />
+
+<c:forEach var="employee" items="${currentZoo.getEployees()}">
+
+
+            <table>
+                 <tr>
+                     <c:out value="${employee}"></c:out>
+                 </tr>
+            </table>
+
 </c:forEach>
 </h2>
 
