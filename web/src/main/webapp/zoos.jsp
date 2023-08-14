@@ -11,12 +11,19 @@
 <body>
 <%
 Zoo zoo1 = new Zoo();
-zoo1.addEmployee(new GondoZoo(null,null,null,'f',null));
+zoo1.addEmployee(new GondoZoo("Adam",null,null,'f',null));
+zoo1.addEmployee(new GondoZoo("Gabor",null,null,'f',null));
+zoo1.addEmployee(new GondoZoo("Mihály",null,null,'f',null));
+zoo1.addEmployee(new GondoZoo("Bela",null,null,'f',null));
 List<Employee> zoo1Employees = zoo1.getEployees();
 pageContext.setAttribute("list1",zoo1Employees);
 %>
 <c:forEach var="Employee" items="${list1}">
-    <c:out value="${Employee}"/>
+    <table>
+        <tr>
+            <c:out value="${Employee}"/>
+        </tr>
+    </table>
 </c:forEach>
 
 </body>
