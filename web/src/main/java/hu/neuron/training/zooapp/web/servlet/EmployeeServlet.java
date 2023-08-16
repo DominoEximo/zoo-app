@@ -23,13 +23,13 @@ public class EmployeeServlet extends HttpServlet {
 
         ZooStorage storage = new ZooStorage();
 
-        String name= req.getParameter("director");
+        String name= req.getParameter("name");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
         for(Zoo zoo : storage.getZooList())
         {
-            if (name.equals(zoo.getDirector().getName())) {
+            if (name.equals(zoo.getName())) {
                 currentZoo.add(zoo);
             }
 

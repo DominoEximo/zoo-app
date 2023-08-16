@@ -19,8 +19,8 @@
       <h2>Select a Zoo</h2>
       <form action= "employees" method="GET">
         <div class="form-group">
-          <label for="director">Director:</label>
-          <input type="text" class="form-control" id="director" placeholder="Director" name="director">
+          <label for="name">Name of Zoo:</label>
+          <input type="text" class="form-control" id="name" placeholder="Name of Zoo" name="name">
         </div>
 
 

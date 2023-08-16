@@ -13,8 +13,8 @@ public class ZooStorage {
 
     public ZooStorage(){
         zooList = new ArrayList<>();
-        Zoo zoo1 = new Zoo(new Director("Elemer",null,null,'m'));
-        Zoo zoo2 = new Zoo(new Director("David",null,null,'m'));
+        Zoo zoo1 = new Zoo("Debreceni Állatkert");
+        Zoo zoo2 = new Zoo("Nyíregyházi Állatkert");
         zoo1.addEmployee(new GondoZoo("Adam",null,null,'m',null));
         zoo1.addEmployee(new GondoZoo("Gabor",null,null,'m',null));
         zoo1.addEmployee(new GondoZoo("Mihály",null,null,'m',null));
