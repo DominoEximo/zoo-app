@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ZooStorage {
 
+    private static ZooStorage single_instance = null;
     private List<Zoo> zooList;
 
     public ZooStorage(){
@@ -26,6 +27,14 @@ public class ZooStorage {
 
         zooList.add(zoo1);
         zooList.add(zoo2);
+    }
+
+    public static synchronized ZooStorage getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new ZooStorage();
+
+        return single_instance;
     }
 
     public List<Zoo> getZooList() {
