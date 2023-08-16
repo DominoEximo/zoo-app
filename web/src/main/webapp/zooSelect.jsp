@@ -9,12 +9,23 @@
 
 
 <html>
-<head></head>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
 <body>
-    <form action= "listEmployee.jsp" method="POST">
-    Director: <input type="text" name="director">
-    <%request.getSession();%>
-    <input type="submit" value="submit">
-    </form>
+    <div class="container">
+      <h2>Vertical (basic) Form</h2>
+      <form action= "employees" method="GET">
+        <div class="form-group">
+          <label for="director">Director:</label>
+          <input type="text" class="form-control" id="director" placeholder="Director" name="director">
+        </div>
+
+
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+
 </body>
 </html>
