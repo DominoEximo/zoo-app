@@ -8,19 +8,44 @@
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 
 <html>
-<head></head>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
 <body>
-<h2>
 
-<c:forEach var="employee" items="${currentZoo.eployees}">
-            <table>
-                 <tr>
-                     <c:out value="${employee}"></c:out>
-                 </tr>
-            </table>
-</c:forEach>
+<table class="table">
+  <thead>
+    <tr>
 
-</h2>
+      <th scope="col">Name</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Birth Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="employee" items="${currentZoo.eployees}">
+
+                     <tr>
+                        <td>
+                            <c:out value="${employee.getName()}"></c:out>
+                        </td>
+
+                        <td>
+                            <c:out value="${employee.getGender()}"></c:out>
+                        </td>
+
+                        <td>
+                            <c:out value="${employee.getBirthDate()}"></c:out>
+                        </td>
+
+
+                     </tr>
+
+    </c:forEach>
+  </tbody>
+</table>
+
 
 </body>
 </html>
