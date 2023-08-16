@@ -51,6 +51,7 @@ public class Zoo implements Serializable {
         counter++;
     }
     public Zoo(String name) {
+        this.setName(name);
         employees = new ArrayList<>();
         animals = new ArrayList<>();
         loggedJobs = new ArrayList<>();
