@@ -3,6 +3,7 @@ package hu.neuron.training.zooapp.web.servlet;
 import hu.neuron.mentoring.zooapp.service.Director;
 import hu.neuron.mentoring.zooapp.service.GondoZoo;
 import hu.neuron.mentoring.zooapp.service.Zoo;
+import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,25 +21,13 @@ public class EmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Zoo zoo1 = new Zoo(new Director("Elemer",null,null,'m'));
-        Zoo zoo2 = new Zoo(new Director("David",null,null,'m'));
-        zoo1.addEmployee(new GondoZoo("Adam",null,null,'m',null));
-        zoo1.addEmployee(new GondoZoo("Gabor",null,null,'m',null));
-        zoo1.addEmployee(new GondoZoo("Mihály",null,null,'m',null));
-        zoo1.addEmployee(new GondoZoo("Bela",null,null,'m',null));
-        zoo2.addEmployee(new GondoZoo("Eva",null,null,'f',null));
-        zoo2.addEmployee(new GondoZoo("Carl",null,null,'m',null));
-        zoo2.addEmployee(new GondoZoo("Ed",null,null,'m',null));
-        List<Zoo> zooList = new ArrayList();
-
-        zooList.add(zoo1);
-        zooList.add(zoo2);
+        ZooStorage storage = new ZooStorage();
 
         String name= req.getParameter("director");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for(Zoo zoo : zooList)
+        for(Zoo zoo : storage.getZooList())
         {
             if (name.equals(zoo.getDirector().getName())) {
                 currentZoo.add(zoo);

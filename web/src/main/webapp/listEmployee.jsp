@@ -9,42 +9,43 @@
 
 <html>
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <%@ include file="header.jsp"%>
 </head>
 <body>
+<div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Birth Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach var="employee" items="${currentZoo.eployees}">
 
-<table class="table">
-  <thead class="table-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Gender</th>
-      <th scope="col">Birth Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <c:forEach var="employee" items="${currentZoo.eployees}">
+                         <tr>
+                            <td>
+                                <c:out value="${employee.getName()}"></c:out>
+                            </td>
 
-                     <tr>
-                        <td>
-                            <c:out value="${employee.getName()}"></c:out>
-                        </td>
+                            <td>
+                                <c:out value="${employee.getGender()}"></c:out>
+                            </td>
 
-                        <td>
-                            <c:out value="${employee.getGender()}"></c:out>
-                        </td>
-
-                        <td>
-                            <c:out value="${employee.getBirthDate()}"></c:out>
-                        </td>
+                            <td>
+                                <c:out value="${employee.getBirthDate()}"></c:out>
+                            </td>
 
 
-                     </tr>
+                         </tr>
 
-    </c:forEach>
-  </tbody>
-</table>
-
+        </c:forEach>
+      </tbody>
+    </table>
+</div>
 
 </body>
 </html>
