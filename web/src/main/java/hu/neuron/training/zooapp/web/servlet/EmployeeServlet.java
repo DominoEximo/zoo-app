@@ -34,8 +34,10 @@ public class EmployeeServlet extends HttpServlet {
             }
 
         }
+        if (currentZoo.size() != 0){
+            req.setAttribute("currentZoo",currentZoo.get(0));
+        }
 
-        req.setAttribute("currentZoo",currentZoo.get(0));
         req.getRequestDispatcher("/listEmployee.jsp").forward(req,resp);
         //resp.sendRedirect("listEmployee.jsp");
 
