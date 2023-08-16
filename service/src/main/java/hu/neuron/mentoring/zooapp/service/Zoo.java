@@ -26,6 +26,7 @@ public class Zoo implements Serializable {
 
     private static int counter;
 
+    private String name;
     private Director director;
 
     private List<Employee> employees;
@@ -41,6 +42,15 @@ public class Zoo implements Serializable {
     private List<Reservation> reservations;
 
     public Zoo() {
+        employees = new ArrayList<>();
+        animals = new ArrayList<>();
+        loggedJobs = new ArrayList<>();
+        rewardApplicables = new ArrayList<>();
+        sights = new ArrayList<>();
+        reservations = new ArrayList<>();
+        counter++;
+    }
+    public Zoo(String name) {
         employees = new ArrayList<>();
         animals = new ArrayList<>();
         loggedJobs = new ArrayList<>();
@@ -356,6 +366,14 @@ public class Zoo implements Serializable {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     class Moving {
