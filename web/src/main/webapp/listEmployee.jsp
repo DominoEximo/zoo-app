@@ -15,9 +15,8 @@
 <body>
 
 <table class="table">
-  <thead>
+  <thead class="table-dark">
     <tr>
-
       <th scope="col">Name</th>
       <th scope="col">Gender</th>
       <th scope="col">Birth Date</th>
