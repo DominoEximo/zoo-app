@@ -40,4 +40,6 @@ public class ZooStorage {
     public List<Zoo> getZooList() {
         return zooList;
     }
+
+    public void addZoo(Zoo zoo) {zooList.add(zoo);}
 }
