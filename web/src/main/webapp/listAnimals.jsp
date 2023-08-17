@@ -18,41 +18,56 @@
     <table class="table">
       <thead>
         <tr>
+          <th scope="col">Species</th>
           <th scope="col">Name</th>
           <th scope="col">Gender</th>
           <th scope="col">Birth Date</th>
         </tr>
       </thead>
       <tbody>
-        <c:forEach var="employee" items="${currentZoo.eployees}">
+        <c:forEach var="animal" items="${currentZoo.animals}">
 
                          <tr>
                             <td>
-                                <c:out value="${employee.getName()}"></c:out>
+                                <c:out value="${animal.getSpecies()}"></c:out>
                             </td>
 
                             <td>
-                                <c:out value="${employee.getGender()}"></c:out>
+                                <c:out value="${animal.getNickname()}"></c:out>
                             </td>
 
                             <td>
-                                <c:out value="${employee.getBirthDate()}"></c:out>
+                                <c:out value="${animal.getGender()}"></c:out>
+                            </td>
+
+                            <td>
+                                <c:out value="${animal.getBirth_date()}"></c:out>
                             </td>
 
 
                          </tr>
 
         </c:forEach>
+
       </tbody>
+
     </table>
 </div>
+
 <div class="after">
-      <main class="inner cover">
-            <p class=" text-center">
-                <a href="#" class="btn btn-lg btn-secondary">Add Cleaner</a>
-                <a href="#" class="btn btn-lg btn-secondary">Add GondoZoo</a>
-            </p>
+      <main class="inner cover  text-center">
+            <form action= "ZooTransfer" method="GET">
+
+
+                      <input type="hidden" name="name" value="${currentZoo.name}">
+
+
+                    <button type="submit" class="btn btn-lg btn-secondary">Add Animal</button>
+            </form>
+
       </main>
 </div>
+
+
 </body>
 </html>

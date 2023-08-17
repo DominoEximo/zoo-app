@@ -2,6 +2,7 @@ package hu.neuron.training.zooapp.web.storage;
 
 import hu.neuron.mentoring.zooapp.service.Director;
 import hu.neuron.mentoring.zooapp.service.GondoZoo;
+import hu.neuron.mentoring.zooapp.service.Species;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 
 import java.util.ArrayList;
@@ -16,13 +17,13 @@ public class ZooStorage {
         zooList = new ArrayList<>();
         Zoo zoo1 = new Zoo("Debreceni Állatkert");
         Zoo zoo2 = new Zoo("Nyíregyházi Állatkert");
-        zoo1.addEmployee(new GondoZoo("Adam",null,null,'m',null));
-        zoo1.addEmployee(new GondoZoo("Gabor",null,null,'m',null));
-        zoo1.addEmployee(new GondoZoo("Mihály",null,null,'m',null));
-        zoo1.addEmployee(new GondoZoo("Bela",null,null,'m',null));
-        zoo2.addEmployee(new GondoZoo("Eva",null,null,'f',null));
-        zoo2.addEmployee(new GondoZoo("Carl",null,null,'m',null));
-        zoo2.addEmployee(new GondoZoo("Ed",null,null,'m',null));
+        zoo1.addEmployee(new GondoZoo("Adam",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
+        zoo1.addEmployee(new GondoZoo("Gabor",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
+        zoo1.addEmployee(new GondoZoo("Mihály",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
+        zoo1.addEmployee(new GondoZoo("Bela",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
+        zoo2.addEmployee(new GondoZoo("Eva",null,null,'f',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
+        zoo2.addEmployee(new GondoZoo("Carl",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
+        zoo2.addEmployee(new GondoZoo("Ed",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
 
 
         zooList.add(zoo1);
