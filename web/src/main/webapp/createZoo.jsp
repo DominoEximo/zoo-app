@@ -2,7 +2,6 @@
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@page import="hu.neuron.mentoring.zooapp.service.*"%>
 
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,11 +10,15 @@
 </head>
 <body>
     <div class="container">
-      <h2>Cleaner</h2>
-      <form action= "AddCleaner" method="GET">
+      <h2>Zoo</h2>
+      <form action= "AddZoo" method="GET">
         <div class="form-group">
-          <label for="id">Name</label>
-          <input type="text" class="form-control" id="id" placeholder="Name" name="id">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="directorName">Director</label>
+          <input type="text" class="form-control" id="directorName" placeholder="Director" name="directorName">
         </div>
         <div class="form-group">
           <label for="birthDate">Birth Date</label>
@@ -29,12 +32,6 @@
           <label for="gender">Gender</label>
           <input type="text" class="form-control" id="gender" placeholder="Gender" name="gender">
         </div>
-        <div class="form-group">
-          <label for="cleanedAreas">Cleaned Areas</label>
-          <input type="text" class="form-control" id="cleanedAreas" placeholder="Cleaned Areas" name="cleanedAreas">
-        </div>
-        <input type="hidden" name="name" value="${currentZoo.name}">
-
         <button type="submit" class="btn btn-default">Add</button>
       </form>
     </div>

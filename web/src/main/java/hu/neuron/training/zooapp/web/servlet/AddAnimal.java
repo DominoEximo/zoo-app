@@ -13,7 +13,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet (urlPatterns = "/AddAnimal")
@@ -70,7 +73,12 @@ public class AddAnimal extends HttpServlet {
             }
         }
         String nickname= req.getParameter("nickname");
-        Integer birthDate=Integer.parseInt(req.getParameter("birthDate"));
+        Date birthDate= null;
+        try {
+            birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(req.getParameter("birthDate"));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         String g= req.getParameter("gender");
         Character gender = g.charAt(0);
 

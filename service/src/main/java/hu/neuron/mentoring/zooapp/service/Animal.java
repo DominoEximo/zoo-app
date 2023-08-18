@@ -1,13 +1,14 @@
 package hu.neuron.mentoring.zooapp.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 public class Animal implements Serializable{
 
     private Species species;
     private String nickname;
-    private Integer birthDate;
+    private Date birthDate;
     private Character gender;
 
 
@@ -16,7 +17,7 @@ public class Animal implements Serializable{
     }
 
 
-    public Animal(Species species, String nickname, Integer birth_date, Character gender) {
+    public Animal(Species species, String nickname, Date birth_date, Character gender) {
         super();
         this.species = species;
         this.nickname = nickname;
@@ -40,11 +41,11 @@ public class Animal implements Serializable{
         this.nickname = nickname;
     }
 
-    public int getBirth_date() {
+    public Date getBirth_date() {
         return birthDate;
     }
 
-    public void setBirth_date(int birth_date) {
+    public void setBirth_date(Date birth_date) {
         this.birthDate = birth_date;
     }
 

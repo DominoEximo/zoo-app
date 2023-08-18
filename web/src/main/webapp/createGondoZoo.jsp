@@ -11,20 +11,21 @@
 </head>
 <body>
     <div class="container">
-      <h2>Animal</h2>
+      <h2>GondoZoo</h2>
       <form action= "AddGondoZoo" method="GET">
         <div class="form-group">
           <label for="id">Name</label>
           <input type="text" class="form-control" id="id" placeholder="Name" name="id">
         </div>
         <div class="form-group">
-          <label for="appointmentDate">Appointment Date</label>
-          <input type="text" class="form-control" id="appointmentDate" placeholder="dd/MM/yyyy" name="appointmentDate">
-        </div>
-        <div class="form-group">
           <label for="birthDate">Birth Date</label>
           <input type="text" class="form-control" id="birthDate" placeholder="dd/MM/yyyy" name="birthDate">
         </div>
+        <div class="form-group">
+          <label for="appointmentDate">Appointment Date</label>
+          <input type="text" class="form-control" id="appointmentDate" placeholder="dd/MM/yyyy" name="appointmentDate">
+        </div>
+
         <div class="form-group">
           <label for="gender">Gender</label>
           <input type="text" class="form-control" id="gender" placeholder="Gender" name="gender">
