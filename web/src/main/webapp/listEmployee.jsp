@@ -48,10 +48,18 @@
 </div>
 <div class="after">
       <main class="inner cover">
-            <p class=" text-center">
-                <a href="#" class="btn btn-lg btn-secondary">Add Cleaner</a>
-                <a href="#" class="btn btn-lg btn-secondary">Add GondoZoo</a>
-            </p>
+            <div class=" text-center">
+                <form action= "ZooTransfer" method="GET">
+                    <input type="hidden" name="source" value="cleaner">
+                    <input type="hidden" name="name" value="${currentZoo.name}">
+                    <button type="submit" class="btn btn-lg btn-secondary">Add Cleaner</button>
+                </form>
+                <form action= "ZooTransfer" method="GET">
+                    <input type="hidden" name="source" value="gondozoo">
+                    <input type="hidden" name="name" value="${currentZoo.name}">
+                    <button type="submit" class="btn btn-lg btn-secondary">Add GondoZoo</button>
+                </form>
+            </div>
       </main>
 </div>
 </body>

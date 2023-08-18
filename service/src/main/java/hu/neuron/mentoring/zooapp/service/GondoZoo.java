@@ -12,14 +12,14 @@ public class GondoZoo extends Employee {
 
 
     private static final long serialVersionUID = -3608765929799268696L;
-    private ArrayList<Species> suppliedAnimals;
+    private List<Species> suppliedAnimals;
 
     public GondoZoo() {
         super();
     }
 
     public GondoZoo(String name, Date birthDate, Date appointmentDate, Character gender,
-                    ArrayList<Species> suppliedAnimals) {
+                    List<Species> suppliedAnimals) {
         super(name,birthDate,appointmentDate,gender);
         this.suppliedAnimals = suppliedAnimals;
     }
@@ -28,7 +28,7 @@ public class GondoZoo extends Employee {
         this.suppliedAnimals.add(animal);
     }
 
-    public ArrayList<Species> getSuppliedAnimals() {
+    public List<Species> getSuppliedAnimals() {
         return suppliedAnimals;
     }
 

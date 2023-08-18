@@ -22,6 +22,7 @@ public class ZooTransfer extends HttpServlet {
         ZooStorage storage = ZooStorage.getInstance();
 
         String name = req.getParameter("name");
+        String source = req.getParameter("source");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
@@ -34,8 +35,14 @@ public class ZooTransfer extends HttpServlet {
         if (currentZoo.size() != 0) {
             req.setAttribute("currentZoo", currentZoo.get(0));
         }
+        if (source.equals("animal")){
+            req.getRequestDispatcher("/createAnimal.jsp").forward(req, resp);
+        } else if (source.equals("cleaner")) {
+            req.getRequestDispatcher("/createCleaner.jsp").forward(req, resp);
+        }else if (source.equals("gondozoo")) {
+            req.getRequestDispatcher("/createGondoZoo.jsp").forward(req, resp);
+        }
 
-        req.getRequestDispatcher("/createAnimal.jsp").forward(req, resp);
     }
 
     @Override

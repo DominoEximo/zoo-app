@@ -60,7 +60,7 @@
 
 
                       <input type="hidden" name="name" value="${currentZoo.name}">
-
+                      <input type="hidden" name="source" value="animal">
 
                     <button type="submit" class="btn btn-lg btn-secondary">Add Animal</button>
             </form>
