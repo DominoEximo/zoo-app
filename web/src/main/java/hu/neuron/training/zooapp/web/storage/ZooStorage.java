@@ -5,6 +5,8 @@ import hu.neuron.mentoring.zooapp.service.GondoZoo;
 import hu.neuron.mentoring.zooapp.service.Species;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,16 @@ public class ZooStorage {
         zooList = new ArrayList<>();
         Zoo zoo1 = new Zoo("Debreceni Állatkert");
         Zoo zoo2 = new Zoo("Nyíregyházi Állatkert");
+        try {
+            zoo1.setDirector(new Director("David",new SimpleDateFormat("dd/MM/yyyy").parse("05/04/2002"),null,'m'));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            zoo2.setDirector(new Director("Elemer",new SimpleDateFormat("dd/MM/yyyy").parse("05/04/2002"),null,'m'));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         zoo1.addEmployee(new GondoZoo("Adam",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
         zoo1.addEmployee(new GondoZoo("Gabor",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
         zoo1.addEmployee(new GondoZoo("Mihály",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));

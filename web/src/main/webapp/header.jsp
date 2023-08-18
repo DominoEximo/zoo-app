@@ -17,7 +17,7 @@
             <a class="navbar-brand" href="index.html">Zoo</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="listZoos.jsp">Home</a></li>
+            <li><a href="zooList">Home</a></li>
             <li><a href="animals.jsp">Animals</a></li>
             <li><a href="zooSelect.jsp">Employees</a></li>
 
