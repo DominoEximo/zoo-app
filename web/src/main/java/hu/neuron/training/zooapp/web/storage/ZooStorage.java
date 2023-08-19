@@ -59,8 +59,6 @@ public class ZooStorage {
     }
 
     public void loadData() {
-
-            System.out.println("aAAAAAAAAAAAAAAAAAAA");
             try {
                 List<Zoo> zoos = new ObjectMapper().readValue(new File("C:\\Users\\PappD\\IdeaProjects\\zoo-app\\web\\src\\main\\resources\\data.json"),new TypeReference<List<Zoo>>(){});
                 setZooList(zoos);
