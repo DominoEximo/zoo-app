@@ -3,14 +3,8 @@ package hu.neuron.training.zooapp.web.storage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import hu.neuron.mentoring.zooapp.service.Director;
-import hu.neuron.mentoring.zooapp.service.GondoZoo;
-import hu.neuron.mentoring.zooapp.service.Species;
 import hu.neuron.mentoring.zooapp.service.Zoo;
-
 import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
