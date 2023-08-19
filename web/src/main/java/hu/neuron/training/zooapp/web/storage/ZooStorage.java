@@ -1,10 +1,14 @@
 package hu.neuron.training.zooapp.web.storage;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import hu.neuron.mentoring.zooapp.service.Director;
 import hu.neuron.mentoring.zooapp.service.GondoZoo;
 import hu.neuron.mentoring.zooapp.service.Species;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,31 +19,12 @@ public class ZooStorage {
     private static ZooStorage single_instance = null;
     private List<Zoo> zooList;
 
+
     public ZooStorage(){
         zooList = new ArrayList<>();
-        Zoo zoo1 = new Zoo("Debreceni Állatkert");
-        Zoo zoo2 = new Zoo("Nyíregyházi Állatkert");
-        try {
-            zoo1.setDirector(new Director("David",new SimpleDateFormat("dd/MM/yyyy").parse("05/04/2002"),null,'m'));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        if (new File("C:\\Users\\PappD\\IdeaProjects\\zoo-app\\web\\src\\main\\resources\\data.json").exists()){
+            this.loadData();
         }
-        try {
-            zoo2.setDirector(new Director("Elemer",new SimpleDateFormat("dd/MM/yyyy").parse("05/04/2002"),null,'m'));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        zoo1.addEmployee(new GondoZoo("Adam",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
-        zoo1.addEmployee(new GondoZoo("Gabor",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
-        zoo1.addEmployee(new GondoZoo("Mihály",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
-        zoo1.addEmployee(new GondoZoo("Bela",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
-        zoo2.addEmployee(new GondoZoo("Eva",null,null,'f',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
-        zoo2.addEmployee(new GondoZoo("Carl",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
-        zoo2.addEmployee(new GondoZoo("Ed",null,null,'m',new ArrayList<>(List.of(Species.TIGER,Species.BEAR,Species.FOX))));
-
-
-        zooList.add(zoo1);
-        zooList.add(zoo2);
     }
 
     public static synchronized ZooStorage getInstance()
@@ -54,5 +39,35 @@ public class ZooStorage {
         return zooList;
     }
 
+    public void setZooList(List<Zoo> zooList) {
+        this.zooList = zooList;
+    }
+
     public void addZoo(Zoo zoo) {zooList.add(zoo);}
+
+    public void saveData(){
+        try {
+            File file = new File("C:\\Users\\PappD\\IdeaProjects\\zoo-app\\web\\src\\main\\resources\\data.json");
+            ObjectMapper objectMapper =new ObjectMapper();
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            objectMapper.writeValue(file, getZooList());
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadData() {
+
+            System.out.println("aAAAAAAAAAAAAAAAAAAA");
+            try {
+                List<Zoo> zoos = new ObjectMapper().readValue(new File("C:\\Users\\PappD\\IdeaProjects\\zoo-app\\web\\src\\main\\resources\\data.json"),new TypeReference<List<Zoo>>(){});
+                setZooList(zoos);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+    }
 }

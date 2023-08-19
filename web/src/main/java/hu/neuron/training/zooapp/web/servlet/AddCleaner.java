@@ -76,6 +76,9 @@ public class AddCleaner extends HttpServlet {
         }
 
         currentZoo.get(0).addEmployee(new Cleaner(id,birthDate,appointmentDate,gender,cleanedAreas));
+
+        storage.saveData();
+
         req.setAttribute("currentZoo",currentZoo.get(0));
 
         req.getRequestDispatcher("/listEmployee.jsp").forward(req,resp);

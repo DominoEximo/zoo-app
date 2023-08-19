@@ -104,6 +104,7 @@ public class AddAnimal extends HttpServlet {
         } catch (GondoZooNotAvailableException e) {
             req.getRequestDispatcher("/listAnimals.jsp").forward(req,resp);
         }
+        storage.saveData();
         req.setAttribute("currentZoo",currentZoo.get(0));
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req,resp);

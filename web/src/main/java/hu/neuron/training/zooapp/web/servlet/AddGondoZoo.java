@@ -105,6 +105,9 @@ public class AddGondoZoo extends HttpServlet {
         }
 
         currentZoo.get(0).addEmployee(new GondoZoo(id,birthDate,appointmentDate,gender,suppliedAnimals));
+
+        storage.saveData();
+
         req.setAttribute("currentZoo",currentZoo.get(0));
 
         req.getRequestDispatcher("/listEmployee.jsp").forward(req,resp);

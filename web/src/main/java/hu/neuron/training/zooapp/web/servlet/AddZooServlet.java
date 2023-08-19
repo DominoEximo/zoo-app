@@ -43,6 +43,8 @@ public class AddZooServlet extends HttpServlet {
         newZoo.setDirector(new Director(directorName,birthDate,appointmentDate,gender));
         storage.addZoo(newZoo);
 
+        storage.saveData();
+
         req.getRequestDispatcher("zooList").forward(req,resp);
     }
 
