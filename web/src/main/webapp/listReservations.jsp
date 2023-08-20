@@ -1,15 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
+<%@page import="hu.neuron.mentoring.zooapp.service.*"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>Zoos</title>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <%@ include file="header.jsp"%>
 </head>
 <body>
@@ -18,26 +17,28 @@
       <thead>
         <tr>
           <th scope="col">Name</th>
-          <th scope="col">Director</th>
+          <th scope="col">Reservation Date</th>
+          <th scope="col">Visit Date</th>
+          <th scope="col">Price</th>
         </tr>
       </thead>
       <tbody>
-        <c:forEach var="zoo" items="${zoos}">
+        <c:forEach var="reservation" items="${currentZoo.reservations}">
 
                          <tr>
                             <td>
-                                <c:out value="${zoo.name}"></c:out>
+                                <c:out value="${reservation.name}"></c:out>
                             </td>
 
                             <td>
-                                <c:out value="${zoo.director.getName()}"></c:out>
+                                <c:out value="${reservation.reservationDate}"></c:out>
                             </td>
 
                             <td>
-                                <form action="reserveServlet" method="GET">
-                                    <input type="hidden" name="name" value="${zoo.name}">
-                                    <button type="submit" class="btn btn-lg btn-secondary">Reserve</button>
-                                </form>
+                                <c:out value="${reservation.visitDate}"></c:out>
+                            </td>
+                            <td>
+                                <c:out value="${reservation.price}"></c:out>
                             </td>
                          </tr>
 
@@ -45,6 +46,7 @@
       </tbody>
     </table>
 </div>
-
 </body>
+
+
 </html>

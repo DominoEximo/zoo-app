@@ -42,7 +42,7 @@ public class ZooStorage {
     public void saveData(){
         try {
             File file = new File("C:\\Users\\PappD\\IdeaProjects\\zoo-app\\web\\src\\main\\resources\\data.json");
-            ObjectMapper objectMapper =new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
             objectMapper.writeValue(file, getZooList());
 
