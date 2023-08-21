@@ -62,4 +62,8 @@ public class ZooStorage {
 
 
     }
+
+    public void removeZoo(Zoo zoo){
+        zooList.remove(zoo);
+    }
 }

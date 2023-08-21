@@ -39,6 +39,13 @@
                                     <button type="submit" class="btn btn-lg btn-secondary">Reserve</button>
                                 </form>
                             </td>
+
+                            <td>
+                                <form action="deleteZoo" method="GET">
+                                    <input type="hidden" name="name" value="${zoo.name}">
+                                    <button type="submit" class="btn btn-lg btn-secondary">Delete</button>
+                                </form>
+                            </td>
                          </tr>
 
         </c:forEach>
