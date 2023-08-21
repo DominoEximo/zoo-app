@@ -1,8 +1,9 @@
 package hu.neuron.mentoring.zooapp.service;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Ticket {
+public class Ticket implements Serializable {
 
     private TicketType type;
 
@@ -10,6 +11,7 @@ public class Ticket {
 
     private Integer price;
 
+    public Ticket(){};
     public Ticket(TicketType type, TicketVariant variant, Integer price) {
         super();
         this.type = type;

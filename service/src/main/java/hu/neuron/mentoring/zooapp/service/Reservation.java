@@ -1,11 +1,12 @@
 package hu.neuron.mentoring.zooapp.service;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Reservation {
+public class Reservation implements Serializable {
 
     private String name;
 
@@ -19,6 +20,7 @@ public class Reservation {
 
     private Integer price;
 
+    public  Reservation(){};
     public Reservation(String name, Date reservationDate, Date visitDate, List<Ticket> tickets, Integer discount,
                        Integer price) {
         super();
