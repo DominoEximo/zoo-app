@@ -17,21 +17,11 @@ public class ListReservationsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("zoo");
 
         ZooStorage storage = ZooStorage.getInstance();
 
-        List<Zoo> currentZoo = new ArrayList<>();
 
-        for(Zoo zoo : storage.getZooList())
-        {
-            if (name.equals(zoo.getName())) {
-                currentZoo.add(zoo);
-            }
-
-        }
-
-        req.setAttribute("currentZoo",currentZoo.get(0));
+        req.setAttribute("Zoos",storage.getZooList());
 
         storage.saveData();
 

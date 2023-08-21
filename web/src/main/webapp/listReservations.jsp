@@ -13,38 +13,51 @@
 </head>
 <body>
 <div class="container">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Reservation Date</th>
-          <th scope="col">Visit Date</th>
-          <th scope="col">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <c:forEach var="reservation" items="${currentZoo.reservations}">
 
-                         <tr>
-                            <td>
-                                <c:out value="${reservation.name}"></c:out>
-                            </td>
+        <c:forEach var="zoo" items="${Zoos}">
+            <table class="table">
+                 <thead>
+                        <tr>
+                              <th scope="col">${zoo.name}</th>
+                        </tr>
+                 </thead>
+                 <tbody>
+                    <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Name</th>
+                              <th scope="col">Reservation Date</th>
+                              <th scope="col">Visit Date</th>
+                              <th scope="col">Price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach var="reservation" items="${zoo.reservations}">
 
-                            <td>
-                                <c:out value="${reservation.reservationDate}"></c:out>
-                            </td>
+                                             <tr>
+                                                <td>
+                                                    <c:out value="${reservation.name}"></c:out>
+                                                </td>
 
-                            <td>
-                                <c:out value="${reservation.visitDate}"></c:out>
-                            </td>
-                            <td>
-                                <c:out value="${reservation.price}"></c:out>
-                            </td>
-                         </tr>
+                                                <td>
+                                                    <c:out value="${reservation.reservationDate}"></c:out>
+                                                </td>
 
+                                                <td>
+                                                    <c:out value="${reservation.visitDate}"></c:out>
+                                                </td>
+                                                <td>
+                                                    <c:out value="${reservation.price}"></c:out>
+                                                </td>
+                                             </tr>
+
+                            </c:forEach>
+                          </tbody>
+                    </table>
+                 </tbody>
+            </table>
         </c:forEach>
-      </tbody>
-    </table>
+
 </div>
 </body>
 

@@ -39,6 +39,13 @@
                                 <c:out value="${employee.getBirthDate()}"></c:out>
                             </td>
 
+                            <td>
+                                <form action="removeEmployee" method="GET">
+                                    <input type="hidden" name="zoo" value="${currentZoo.name}">
+                                    <input type="hidden" name="name" value="${employee.name}">
+                                    <button type="submit" class="btn btn-lg btn-secondary">Remove</button>
+                                </form>
+                            </td>
 
                          </tr>
 

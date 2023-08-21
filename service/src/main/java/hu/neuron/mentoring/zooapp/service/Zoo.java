@@ -292,6 +292,10 @@ public class Zoo implements Serializable {
 
     }
 
+    public void fireCleaner(Cleaner cleaner){
+        employees.remove(cleaner);
+    }
+
     public void fireDirector() throws ZooEmployeeException {
         if (this.director == null) {
             logger.info(String.format("Az állatkertnek nincs jelenleg igazgatója! \n"));

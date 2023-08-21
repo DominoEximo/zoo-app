@@ -44,6 +44,13 @@
                                 <c:out value="${animal.getBirth_date()}"></c:out>
                             </td>
 
+                            <td>
+                                <form action="removeAnimal" method="GET">
+                                    <input type="hidden" name="zoo" value="${currentZoo.name}">
+                                    <input type="hidden" name="name" value="${animal.nickname}">
+                                    <button type="submit" class="btn btn-lg btn-secondary">Remove</button>
+                                </form>
+                            </td>
 
                          </tr>
 
