@@ -16,9 +16,19 @@
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
     <%@ include file="header.jsp"%>
+    <script type = "text/javascript" language = "javascript">
+         $(document).ready(function() {
+            $("#addCleaner").click(function(event){
+               $('#stage').load('createCleaner.jsp');
+            });
+            $("#addGondoZoo").click(function(event){
+               $('#stage').load('createGondoZoo.jsp');
+            });
+         });
+      </script>
 </head>
 <body>
-<div class="container">
+<div id="stage" class="container">
     <table id="employees" class="table">
       <thead>
         <tr>
@@ -69,12 +79,12 @@
                 <form action= "ZooTransfer" method="GET">
                     <input type="hidden" name="source" value="cleaner">
                     <input type="hidden" name="name" value="${currentZoo.name}">
-                    <button type="submit" class="btn btn-lg btn-secondary">Add Cleaner</button>
+                    <button type="submit" id="addCleaner" class="btn btn-lg btn-secondary">Add Cleaner</button>
                 </form>
                 <form action= "ZooTransfer" method="GET">
                     <input type="hidden" name="source" value="gondozoo">
                     <input type="hidden" name="name" value="${currentZoo.name}">
-                    <button type="submit" class="btn btn-lg btn-secondary">Add GondoZoo</button>
+                    <button type="submit" id="addGondoZoo" class="btn btn-lg btn-secondary">Add GondoZoo</button>
                 </form>
             </div>
       </main>
