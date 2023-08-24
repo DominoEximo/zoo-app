@@ -15,14 +15,14 @@
 <div class="container">
 
         <c:forEach var="zoo" items="${Zoos}">
-            <table class="table">
+            <table id="zoos" class="table">
                  <thead>
                         <tr>
                               <th scope="col">${zoo.name}</th>
                         </tr>
                  </thead>
                  <tbody>
-                    <table class="table">
+                    <table id=${zoo.name} class="table">
                           <thead>
                             <tr>
                               <th scope="col">Name</th>
@@ -56,7 +56,10 @@
                     </table>
                  </tbody>
             </table>
+
         </c:forEach>
+
+
 
 </div>
 </body>

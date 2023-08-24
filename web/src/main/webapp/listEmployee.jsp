@@ -11,16 +11,21 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
     <%@ include file="header.jsp"%>
 </head>
 <body>
 <div class="container">
-    <table class="table">
+    <table id="employees" class="table">
       <thead>
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Gender</th>
           <th scope="col">Birth Date</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -52,6 +57,11 @@
         </c:forEach>
       </tbody>
     </table>
+    <script>
+            $(document).ready(function () {
+                $('#employees').DataTable();
+            });
+    </script>
 </div>
 <div class="after">
       <main class="inner cover">
