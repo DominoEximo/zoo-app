@@ -11,21 +11,22 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <%@ include file="header.jsp"%>
     <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
-    <%@ include file="header.jsp"%>
-    <script type = "text/javascript" language = "javascript">
-         $(document).ready(function() {
-            $("#addCleaner").click(function(event){
-               $('#stage').load('createCleaner.jsp');
-            });
-            $("#addGondoZoo").click(function(event){
-               $('#stage').load('createGondoZoo.jsp');
-            });
-         });
-      </script>
+
+    <style>
+    .container {
+      text-align: center;
+      background-color: orange;
+    }
+    </style>
+
 </head>
 <body>
 <div id="stage" class="container">
@@ -76,15 +77,15 @@
 <div class="after">
       <main class="inner cover">
             <div class=" text-center">
-                <form action= "ZooTransfer" method="GET">
-                    <input type="hidden" name="source" value="cleaner">
-                    <input type="hidden" name="name" value="${currentZoo.name}">
+                <form id="cleanerForm" action= "ZooTransfer" method="GET">
+                    <input id="source" type="hidden" name="source" value="cleaner">
+                    <input id="data" type="hidden" name="name" value="${currentZoo.name}">
                     <button type="submit" id="addCleaner" class="btn btn-lg btn-secondary">Add Cleaner</button>
                 </form>
-                <form action= "ZooTransfer" method="GET">
-                    <input type="hidden" name="source" value="gondozoo">
-                    <input type="hidden" name="name" value="${currentZoo.name}">
-                    <button type="submit" id="addGondoZoo" class="btn btn-lg btn-secondary">Add GondoZoo</button>
+                <form id="gondoZooForm" action= "ZooTransfer" method="GET">
+                    <input id="source" type="hidden" name="source" value="gondozoo">
+                    <input id="data" type="hidden" name="name" value="${currentZoo.name}">
+                    <button type="submit" id="addGondoZoo" name="gomb" class="btn btn-lg btn-secondary">Add GondoZoo</button>
                 </form>
             </div>
       </main>

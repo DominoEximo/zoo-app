@@ -19,7 +19,7 @@
     </script>
 </head>
 <body>
-    <div class="container">
+    <div  id="fillable" class="container">
       <h2>Cleaner</h2>
       <form action= "AddCleaner" method="GET">
         <div class="form-group">

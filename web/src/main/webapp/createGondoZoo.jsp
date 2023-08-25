@@ -12,14 +12,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
-      $( function() {
-        $( "#birthDate" ).datepicker();
-        $( "#appointmentDate" ).datepicker();
-      } );
+              $( function() {
+                $( "#birthDate" ).datepicker();
+                $( "#appointmentDate" ).datepicker();
+              } );
     </script>
 </head>
 <body>
-    <div class="container">
+    <div id="fillable" class="container">
       <h2>GondoZoo</h2>
       <form action= "AddGondoZoo" method="GET">
         <div class="form-group">
@@ -47,7 +47,9 @@
 
         <button type="submit" class="btn btn-default">Add</button>
       </form>
+
     </div>
+
 
 </body>
 </html>
