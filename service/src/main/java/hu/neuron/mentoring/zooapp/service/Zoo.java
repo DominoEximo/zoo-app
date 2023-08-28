@@ -251,6 +251,26 @@ public class Zoo implements Serializable {
 
     public void sellAnimal(Animal animal) {
         logger.info("Az " + animal.getNickname() + " nevú állatot eladták.");
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            myStmt = myConn.prepareStatement("DELETE from animal where nickname = ?");
+            myStmt.setString(1, animal.getNickname());
+            myStmt.executeUpdate();
+            myConn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         this.animals.remove(animal);
     }
 
@@ -305,6 +325,7 @@ public class Zoo implements Serializable {
                 myStmt = myConn.prepareStatement("DELETE from employee where name = ?");
                 myStmt.setString(1, employee.getName());
                 myStmt.executeUpdate();
+                myConn.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -318,7 +339,28 @@ public class Zoo implements Serializable {
     }
 
     public void fireCleaner(Cleaner cleaner){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            myStmt = myConn.prepareStatement("DELETE from employee where name = ?");
+            myStmt.setString(1, cleaner.getName());
+            myStmt.executeUpdate();
+            myConn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         employees.remove(cleaner);
+
     }
 
     public void fireDirector() throws ZooEmployeeException {

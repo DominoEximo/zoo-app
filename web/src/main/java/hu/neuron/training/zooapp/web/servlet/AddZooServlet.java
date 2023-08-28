@@ -64,6 +64,15 @@ public class AddZooServlet extends HttpServlet {
             myStmt.setInt(5,newZoo.getId());
             myStmt.setInt(6,newZoo.getId());
             myStmt.executeUpdate();
+            myStmt = myConn.prepareStatement("INSERT INTO employee(id,type,name,birthDate,appointmentDate,gender) VALUES(?,?,?,?,?,?)");
+            myStmt.setInt(1,newZoo.getId());
+            myStmt.setString(2, "director");
+            myStmt.setString(3,newZoo.getDirector().getName());
+            myStmt.setDate(4,birthDate);
+            myStmt.setDate(5,appointmentDate);
+            myStmt.setString(6, String.valueOf(gender));
+            myStmt.executeUpdate();
+            myConn.close();
 
 
 

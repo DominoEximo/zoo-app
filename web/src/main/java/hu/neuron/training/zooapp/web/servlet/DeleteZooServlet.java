@@ -40,10 +40,13 @@ public class DeleteZooServlet extends HttpServlet {
             if (name.equals(zoo.getName())) {
                 try {
                     myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-
+                    myStmt = myConn.prepareStatement("DELETE from employee where id = ?");
+                    myStmt.setInt(1,zoo.getId());
+                    myStmt.executeUpdate();
                     myStmt = myConn.prepareStatement("DELETE from zoo where id = ?");
                     myStmt.setInt(1,zoo.getId());
                     myStmt.executeUpdate();
+                    myConn.close();
 
 
 

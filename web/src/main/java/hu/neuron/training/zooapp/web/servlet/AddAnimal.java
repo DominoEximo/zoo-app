@@ -13,10 +13,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet (urlPatterns = "/AddAnimal")
@@ -24,6 +24,20 @@ public class AddAnimal extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
+        final String USER = "root";
+        final String PASS = "Xbox11223344";
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
         String specie= req.getParameter("species");
         Species species = null;
         switch (specie.toUpperCase()) {
@@ -73,12 +87,8 @@ public class AddAnimal extends HttpServlet {
             }
         }
         String nickname= req.getParameter("nickname");
-        Date birthDate= null;
-        try {
-            birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(req.getParameter("birthDate"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        Date birthDate = java.sql.Date.valueOf((req.getParameter("birthDate")));
+
         String g= req.getParameter("gender");
         Character gender = g.charAt(0);
 
@@ -100,9 +110,28 @@ public class AddAnimal extends HttpServlet {
 
 
         try {
-            currentZoo.get(0).addAnimal(new Animal(species,nickname,birthDate,gender));
+            currentZoo.get(0).addAnimal(new Animal(currentZoo.get(0).getId(),species,nickname,birthDate,gender));
         } catch (GondoZooNotAvailableException e) {
             req.getRequestDispatcher("/listAnimals.jsp").forward(req,resp);
+        }
+        try {
+            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
+            System.out.println("Inserting records into the table...");
+
+            myStmt = myConn.prepareStatement("INSERT INTO animal(id,sepcies,nickname,birthDate,gender,) VALUES(?,?,?,?,?)");
+            myStmt.setInt(1,currentZoo.get(0).getId());
+            myStmt.setString(2, req.getParameter("species"));
+            myStmt.setString(3,nickname);
+            myStmt.setDate(4,birthDate);
+            myStmt.setString(5,String.valueOf(gender));
+            myStmt.executeUpdate();
+            myConn.close();
+
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         storage.saveData();
         req.setAttribute("currentZoo",currentZoo.get(0));
