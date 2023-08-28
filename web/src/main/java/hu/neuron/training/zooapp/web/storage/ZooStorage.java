@@ -19,9 +19,8 @@ public class ZooStorage {
 
     public ZooStorage(){
         zooList = new ArrayList<>();
-        if (new File("C:\\Users\\PappD\\IdeaProjects\\zoo-app\\web\\src\\main\\resources\\data.json").exists()){
-            this.loadData();
-        }
+        this.loadData();
+
     }
 
     public static synchronized ZooStorage getInstance()
@@ -88,6 +87,95 @@ public class ZooStorage {
                 Integer id = myRs.getInt("id");
                 Zoo zoo = new Zoo(name);
                 zoo.setId(id);
+                myStmt = myConn.prepareStatement("select * from employee where id = ?");
+                myStmt.setInt(1,id);
+                ResultSet rs2 = myStmt.executeQuery();
+                while(rs2.next()){
+                    String type = rs2.getString("type");
+                    String employeeName = rs2.getString("name");
+                    Date birthDate = rs2.getDate("birthDate");
+                    Date appointmentDate = rs2.getDate("appointmentDate");
+                    Character gender = rs2.getString("gender").charAt(0);
+                    if (type.equals("director")){
+                        zoo.setDirector(new Director(zoo.getId(),employeeName,birthDate,appointmentDate,gender));
+                    } else if (type.equals("gondoZoo")) {
+                        String animalsFromSQL = rs2.getString("suppliedAnimals");
+                        String[] animals = animalsFromSQL.split(" ");
+                        List<Species> suppliedAnimals = new ArrayList<>();
+                        for (String animal : animals){
+                            switch (animal.toUpperCase()) {
+                                case ("TIGER"):{
+                                    suppliedAnimals.add(Species.TIGER);
+                                    break;
+                                }
+                                case ("LION"):{
+                                    suppliedAnimals.add(Species.LION);
+                                    break;
+                                }
+                                case ("BEAR"):{
+                                    suppliedAnimals.add(Species.BEAR);
+                                    break;
+                                }
+                                case ("GIRAFFE"):{
+                                    suppliedAnimals.add(Species.GIRAFFE);
+                                    break;
+                                }
+                                case ("PENGUIN"):{
+                                    suppliedAnimals.add(Species.PENGUIN);
+                                    break;
+                                }
+                                case ("WHALE"):{
+                                    suppliedAnimals.add(Species.WHALE);
+                                    break;
+                                }
+                                case ("RHINO"):{
+                                    suppliedAnimals.add(Species.RHINO);
+                                    break;
+                                }
+                                case ("SEAL"):{
+                                    suppliedAnimals.add(Species.SEAL);
+                                    break;
+                                }
+                                case ("FOX"):{
+                                    suppliedAnimals.add(Species.FOX);
+                                    break;
+                                }
+                                case ("WOLF"):{
+                                    suppliedAnimals.add(Species.WOLF);
+                                    break;
+                                }
+                                case ("PEACOCK"):{
+                                    suppliedAnimals.add(Species.PEACOCK);
+                                    break;
+                                }
+                            }
+                        }
+                        zoo.addEmployee(new GondoZoo(zoo.getId(),employeeName,birthDate,appointmentDate,gender,suppliedAnimals));
+                    } else if (type.equals("cleaner")) {
+                        String cleanedAreasFromSQL = rs2.getString("cleanedAreas");
+                        String[] areas = cleanedAreasFromSQL.split(" ");
+                        List<CleanedArea> cleanedAreas = new ArrayList<>();
+
+                        for (String area : areas){
+                            switch (area.toUpperCase()){
+                                case ("TERRARIUM"):
+                                    cleanedAreas.add(CleanedArea.TERRARIUM);
+                                    break;
+                                case ("POOL"):
+                                    cleanedAreas.add(CleanedArea.POOL);
+                                    break;
+                                case ("CAGE"):
+                                    cleanedAreas.add(CleanedArea.CAGE);
+                                    break;
+                                case ("RUNWAY"):
+                                    cleanedAreas.add(CleanedArea.RUNWAY);
+                                    break;
+                            }
+                        }
+                    }
+
+
+                }
                 myStmt = myConn.prepareStatement("select id,species,nickname,birthDate,gender from animal where id = ?");
                 myStmt.setInt(1,id);
                 ResultSet rs = myStmt.executeQuery();
@@ -149,7 +237,7 @@ public class ZooStorage {
 
                 }
 
-            zooList.add(zoo);
+                zooList.add(zoo);
             }
         } catch (SQLException e) {
             e.printStackTrace();
