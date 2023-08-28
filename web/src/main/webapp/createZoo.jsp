@@ -12,8 +12,16 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
       $( function() {
-        $( "#birthDate" ).datepicker();
-        $( "#appointmentDate" ).datepicker();
+        $( "#birthDate" ).datepicker({
+                                         dateFormat: 'yy-mm-dd',
+                                         changeMonth: true,
+                                         changeYear: true
+                                     });
+        $( "#appointmentDate" ).datepicker({
+                                               dateFormat: 'yy-mm-dd',
+                                               changeMonth: true,
+                                               changeYear: true
+                                           });
       } );
     </script>
 </head>
@@ -21,6 +29,10 @@
     <div class="container">
       <h2>Zoo</h2>
       <form action= "AddZoo" method="GET">
+        <div class="form-group">
+          <label for="id">ID</label>
+          <input type="text" class="form-control" id="id" placeholder="ID" name="id">
+        </div>
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name" placeholder="Name" name="name">

@@ -1,7 +1,7 @@
 package hu.neuron.mentoring.zooapp.service;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class Director extends Employee implements Serializable {
@@ -13,8 +13,8 @@ public class Director extends Employee implements Serializable {
         super();
     }
 
-    public Director(String name, Date birthDate, Date appointmentDate, Character gender) {
-        super(name, birthDate, appointmentDate, gender);
+    public Director(Integer id,String name, Date birthDate, Date appointmentDate, Character gender) {
+        super(id,name, birthDate, appointmentDate, gender);
     }
 
     @Override

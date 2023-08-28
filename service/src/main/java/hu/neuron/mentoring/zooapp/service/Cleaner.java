@@ -1,7 +1,7 @@
 package hu.neuron.mentoring.zooapp.service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,8 +16,8 @@ public class Cleaner extends Employee {
         super();
     }
 
-    public Cleaner(String name, Date birthDate, Date appointmentDate, Character gender, List<CleanedArea> cleanedAreas) {
-        super(name, birthDate,appointmentDate, gender);
+    public Cleaner(Integer id,String name, Date birthDate, Date appointmentDate, Character gender, List<CleanedArea> cleanedAreas) {
+        super(id,name, birthDate,appointmentDate, gender);
 
         this.cleanedAreas = cleanedAreas;
     }

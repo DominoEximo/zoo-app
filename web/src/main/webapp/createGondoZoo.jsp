@@ -13,8 +13,16 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
               $( function() {
-                $( "#birthDate" ).datepicker();
-                $( "#appointmentDate" ).datepicker();
+                $( "#birthDate" ).datepicker({
+                                                 dateFormat: 'yy-mm-dd',
+                                                 changeMonth: true,
+                                                 changeYear: true
+                                             });
+                $( "#appointmentDate" ).datepicker({
+                                                       dateFormat: 'yy-mm-dd',
+                                                       changeMonth: true,
+                                                       changeYear: true
+                                                   });
               } );
     </script>
 </head>
@@ -23,8 +31,8 @@
       <h2>GondoZoo</h2>
       <form action= "AddGondoZoo" method="GET">
         <div class="form-group">
-          <label for="id">Name</label>
-          <input type="text" class="form-control" id="id" placeholder="Name" name="id">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Name" name="name">
         </div>
         <div class="form-group">
           <label for="birthDate">Birth Date</label>
@@ -43,7 +51,7 @@
           <label for="suppliedAnimals">Cleaned Areas</label>
           <input type="text" class="form-control" id="suppliedAnimals" placeholder="Supplied Animals" name="suppliedAnimals">
         </div>
-        <input type="hidden" name="name" value="${currentZoo.name}">
+        <input type="hidden" name="zooName" value="${currentZoo.name}">
 
         <button type="submit" class="btn btn-default">Add</button>
       </form>

@@ -3,6 +3,9 @@ package hu.neuron.training.zooapp.web.storage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import hu.neuron.mentoring.zooapp.service.Cleaner;
+import hu.neuron.mentoring.zooapp.service.Employee;
+import hu.neuron.mentoring.zooapp.service.GondoZoo;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import java.io.*;
 import java.util.ArrayList;
@@ -54,39 +57,7 @@ public class ZooStorage {
         }
 
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
-        final String USER = "root";
-        final String PASS = "Xbox11223344";
 
-        Connection myConn = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
-        try {
-            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-            System.out.println("Inserting records into the table...");
-            Integer counter = 5;
-            Integer counter1 = 100000;
-            for (Zoo zoo: getZooList()){
-
-                myStmt = myConn.prepareStatement("INSERT INTO zoo(name,director,employees,animals,reservations) VALUES (?, ?, ?, ?, ?)");
-                myStmt.setString(1, zoo.getName());
-                myStmt.setInt(2,counter1);
-                myStmt.setNull(3,Types.INTEGER);
-                myStmt.setNull(4,Types.INTEGER);
-                myStmt.setNull(5,Types.INTEGER);
-                myStmt.executeUpdate();
-                counter += 1;
-                counter1 += 1;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
     }
 

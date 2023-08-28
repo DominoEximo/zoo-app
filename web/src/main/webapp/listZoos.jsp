@@ -21,6 +21,7 @@
     <table id="zoos" class="table">
       <thead>
         <tr>
+          <th scope="col">ID</th>
           <th scope="col">Name</th>
           <th scope="col">Director</th>
           <th scope="col"></th>
@@ -31,6 +32,9 @@
         <c:forEach var="zoo" items="${zoos}">
 
                          <tr>
+                            <td>
+                                <c:out value="${zoo.id}"></c:out>
+                            </td>
                             <td>
                                 <c:out value="${zoo.name}"></c:out>
                             </td>

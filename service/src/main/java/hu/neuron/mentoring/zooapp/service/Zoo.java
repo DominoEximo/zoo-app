@@ -1,6 +1,7 @@
 package hu.neuron.mentoring.zooapp.service;
 
 import java.io.Serializable;
+import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -21,11 +22,15 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 public class Zoo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
+    final String USER = "root";
+    final String PASS = "Xbox11223344";
 
     private static Logger logger = Logger.getLogger(Zoo.class.getName());
 
     private static int counter;
 
+    private Integer id;
     private String name;
     private Director director;
 
@@ -283,6 +288,26 @@ public class Zoo implements Serializable {
 
         if (Boolean.TRUE.equals(canFire)) {
             this.employees.remove(employee);
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            Connection myConn = null;
+            PreparedStatement myStmt = null;
+            ResultSet myRs = null;
+
+            try {
+                myConn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+                myStmt = myConn.prepareStatement("DELETE from employee where name = ?");
+                myStmt.setString(1, employee.getName());
+                myStmt.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             logger.info(employee.getName() + "nevű dolgozó eltávozott! \n");
         } else {
             logger.info("Az állatkertnek szüksége van " + problematicAnimal + " gondozóra! \n");
@@ -326,6 +351,14 @@ public class Zoo implements Serializable {
         for (Animal animal : animals) {
             logger.info(String.format("%s", animal));
         }
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Director getDirector() {

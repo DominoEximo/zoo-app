@@ -1,7 +1,7 @@
 package hu.neuron.mentoring.zooapp.service;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.LogManager;
@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public abstract class Employee extends LogManager implements Serializable {
 
     private static final long serialVersionUID = 7491430318788362737L;
+
+    private Integer id;
     private String name;
     private Date birthDate;
     private Date appointmentDate;
@@ -27,11 +29,21 @@ public abstract class Employee extends LogManager implements Serializable {
         super();
     }
 
-    public Employee(String name, Date birthDate, Date appointmentDate, char gender) {
+    public Employee(Integer id,String name, Date birthDate, Date appointmentDate, char gender) {
+        this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.appointmentDate = appointmentDate;
         this.gender = gender;
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -50,7 +62,7 @@ public abstract class Employee extends LogManager implements Serializable {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public java.sql.Date getBirthDate() {
         return birthDate;
     }
 
@@ -58,7 +70,7 @@ public abstract class Employee extends LogManager implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public Date getAppointmentDate() {
+    public java.sql.Date getAppointmentDate() {
         return appointmentDate;
     }
 

@@ -9,8 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
 
 @WebServlet (urlPatterns = "/deleteZoo")
 public class DeleteZooServlet extends HttpServlet {
@@ -20,18 +19,48 @@ public class DeleteZooServlet extends HttpServlet {
 
         ZooStorage storage = ZooStorage.getInstance();
 
+
         String name = req.getParameter("name");
 
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
+        final String USER = "root";
+        final String PASS = "Xbox11223344";
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
 
         for (Zoo zoo : storage.getZooList()) {
             if (name.equals(zoo.getName())) {
+                try {
+                    myConn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+                    myStmt = myConn.prepareStatement("DELETE from zoo where id = ?");
+                    myStmt.setInt(1,zoo.getId());
+                    myStmt.executeUpdate();
+
+
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 storage.removeZoo(zoo);
                 break;
             }
 
         }
 
-        storage.saveData();
+
+
+
+
 
         req.setAttribute("zoos",storage.getZooList());
 

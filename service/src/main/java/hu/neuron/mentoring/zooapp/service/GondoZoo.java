@@ -1,7 +1,7 @@
 package hu.neuron.mentoring.zooapp.service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import java.util.HashSet;
 import java.util.List;
@@ -18,9 +18,9 @@ public class GondoZoo extends Employee {
         super();
     }
 
-    public GondoZoo(String name, Date birthDate, Date appointmentDate, Character gender,
+    public GondoZoo(Integer id,String name, Date birthDate, Date appointmentDate, Character gender,
                     List<Species> suppliedAnimals) {
-        super(name,birthDate,appointmentDate,gender);
+        super(id,name,birthDate,appointmentDate,gender);
         this.suppliedAnimals = suppliedAnimals;
     }
 

@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @WebServlet (urlPatterns = "/AddGondoZoo")
@@ -23,19 +23,12 @@ public class AddGondoZoo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id= req.getParameter("id");
-        Date appointmentDate= null;
-        try {
-            appointmentDate = new SimpleDateFormat("dd/MM/yyyy").parse(req.getParameter("appointmentDate"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        Date birthDate= null;
-        try {
-            birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(req.getParameter("birthDate"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+
+        String name = req.getParameter("name");
+        Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
+
+        Date birthDate = java.sql.Date.valueOf((req.getParameter("birthDate")));
+
         String g= req.getParameter("gender");
         Character gender = g.charAt(0);
 
@@ -93,18 +86,18 @@ public class AddGondoZoo extends HttpServlet {
 
         ZooStorage storage = ZooStorage.getInstance();
 
-        String name = req.getParameter("name");
+        String zooName = req.getParameter("zooName");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
         for (Zoo zoo : storage.getZooList()) {
-            if (name.equals(zoo.getName())) {
+            if (zooName.equals(zoo.getName())) {
                 currentZoo.add(zoo);
             }
 
         }
 
-        currentZoo.get(0).addEmployee(new GondoZoo(id,birthDate,appointmentDate,gender,suppliedAnimals));
+        currentZoo.get(0).addEmployee(new GondoZoo(currentZoo.get(0).getId(),name,birthDate,appointmentDate,gender,suppliedAnimals));
 
         storage.saveData();
 
