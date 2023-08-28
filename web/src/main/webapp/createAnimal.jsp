@@ -13,7 +13,11 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
       $( function() {
-        $( "#birthDate" ).datepicker();
+        $( "#birthDate" ).datepicker({
+                                                                              dateFormat: 'yy-mm-dd',
+                                                                              changeMonth: true,
+                                                                              changeYear: true
+                                                                          });
       } );
       </script>
 </head>

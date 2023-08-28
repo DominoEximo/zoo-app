@@ -118,7 +118,7 @@ public class AddAnimal extends HttpServlet {
             myConn = DriverManager.getConnection(DB_URL,USER,PASS);
             System.out.println("Inserting records into the table...");
 
-            myStmt = myConn.prepareStatement("INSERT INTO animal(id,sepcies,nickname,birthDate,gender,) VALUES(?,?,?,?,?)");
+            myStmt = myConn.prepareStatement("INSERT INTO animal(id,species,nickname,birthDate,gender) VALUES(?,?,?,?,?)");
             myStmt.setInt(1,currentZoo.get(0).getId());
             myStmt.setString(2, req.getParameter("species"));
             myStmt.setString(3,nickname);

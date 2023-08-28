@@ -3,10 +3,8 @@ package hu.neuron.training.zooapp.web.storage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import hu.neuron.mentoring.zooapp.service.Cleaner;
-import hu.neuron.mentoring.zooapp.service.Employee;
-import hu.neuron.mentoring.zooapp.service.GondoZoo;
-import hu.neuron.mentoring.zooapp.service.Zoo;
+import hu.neuron.mentoring.zooapp.service.*;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +60,102 @@ public class ZooStorage {
     }
 
     public void loadData() {
-            try {
-                List<Zoo> zoos = new ObjectMapper().readValue(new File("C:\\Users\\PappD\\IdeaProjects\\zoo-app\\web\\src\\main\\resources\\data.json"),new TypeReference<List<Zoo>>(){});
-                setZooList(zoos);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
+        final String USER = "root";
+        final String PASS = "Xbox11223344";
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            myStmt = myConn.prepareStatement("select id,name from zoo");
+            myRs = myStmt.executeQuery();
+            while (myRs.next()) {
+                String name = myRs.getString("name");
+                Integer id = myRs.getInt("id");
+                Zoo zoo = new Zoo(name);
+                zoo.setId(id);
+                myStmt = myConn.prepareStatement("select id,species,nickname,birthDate,gender from animal where id = ?");
+                myStmt.setInt(1,id);
+                ResultSet rs = myStmt.executeQuery();
+                while (rs.next()){
+                    Integer animalId = rs.getInt("id");
+                    String specie= rs.getString("species");
+                    Species species = null;
+                    switch (specie.toUpperCase()) {
+                        case ("TIGER"):{
+                            species = Species.TIGER;
+                            break;
+                        }
+                        case ("LION"):{
+                            species = Species.LION;
+                            break;
+                        }
+                        case ("BEAR"):{
+                            species = Species.BEAR;
+                            break;
+                        }
+                        case ("GIRAFFE"):{
+                            species = Species.GIRAFFE;
+                            break;
+                        }
+                        case ("PENGUIN"):{
+                            species = Species.PENGUIN;
+                            break;
+                        }
+                        case ("WHALE"):{
+                            species = Species.WHALE;
+                            break;
+                        }
+                        case ("RHINO"):{
+                            species = Species.RHINO;
+                            break;
+                        }
+                        case ("SEAL"):{
+                            species = Species.SEAL;
+                            break;
+                        }
+                        case ("FOX"):{
+                            species = Species.FOX;
+                            break;
+                        }
+                        case ("WOLF"):{
+                            species = Species.WOLF;
+                            break;
+                        }
+                        case ("PEACOCK"):{
+                            species = Species.PEACOCK;
+                            break;
+                        }
+                    }
+                    String nickname = rs.getString("nickname");
+                    Date birthDate = rs.getDate("birthDate");
+                    Character gender = rs.getString("gender").charAt(0);
+
+                    zoo.addAnimal(new Animal(animalId,species,nickname,birthDate,gender));
+
+                }
+
+            zooList.add(zoo);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (GondoZooNotAvailableException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
