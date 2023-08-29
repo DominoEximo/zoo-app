@@ -9,10 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @WebServlet (urlPatterns = "/createReservationServlet")
@@ -23,20 +24,28 @@ public class CreateReservationServlet extends HttpServlet {
 
         ZooStorage storage = ZooStorage.getInstance();
 
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
+        final String USER = "root";
+        final String PASS = "Xbox11223344";
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
+        Integer id = Integer.parseInt(req.getParameter("id"));
+
         String zooName = req.getParameter("zoo");
         String name = req.getParameter("name");
-        Date reservationDate= null;
-        try {
-            reservationDate = new SimpleDateFormat("dd/MM/yyyy").parse(req.getParameter("reservationDate"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        Date visitDate= null;
-        try {
-            visitDate = new SimpleDateFormat("dd/MM/yyyy").parse(req.getParameter("visitDate"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        Date reservationDate = java.sql.Date.valueOf((req.getParameter("reservationDate")));
+
+        Date visitDate = java.sql.Date.valueOf((req.getParameter("visitDate")));
+
 
         String ticketType = req.getParameter("ticketType");
         Integer price = 0;
@@ -102,7 +111,35 @@ public class CreateReservationServlet extends HttpServlet {
 
         }
 
-        currentZoo.get(0).reserve(new Reservation(name,reservationDate,visitDate,tickets,discount,price));
+        currentZoo.get(0).reserve(new Reservation(id,name,reservationDate,visitDate,tickets,discount,price));
+
+        try {
+            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
+            System.out.println("Inserting records into the table...");
+
+            myStmt = myConn.prepareStatement("INSERT INTO reservation VALUES(?,?,?,?,?,?,?,?)");
+            myStmt.setInt(1,id);
+            myStmt.setInt(2, currentZoo.get(0).getId());
+            myStmt.setString(3,name);
+            myStmt.setDate(4,reservationDate);
+            myStmt.setDate(5,visitDate);
+            myStmt.setInt(6,id );
+            myStmt.setInt(7,discount);
+            myStmt.setInt(8,price);
+            myStmt.executeUpdate();
+            myStmt = myConn.prepareStatement("INSERT INTO ticket VALUES(?,?,?)");
+            myStmt.setInt(1,id);
+            myStmt.setString(2,ticketType);
+            myStmt.setString(3,ticketVariant);
+            myStmt.executeUpdate();
+            myConn.close();
+
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         req.setAttribute("currentZoo",currentZoo.get(0));
         req.setAttribute("price",price);

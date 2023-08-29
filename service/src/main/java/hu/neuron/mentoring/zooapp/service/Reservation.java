@@ -2,12 +2,13 @@ package hu.neuron.mentoring.zooapp.service;
 
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class Reservation implements Serializable {
 
+    private Integer id;
     private String name;
 
     private Date reservationDate;
@@ -21,15 +22,24 @@ public class Reservation implements Serializable {
     private Integer price;
 
     public  Reservation(){};
-    public Reservation(String name, Date reservationDate, Date visitDate, List<Ticket> tickets, Integer discount,
+    public Reservation(Integer id,String name, Date reservationDate, Date visitDate, List<Ticket> tickets, Integer discount,
                        Integer price) {
         super();
+        this.id = id;
         this.name = name;
         this.reservationDate = reservationDate;
         this.visitDate = visitDate;
         this.tickets = tickets;
         this.discount = discount;
         this.price = price;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

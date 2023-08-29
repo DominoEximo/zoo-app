@@ -1,6 +1,6 @@
 package hu.neuron.training.zooapp.web.storage;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import hu.neuron.mentoring.zooapp.service.*;
@@ -72,7 +72,7 @@ public class ZooStorage {
 
         Connection myConn = null;
         PreparedStatement myStmt = null;
-        ResultSet myRs = null;
+        ResultSet zooResult = null;
         try {
             myConn = DriverManager.getConnection(DB_URL,USER,PASS);
         } catch (SQLException e) {
@@ -81,25 +81,25 @@ public class ZooStorage {
 
         try {
             myStmt = myConn.prepareStatement("select id,name from zoo");
-            myRs = myStmt.executeQuery();
-            while (myRs.next()) {
-                String name = myRs.getString("name");
-                Integer id = myRs.getInt("id");
+            zooResult = myStmt.executeQuery();
+            while (zooResult.next()) {
+                String name = zooResult.getString("name");
+                Integer id = zooResult.getInt("id");
                 Zoo zoo = new Zoo(name);
                 zoo.setId(id);
                 myStmt = myConn.prepareStatement("select * from employee where id = ?");
                 myStmt.setInt(1,id);
-                ResultSet rs2 = myStmt.executeQuery();
-                while(rs2.next()){
-                    String type = rs2.getString("type");
-                    String employeeName = rs2.getString("name");
-                    Date birthDate = rs2.getDate("birthDate");
-                    Date appointmentDate = rs2.getDate("appointmentDate");
-                    Character gender = rs2.getString("gender").charAt(0);
+                ResultSet employeeResult = myStmt.executeQuery();
+                while(employeeResult.next()){
+                    String type = employeeResult.getString("type");
+                    String employeeName = employeeResult.getString("name");
+                    Date birthDate = employeeResult.getDate("birthDate");
+                    Date appointmentDate = employeeResult.getDate("appointmentDate");
+                    Character gender = employeeResult.getString("gender").charAt(0);
                     if (type.equals("director")){
                         zoo.setDirector(new Director(zoo.getId(),employeeName,birthDate,appointmentDate,gender));
                     } else if (type.equals("gondoZoo")) {
-                        String animalsFromSQL = rs2.getString("suppliedAnimals");
+                        String animalsFromSQL = employeeResult.getString("suppliedAnimals");
                         String[] animals = animalsFromSQL.split(" ");
                         List<Species> suppliedAnimals = new ArrayList<>();
                         for (String animal : animals){
@@ -152,7 +152,7 @@ public class ZooStorage {
                         }
                         zoo.addEmployee(new GondoZoo(zoo.getId(),employeeName,birthDate,appointmentDate,gender,suppliedAnimals));
                     } else if (type.equals("cleaner")) {
-                        String cleanedAreasFromSQL = rs2.getString("cleanedAreas");
+                        String cleanedAreasFromSQL = employeeResult.getString("cleanedAreas");
                         String[] areas = cleanedAreasFromSQL.split(" ");
                         List<CleanedArea> cleanedAreas = new ArrayList<>();
 
@@ -178,10 +178,10 @@ public class ZooStorage {
                 }
                 myStmt = myConn.prepareStatement("select id,species,nickname,birthDate,gender from animal where id = ?");
                 myStmt.setInt(1,id);
-                ResultSet rs = myStmt.executeQuery();
-                while (rs.next()){
-                    Integer animalId = rs.getInt("id");
-                    String specie= rs.getString("species");
+                ResultSet animalResult = myStmt.executeQuery();
+                while (animalResult.next()){
+                    Integer animalId = animalResult.getInt("id");
+                    String specie= animalResult.getString("species");
                     Species species = null;
                     switch (specie.toUpperCase()) {
                         case ("TIGER"):{
@@ -229,16 +229,83 @@ public class ZooStorage {
                             break;
                         }
                     }
-                    String nickname = rs.getString("nickname");
-                    Date birthDate = rs.getDate("birthDate");
-                    Character gender = rs.getString("gender").charAt(0);
+                    String nickname = animalResult.getString("nickname");
+                    Date birthDate = animalResult.getDate("birthDate");
+                    Character gender = animalResult.getString("gender").charAt(0);
 
                     zoo.addAnimal(new Animal(animalId,species,nickname,birthDate,gender));
 
                 }
+                myStmt = myConn.prepareStatement("select id,name,reservationDate,visitDate,tickets,discount,price from reservation where zooID = ?");
+                myStmt.setInt(1,id);
+                ResultSet reservationResult = myStmt.executeQuery();
 
+                while (reservationResult.next()){
+                    List<Ticket> tickets = new ArrayList<>();
+                    Integer reservationID = reservationResult.getInt("id");
+                    String reserverName = reservationResult.getString("name");
+                    Date reservationDate = reservationResult.getDate("reservationDate");
+                    Date visitDate = reservationResult.getDate("visitDate");
+                    Integer discount = reservationResult.getInt("discount");
+                    Integer price = 0;
+                    myStmt = myConn.prepareStatement("select * from ticket where id = ?");
+                    myStmt.setInt(1,reservationID);
+                    ResultSet ticketResult = myStmt.executeQuery();
+                    while (ticketResult.next()){
+                        String ticketType = ticketResult.getString("type");
+                        TicketType type = null;
+
+                        switch (ticketType){
+                            case ("adult"):{
+                                type = TicketType.ADULT;
+                                price += 1000;
+                                break;
+                            }
+                            case ("kid"):{
+                                type = TicketType.KID;
+                                price += 500;
+                                break;
+                            }
+                            case ("retired"):{
+                                type = TicketType.RETIRED;
+                                price += 500;
+                                break;
+                            }
+                            case ("group"):{
+                                type = TicketType.GROUP;
+                                price += 3000;
+                                break;
+                            }
+                        }
+                        String ticketVariant = ticketResult.getString("variant");
+                        TicketVariant variant = null;
+
+                        switch (ticketVariant){
+                            case ("fullDay"):{
+                                variant = TicketVariant.FULL_DAY;
+                                price += 1500;
+                                break;
+                            }
+                            case ("afternoon"):{
+                                variant = TicketVariant.AFTERNOON;
+                                price += 700;
+                                break;
+                            }
+                            case ("forenoon"):{
+                                variant = TicketVariant.FORENOON;
+                                price += 800;
+                                break;
+                            }
+
+                        }
+                        tickets.add(new Ticket(type,variant,price));
+                    }
+                    zoo.reserve(new Reservation(reservationID,reserverName,reservationDate,visitDate,tickets,discount,price));
+                }
                 zooList.add(zoo);
+
             }
+            myConn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (GondoZooNotAvailableException e) {

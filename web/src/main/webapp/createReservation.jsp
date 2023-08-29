@@ -15,8 +15,16 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
       $( function() {
-        $( "#reservationDate" ).datepicker();
-        $( "#visitDate" ).datepicker();
+        $( "#reservationDate" ).datepicker({
+                                                                                                                         dateFormat: 'yy-mm-dd',
+                                                                                                                         changeMonth: true,
+                                                                                                                         changeYear: true
+                                                                                                                     });
+        $( "#visitDate" ).datepicker({
+                                                                                                                   dateFormat: 'yy-mm-dd',
+                                                                                                                   changeMonth: true,
+                                                                                                                   changeYear: true
+                                                                                                               });
       } );
     </script>
 </head>
@@ -25,6 +33,10 @@
       <h2>Zoo</h2>
       <form action= "createReservationServlet" method="GET">
         <input type="hidden" name="zoo" value="${currentZoo.name}">
+        <div class="form-group">
+          <label for="id">Name</label>
+          <input type="text" class="form-control" id="id" placeholder="ID" name="id">
+        </div>
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name" placeholder="Name" name="name">
