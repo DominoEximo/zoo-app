@@ -159,7 +159,7 @@ public class ZooStorage {
                         for (String area : areas){
                             switch (area.toUpperCase()){
                                 case ("TERRARIUM"):
-                                    cleanedAreas.add(CleanedArea.TERRARIUM);
+                                    cleanedAreas.add(CleanedArea.valueOf("TERRARIUM")); //REAFACTOR
                                     break;
                                 case ("POOL"):
                                     cleanedAreas.add(CleanedArea.POOL);
@@ -172,6 +172,8 @@ public class ZooStorage {
                                     break;
                             }
                         }
+                        zoo.addEmployee(new Cleaner(zoo.getId(),employeeName,birthDate,appointmentDate,gender,cleanedAreas));
+
                     }
 
 

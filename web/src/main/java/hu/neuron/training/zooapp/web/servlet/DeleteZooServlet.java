@@ -1,5 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
@@ -22,38 +24,16 @@ public class DeleteZooServlet extends HttpServlet {
 
         String name = req.getParameter("name");
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        ConnectionManager manager = new ConnectionManager();
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
-        final String USER = "root";
-        final String PASS = "Xbox11223344";
+        ZooDao zooDao = new ZooDao(manager.getMyConn());
 
-        Connection myConn = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
+
 
         for (Zoo zoo : storage.getZooList()) {
             if (name.equals(zoo.getName())) {
-                try {
-                    myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-                    myStmt = myConn.prepareStatement("DELETE from employee where id = ?");
-                    myStmt.setInt(1,zoo.getId());
-                    myStmt.executeUpdate();
-                    myStmt = myConn.prepareStatement("DELETE from zoo where id = ?");
-                    myStmt.setInt(1,zoo.getId());
-                    myStmt.executeUpdate();
-                    myConn.close();
-
-
-
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                zooDao.delete(zoo);
+                manager.closeConnection();
                 storage.removeZoo(zoo);
                 break;
             }
