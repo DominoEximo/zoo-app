@@ -4,7 +4,6 @@ import hu.neuron.mentoring.zooapp.service.*;
 import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
-import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,7 +19,7 @@ public class RemoveEmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ZooStorage storage = ZooStorage.getInstance();
+
         ConnectionManager manager = new ConnectionManager();
         ZooDao zooDao = new ZooDao(manager.getMyConn());
         EmployeeDao empDao = new EmployeeDao(manager.getMyConn());
@@ -46,7 +45,7 @@ public class RemoveEmployeeServlet extends HttpServlet {
             }
         }
 
-        storage.saveData();
+
 
         req.setAttribute("employees",empDao.findById(currentZoo.get(0).getId()));
         manager.closeConnection();

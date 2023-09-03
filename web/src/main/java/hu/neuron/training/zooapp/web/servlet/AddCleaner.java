@@ -1,12 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 
-import com.mysql.cj.util.StringUtils;
-import hu.neuron.mentoring.zooapp.service.Animal;
-
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import hu.neuron.mentoring.zooapp.service.CleanedArea;
 import hu.neuron.mentoring.zooapp.service.Cleaner;
@@ -14,7 +9,6 @@ import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
-import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

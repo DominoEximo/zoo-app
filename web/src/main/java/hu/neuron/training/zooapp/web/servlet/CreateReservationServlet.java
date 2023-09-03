@@ -1,7 +1,9 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.*;
-import hu.neuron.training.zooapp.web.storage.ZooStorage;
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
+import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,9 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -22,21 +21,11 @@ public class CreateReservationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ZooStorage storage = ZooStorage.getInstance();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        ConnectionManager manager = new ConnectionManager();
+        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        ReservationDao resDao = new ReservationDao(manager.getMyConn());
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
-        final String USER = "root";
-        final String PASS = "Xbox11223344";
-
-        Connection myConn = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
 
         Integer id = Integer.parseInt(req.getParameter("id"));
 
@@ -103,7 +92,7 @@ public class CreateReservationServlet extends HttpServlet {
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for(Zoo zoo : storage.getZooList())
+        for(Zoo zoo : zooDao.getAll())
         {
             if (zooName.equals(zoo.getName())) {
                 currentZoo.add(zoo);
@@ -112,34 +101,9 @@ public class CreateReservationServlet extends HttpServlet {
         }
 
         currentZoo.get(0).reserve(new Reservation(id,name,reservationDate,visitDate,tickets,discount,price));
+        resDao.save(new Reservation(id,name,reservationDate,visitDate,tickets,discount,price),currentZoo.get(0));
+        manager.closeConnection();
 
-        try {
-            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-            System.out.println("Inserting records into the table...");
-
-            myStmt = myConn.prepareStatement("INSERT INTO reservation VALUES(?,?,?,?,?,?,?,?)");
-            myStmt.setInt(1,id);
-            myStmt.setInt(2, currentZoo.get(0).getId());
-            myStmt.setString(3,name);
-            myStmt.setDate(4,reservationDate);
-            myStmt.setDate(5,visitDate);
-            myStmt.setInt(6,id );
-            myStmt.setInt(7,discount);
-            myStmt.setInt(8,price);
-            myStmt.executeUpdate();
-            myStmt = myConn.prepareStatement("INSERT INTO ticket VALUES(?,?,?)");
-            myStmt.setInt(1,id);
-            myStmt.setString(2,ticketType);
-            myStmt.setString(3,ticketVariant);
-            myStmt.executeUpdate();
-            myConn.close();
-
-
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         req.setAttribute("currentZoo",currentZoo.get(0));
         req.setAttribute("price",price);

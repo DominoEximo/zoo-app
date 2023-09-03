@@ -94,8 +94,22 @@ public class ZooDao implements Dao<Zoo>{
     @Override
     public void delete(Zoo zoo) {
         try {
-
-
+        myStmt = conn.prepareStatement("SELECT id from reservation where zooID = ?");
+        myStmt.setInt(1,zoo.getId());
+        ResultSet reservationResult = myStmt.executeQuery();
+        while(reservationResult.next()){
+            Integer ticketID = reservationResult.getInt("id");
+            myStmt = conn.prepareStatement("DELETE FROM ticket where id = ?");
+            myStmt.setInt(1,ticketID);
+            myStmt.executeUpdate();
+        }
+        myStmt = conn.prepareStatement("DELETE from reservation where zooID = ?");
+        myStmt.setInt(1,zoo.getId());
+        myStmt.executeUpdate();
+        myStmt = conn.prepareStatement("DELETE from animal where id = ?");
+        myStmt.setInt(1,zoo.getId());
+        myStmt.executeUpdate();
+        myStmt = conn.prepareStatement("DELETE from ticket where id = ");
         myStmt = conn.prepareStatement("DELETE from employee where id = ?");
         myStmt.setInt(1,zoo.getId());
         myStmt.executeUpdate();

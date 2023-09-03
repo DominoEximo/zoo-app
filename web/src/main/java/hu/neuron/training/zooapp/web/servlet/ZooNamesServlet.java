@@ -3,7 +3,6 @@ package hu.neuron.training.zooapp.web.servlet;
 import com.google.gson.Gson;
 import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
-import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 
 @WebServlet (name = "ZooNames",urlPatterns = "/ZooNames")
