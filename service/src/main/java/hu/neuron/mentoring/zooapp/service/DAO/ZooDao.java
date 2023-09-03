@@ -6,6 +6,7 @@ import hu.neuron.mentoring.zooapp.service.Zoo;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ZooDao implements Dao<Zoo>{
 
@@ -61,7 +62,6 @@ public class ZooDao implements Dao<Zoo>{
         return zooList;
     }
 
-    @Override
     public void save(Zoo newZoo) {
         try {
 
@@ -105,5 +105,24 @@ public class ZooDao implements Dao<Zoo>{
 
         }catch (SQLException e){
         throw new RuntimeException(e);}
+    }
+
+    public static List<String> filterListByTerm(List<String> list, String term) {
+
+        List<String> matching = list.stream()
+                .filter(e -> e.toLowerCase().startsWith(term))
+                .collect(Collectors.toList());
+
+        return matching;
+    }
+    public List<String> zooNames(){
+
+        List<String> list = new ArrayList<>();
+
+        for (Zoo zoo : this.getAll()){
+            list.add(zoo.getName());
+        }
+
+        return list;
     }
 }

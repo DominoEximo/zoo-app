@@ -1,5 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
@@ -18,11 +20,11 @@ public class ZooListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ZooStorage storage = ZooStorage.getInstance();
+        ConnectionManager manager = new ConnectionManager();
+        ZooDao zooDao = new ZooDao(manager.getMyConn());
 
-
-        req.setAttribute("zoos",storage.getZooList());
-
+        req.setAttribute("zoos",zooDao.getAll());
+        manager.closeConnection();
         req.getRequestDispatcher("/listZoos.jsp").forward(req, resp);
 
     }

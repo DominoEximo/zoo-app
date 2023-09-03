@@ -12,7 +12,6 @@ public interface Dao<T> {
     List<T> getAll();
 
 
-    void save(Zoo newZoo);
 
     void update(T t, String[] params);
 

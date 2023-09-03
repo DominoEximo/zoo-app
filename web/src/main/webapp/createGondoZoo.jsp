@@ -51,7 +51,7 @@
           <label for="suppliedAnimals">Cleaned Areas</label>
           <input type="text" class="form-control" id="suppliedAnimals" placeholder="Supplied Animals" name="suppliedAnimals">
         </div>
-        <input type="hidden" name="zooName" value="${currentZoo.name}">
+        <input type="hidden" name="zooID" value="${currentZoo.id}">
 
         <button type="submit" class="btn btn-default">Add</button>
       </form>

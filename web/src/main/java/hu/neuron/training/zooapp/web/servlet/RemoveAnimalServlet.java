@@ -1,6 +1,10 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Animal;
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
+import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
+import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
@@ -19,31 +23,39 @@ public class RemoveAnimalServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ZooStorage storage = ZooStorage.getInstance();
+        ConnectionManager manager = new ConnectionManager();
+        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        AnimalDao animalDao = new AnimalDao(manager.getMyConn());
 
-        String name = req.getParameter("zoo");
+        Integer zooID = Integer.parseInt(req.getParameter("zooID"));
 
         String animalToBeRemoved = req.getParameter("name");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : storage.getZooList()) {
-            if (name.equals(zoo.getName())) {
+        for (Zoo zoo : zooDao.getAll()) {
+            if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
             }
 
         }
 
-        for (Animal animal : currentZoo.get(0).getAnimals()){
+        for (Animal animal : animalDao.findById(currentZoo.get(0).getId())){
             if (animalToBeRemoved.equals(animal.getNickname())){
-                currentZoo.get(0).sellAnimal(animal);
+                animalDao.delete(animal);
+
                 break;
             }
         }
 
-        storage.saveData();
 
-        req.setAttribute("currentZoo",currentZoo.get(0));
+        if (currentZoo.size() != 0 && !animalDao.findById(currentZoo.get(0).getId()).isEmpty()){
+            req.setAttribute("animals",animalDao.findById(currentZoo.get(0).getId()));
+
+
+        }
+        req.setAttribute("id",currentZoo.get(0).getId());
+        manager.closeConnection();
 
         req.getRequestDispatcher("listAnimals.jsp").forward(req,resp);
 

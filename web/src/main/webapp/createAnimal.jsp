@@ -41,7 +41,7 @@
           <label for="gender">Gender</label>
           <input type="text" class="form-control" id="gender" placeholder="Gender" name="gender">
         </div>
-        <input type="hidden" name="name" value="${currentZoo.name}">
+        <input type="hidden" name="zooID" value="${currentZoo.id}">
 
         <button type="submit" class="btn btn-default">Add</button>
       </form>

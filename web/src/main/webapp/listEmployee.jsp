@@ -40,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        <c:forEach var="employee" items="${currentZoo.eployees}">
+        <c:forEach var="employee" items="${employees}">
 
                          <tr>
                             <td>
@@ -57,7 +57,7 @@
 
                             <td>
                                 <form action="removeEmployee" method="GET">
-                                    <input type="hidden" name="zoo" value="${currentZoo.name}">
+                                    <input type="hidden" name="id" value="${employee.id}">
                                     <input type="hidden" name="name" value="${employee.name}">
                                     <button type="submit" class="btn btn-lg btn-secondary">Remove</button>
                                 </form>
@@ -79,12 +79,12 @@
             <div class=" text-center">
                 <form id="cleanerForm" action= "ZooTransfer" method="GET">
                     <input id="source" type="hidden" name="source" value="cleaner">
-                    <input id="data" type="hidden" name="name" value="${currentZoo.name}">
+                    <input id="data" type="hidden" name="zooID" value="${id}">
                     <button type="submit" id="addCleaner" class="btn btn-lg btn-secondary">Add Cleaner</button>
                 </form>
                 <form id="gondoZooForm" action= "ZooTransfer" method="GET">
                     <input id="source" type="hidden" name="source" value="gondozoo">
-                    <input id="data" type="hidden" name="name" value="${currentZoo.name}">
+                    <input id="data" type="hidden" name="zooID" value="${id}">
                     <button type="submit" id="addGondoZoo" name="gomb" class="btn btn-lg btn-secondary">Add GondoZoo</button>
                 </form>
             </div>

@@ -1,5 +1,8 @@
 package hu.neuron.training.zooapp.web.servlet;
 
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
+import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Director;
 import hu.neuron.mentoring.zooapp.service.GondoZoo;
 import hu.neuron.mentoring.zooapp.service.Zoo;
@@ -20,22 +23,28 @@ public class AnimalServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ZooStorage storage = ZooStorage.getInstance();
+        ConnectionManager manager = new ConnectionManager();
+        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        AnimalDao animalDao = new AnimalDao(manager.getMyConn());
 
         String name= req.getParameter("name");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for(Zoo zoo : storage.getZooList())
+        for(Zoo zoo : zooDao.getAll())
         {
             if (name.equals(zoo.getName())) {
                 currentZoo.add(zoo);
             }
 
         }
-        if (currentZoo.size() != 0){
-            req.setAttribute("currentZoo",currentZoo.get(0));
+        if (currentZoo.size() != 0 && !animalDao.findById(currentZoo.get(0).getId()).isEmpty()){
+            req.setAttribute("animals",animalDao.findById(currentZoo.get(0).getId()));
+
+
         }
+        req.setAttribute("id",currentZoo.get(0).getId());
+        manager.closeConnection();
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req,resp);
         //resp.sendRedirect("listEmployee.jsp");

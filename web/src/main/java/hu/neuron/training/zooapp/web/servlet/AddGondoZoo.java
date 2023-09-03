@@ -7,6 +7,9 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
+import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,19 +26,10 @@ public class AddGondoZoo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        ConnectionManager manager = new ConnectionManager();
+        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        EmployeeDao empDao = new EmployeeDao(manager.getMyConn());
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
-        final String USER = "root";
-        final String PASS = "Xbox11223344";
-
-        Connection myConn = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
         String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
 
@@ -97,45 +91,23 @@ public class AddGondoZoo extends HttpServlet {
         }
 
 
-        ZooStorage storage = ZooStorage.getInstance();
 
-        String zooName = req.getParameter("zooName");
+        Integer zooID = Integer.parseInt(req.getParameter("zooID"));
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : storage.getZooList()) {
-            if (zooName.equals(zoo.getName())) {
+        for (Zoo zoo : zooDao.getAll()) {
+            if (zooID.equals(zoo.getId())) {
 
                 currentZoo.add(zoo);
             }
 
         }
 
-        currentZoo.get(0).addEmployee(new GondoZoo(currentZoo.get(0).getId(),name,birthDate,appointmentDate,gender,suppliedAnimals));
-        try {
-            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-            System.out.println("Inserting records into the table...");
+        empDao.save(new GondoZoo(currentZoo.get(0).getId(),name,birthDate,appointmentDate,gender,suppliedAnimals),"gondoZoo");
 
-            myStmt = myConn.prepareStatement("INSERT INTO employee(id,type,name,birthDate,appointmentDate,gender,suppliedAnimals) VALUES(?,?,?,?,?,?,?)");
-            myStmt.setInt(1,currentZoo.get(0).getId());
-            myStmt.setString(2, "gondoZoo");
-            myStmt.setString(3,name);
-            myStmt.setDate(4,birthDate);
-            myStmt.setDate(5,appointmentDate);
-            myStmt.setString(6, String.valueOf(gender));
-            myStmt.setString(7,animalsToSQL);
-            myStmt.executeUpdate();
-            myConn.close();
-
-
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        storage.saveData();
-
-        req.setAttribute("currentZoo",currentZoo.get(0));
+        req.setAttribute("employees",empDao.findById(currentZoo.get(0).getId()));
+        manager.closeConnection();
 
         req.getRequestDispatcher("/listEmployee.jsp").forward(req,resp);
     }

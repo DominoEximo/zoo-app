@@ -31,7 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        <c:forEach var="animal" items="${currentZoo.animals}">
+        <c:forEach var="animal" items="${animals}">
 
                          <tr>
                             <td>
@@ -52,7 +52,7 @@
 
                             <td>
                                 <form action="removeAnimal" method="GET">
-                                    <input type="hidden" name="zoo" value="${currentZoo.name}">
+                                    <input type="hidden" name="zooID" value="${animal.id}">
                                     <input type="hidden" name="name" value="${animal.nickname}">
                                     <button type="submit" class="btn btn-lg btn-secondary">Remove</button>
                                 </form>
@@ -77,7 +77,7 @@
             <form action= "ZooTransfer" method="GET">
 
 
-                      <input type="hidden" name="name" value="${currentZoo.name}">
+                      <input type="hidden" name="zooID" value="${id}">
                       <input type="hidden" name="source" value="animal">
 
                     <button type="submit" class="btn btn-lg btn-secondary">Add Animal</button>

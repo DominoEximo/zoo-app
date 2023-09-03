@@ -2,6 +2,9 @@ package hu.neuron.training.zooapp.web.servlet;
 
 
 import hu.neuron.mentoring.zooapp.service.Animal;
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
+import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.GondoZooNotAvailableException;
 import hu.neuron.mentoring.zooapp.service.Species;
 import hu.neuron.mentoring.zooapp.service.Zoo;
@@ -24,19 +27,9 @@ public class AddAnimal extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
-        final String USER = "root";
-        final String PASS = "Xbox11223344";
-
-        Connection myConn = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
+        ConnectionManager manager = new ConnectionManager();
+        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        AnimalDao animalDao = new AnimalDao(manager.getMyConn());
 
         String specie= req.getParameter("species");
         Species species = null;
@@ -93,48 +86,28 @@ public class AddAnimal extends HttpServlet {
         Character gender = g.charAt(0);
 
 
-        ZooStorage storage = ZooStorage.getInstance();
 
-        String name = req.getParameter("name");
+        Integer zooID = Integer.parseInt(req.getParameter("zooID"));
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : storage.getZooList()) {
-            if (name.equals(zoo.getName())) {
+        for (Zoo zoo : zooDao.getAll()) {
+            if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
             }
 
         }
 
 
-
-
-        try {
-            currentZoo.get(0).addAnimal(new Animal(currentZoo.get(0).getId(),species,nickname,birthDate,gender));
-        } catch (GondoZooNotAvailableException e) {
-            req.getRequestDispatcher("/listAnimals.jsp").forward(req,resp);
-        }
-        try {
-            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-            System.out.println("Inserting records into the table...");
-
-            myStmt = myConn.prepareStatement("INSERT INTO animal(id,species,nickname,birthDate,gender) VALUES(?,?,?,?,?)");
-            myStmt.setInt(1,currentZoo.get(0).getId());
-            myStmt.setString(2, req.getParameter("species"));
-            myStmt.setString(3,nickname);
-            myStmt.setDate(4,birthDate);
-            myStmt.setString(5,String.valueOf(gender));
-            myStmt.executeUpdate();
-            myConn.close();
+        animalDao.save(new Animal(currentZoo.get(0).getId(),species,nickname,birthDate,gender));
 
 
 
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        storage.saveData();
-        req.setAttribute("currentZoo",currentZoo.get(0));
+
+
+        req.setAttribute("animals",animalDao.findById(currentZoo.get(0).getId()));
+        manager.closeConnection();
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req,resp);
     }

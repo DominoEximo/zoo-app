@@ -50,7 +50,7 @@
           <label for="cleanedAreas">Cleaned Areas</label>
           <input type="text" class="form-control" id="cleanedAreas" placeholder="Cleaned Areas" name="cleanedAreas">
         </div>
-        <input type="hidden" name="zooName" value="${currentZoo.name}">
+        <input type="hidden" name="zooID" value="${currentZoo.id}">
 
         <button type="submit" class="btn btn-default">Add</button>
       </form>

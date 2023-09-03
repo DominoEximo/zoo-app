@@ -1,6 +1,8 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import com.google.gson.Gson;
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.training.zooapp.web.storage.ZooStorage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.List;
 
 @WebServlet (name = "ZooNames",urlPatterns = "/ZooNames")
@@ -21,13 +24,14 @@ public class ZooNamesServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        ZooStorage storage = ZooStorage.getInstance();
+        ConnectionManager manager = new ConnectionManager();
+        ZooDao zooDao = new ZooDao(manager.getMyConn());
 
         String term = req.getParameter("term");
         String q = term.toLowerCase();
 
-        List<String> names = storage.zooNames();
-        List<String> filtered = storage.filterListByTerm(names,q);
+        List<String> names = zooDao.zooNames();
+        List<String> filtered = zooDao.filterListByTerm(names,q);
         Gson gson = new Gson();
         String jsonArray = gson.toJson(filtered);
 
