@@ -81,9 +81,11 @@ public class AnimalDao implements Dao<Animal>{
                 Character gender = animalResult.getString("gender").charAt(0);
                 animals.add(new Animal(animalId,species,nickname,birthDate,gender));
             }
+            conn.commit();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+
         return animals;
     }
 
@@ -101,6 +103,7 @@ public class AnimalDao implements Dao<Animal>{
             myStmt.setDate(4,animal.getBirth_date());
             myStmt.setString(5,String.valueOf(animal.getGender()));
             myStmt.executeUpdate();
+            conn.commit();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -119,6 +122,7 @@ public class AnimalDao implements Dao<Animal>{
             myStmt.setInt(1,animal.getId());
             myStmt.setString(2, animal.getNickname());
             myStmt.executeUpdate();
+            conn.commit();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }

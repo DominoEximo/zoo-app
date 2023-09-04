@@ -85,6 +85,7 @@ public class ReservationDao implements Dao<Reservation>{
                     tickets.add(new Ticket(type,variant,price));
                 }
                 reservations.add(new Reservation(reservationID,reserverName,reservationDate,visitDate,tickets,discount,price));
+                conn.commit();
         }
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -114,6 +115,7 @@ public class ReservationDao implements Dao<Reservation>{
         myStmt.setString(2,String.valueOf(reservation.getTickets().get(0).getType()));
         myStmt.setString(3,String.valueOf(reservation.getTickets().get(0).getVariant()));
         myStmt.executeUpdate();
+        conn.commit();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }

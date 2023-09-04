@@ -2,6 +2,7 @@ package hu.neuron.training.zooapp.web.servlet;
 
 
 import hu.neuron.mentoring.zooapp.service.Animal;
+import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
@@ -12,75 +13,78 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet (urlPatterns = "/AddAnimal")
+@WebServlet(urlPatterns = "/AddAnimal")
 public class AddAnimal extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ConnectionManager manager = new ConnectionManager();
+        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+
+        ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = new ZooDao(manager.getMyConn());
         AnimalDao animalDao = new AnimalDao(manager.getMyConn());
 
-        String specie= req.getParameter("species");
+        String specie = req.getParameter("species");
         Species species = null;
         switch (specie.toUpperCase()) {
-            case ("TIGER"):{
+            case ("TIGER"): {
                 species = Species.TIGER;
                 break;
             }
-            case ("LION"):{
+            case ("LION"): {
                 species = Species.LION;
                 break;
             }
-            case ("BEAR"):{
+            case ("BEAR"): {
                 species = Species.BEAR;
                 break;
             }
-            case ("GIRAFFE"):{
+            case ("GIRAFFE"): {
                 species = Species.GIRAFFE;
                 break;
             }
-            case ("PENGUIN"):{
+            case ("PENGUIN"): {
                 species = Species.PENGUIN;
                 break;
             }
-            case ("WHALE"):{
+            case ("WHALE"): {
                 species = Species.WHALE;
                 break;
             }
-            case ("RHINO"):{
+            case ("RHINO"): {
                 species = Species.RHINO;
                 break;
             }
-            case ("SEAL"):{
+            case ("SEAL"): {
                 species = Species.SEAL;
                 break;
             }
-            case ("FOX"):{
+            case ("FOX"): {
                 species = Species.FOX;
                 break;
             }
-            case ("WOLF"):{
+            case ("WOLF"): {
                 species = Species.WOLF;
                 break;
             }
-            case ("PEACOCK"):{
+            case ("PEACOCK"): {
                 species = Species.PEACOCK;
                 break;
             }
         }
-        String nickname= req.getParameter("nickname");
+        String nickname = req.getParameter("nickname");
         Date birthDate = java.sql.Date.valueOf((req.getParameter("birthDate")));
 
-        String g= req.getParameter("gender");
+        String g = req.getParameter("gender");
         Character gender = g.charAt(0);
-
 
 
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));
@@ -95,17 +99,13 @@ public class AddAnimal extends HttpServlet {
         }
 
 
-        animalDao.save(new Animal(currentZoo.get(0).getId(),species,nickname,birthDate,gender));
+        animalDao.save(new Animal(currentZoo.get(0).getId(), species, nickname, birthDate, gender));
 
 
-
-
-
-
-        req.setAttribute("animals",animalDao.findById(currentZoo.get(0).getId()));
+        req.setAttribute("animals", animalDao.findById(currentZoo.get(0).getId()));
         manager.closeConnection();
 
-        req.getRequestDispatcher("/listAnimals.jsp").forward(req,resp);
+        req.getRequestDispatcher("/listAnimals.jsp").forward(req, resp);
     }
 
     @Override

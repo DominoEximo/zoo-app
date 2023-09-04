@@ -1,5 +1,6 @@
 package hu.neuron.training.zooapp.web.servlet;
 
+import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
@@ -8,19 +9,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet (urlPatterns = "/ZooTransfer")
+@WebServlet(urlPatterns = "/ZooTransfer")
 public class ZooTransfer extends HttpServlet {
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ConnectionManager manager = new ConnectionManager();
+        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+
+        ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = new ZooDao(manager.getMyConn());
 
         Integer id = Integer.parseInt(req.getParameter("zooID"));
@@ -37,11 +42,11 @@ public class ZooTransfer extends HttpServlet {
         if (currentZoo.size() != 0) {
             req.setAttribute("currentZoo", currentZoo.get(0));
         }
-        if (source.equals("animal")){
+        if (source.equals("animal")) {
             req.getRequestDispatcher("/createAnimal.jsp").forward(req, resp);
         } else if (source.equals("cleaner")) {
             req.getRequestDispatcher("/createCleaner.jsp").forward(req, resp);
-        }else if (source.equals("gondozoo")) {
+        } else if (source.equals("gondozoo")) {
             req.getRequestDispatcher("/createGondoZoo.jsp").forward(req, resp);
         }
 

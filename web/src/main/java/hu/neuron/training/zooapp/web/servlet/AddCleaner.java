@@ -5,6 +5,7 @@ import java.sql.*;
 
 import hu.neuron.mentoring.zooapp.service.CleanedArea;
 import hu.neuron.mentoring.zooapp.service.Cleaner;
+import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
@@ -14,33 +15,37 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet (urlPatterns = "/AddCleaner")
+@WebServlet(urlPatterns = "/AddCleaner")
 public class AddCleaner extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ConnectionManager manager = new ConnectionManager();
+        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+
+        ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = new ZooDao(manager.getMyConn());
         EmployeeDao empDao = new EmployeeDao(manager.getMyConn());
 
-        String name= req.getParameter("name");
+        String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
 
         Date birthDate = java.sql.Date.valueOf((req.getParameter("birthDate")));
 
-        String g= req.getParameter("gender");
+        String g = req.getParameter("gender");
         Character gender = g.charAt(0);
 
         String[] areas = req.getParameter("cleanedAreas").split(" ");
         List<CleanedArea> cleanedAreas = new ArrayList<>();
 
-        for (String area : areas){
-            switch (area.toUpperCase()){
+        for (String area : areas) {
+            switch (area.toUpperCase()) {
                 case ("TERRARIUM"):
                     cleanedAreas.add(CleanedArea.TERRARIUM);
                     break;
@@ -68,12 +73,12 @@ public class AddCleaner extends HttpServlet {
 
         }
 
-        empDao.save(new Cleaner(currentZoo.get(0).getId(),name,birthDate,appointmentDate,gender,cleanedAreas),"cleaner");
+        empDao.save(new Cleaner(currentZoo.get(0).getId(), name, birthDate, appointmentDate, gender, cleanedAreas), "cleaner");
 
 
-        req.setAttribute("employees",empDao.findById(currentZoo.get(0).getId()));
+        req.setAttribute("employees", empDao.findById(currentZoo.get(0).getId()));
         manager.closeConnection();
-        req.getRequestDispatcher("/listEmployee.jsp").forward(req,resp);
+        req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);
     }
 
     @Override

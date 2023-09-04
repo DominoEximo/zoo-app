@@ -1,20 +1,24 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
+import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.Director;
 import hu.neuron.mentoring.zooapp.service.Zoo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 public class ZooDao implements Dao<Zoo>{
 
     private Connection conn;
     private PreparedStatement myStmt = null;
     private ResultSet zooResult = null;
 
+
     public ZooDao(Connection conn){
+
         this.conn = conn;
     }
 
@@ -55,7 +59,7 @@ public class ZooDao implements Dao<Zoo>{
                         }
                 zooList.add(zoo);
             }
-
+            conn.commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -82,6 +86,7 @@ public class ZooDao implements Dao<Zoo>{
         myStmt.setDate(5,newZoo.getDirector().getAppointmentDate());
         myStmt.setString(6, String.valueOf(newZoo.getDirector().getGender()));
         myStmt.executeUpdate();
+        conn.commit();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -116,7 +121,7 @@ public class ZooDao implements Dao<Zoo>{
         myStmt = conn.prepareStatement("DELETE from zoo where id = ?");
         myStmt.setInt(1,zoo.getId());
         myStmt.executeUpdate();
-
+        conn.commit();
         }catch (SQLException e){
         throw new RuntimeException(e);}
     }

@@ -5,6 +5,7 @@ import hu.neuron.mentoring.zooapp.service.*;
 
 import java.sql.*;
 
+import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
@@ -13,17 +14,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet (urlPatterns = "/AddGondoZoo")
+@WebServlet(urlPatterns = "/AddGondoZoo")
 public class AddGondoZoo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ConnectionManager manager = new ConnectionManager();
+        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+
+
+        ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = new ZooDao(manager.getMyConn());
         EmployeeDao empDao = new EmployeeDao(manager.getMyConn());
 
@@ -32,61 +38,60 @@ public class AddGondoZoo extends HttpServlet {
 
         Date birthDate = java.sql.Date.valueOf((req.getParameter("birthDate")));
 
-        String g= req.getParameter("gender");
+        String g = req.getParameter("gender");
         Character gender = g.charAt(0);
 
         String[] animals = req.getParameter("suppliedAnimals").split(" ");
         String animalsToSQL = req.getParameter("suppliedAnimals");
         List<Species> suppliedAnimals = new ArrayList<>();
-        for (String animal : animals){
+        for (String animal : animals) {
             switch (animal.toUpperCase()) {
-                case ("TIGER"):{
+                case ("TIGER"): {
                     suppliedAnimals.add(Species.TIGER);
                     break;
                 }
-                case ("LION"):{
+                case ("LION"): {
                     suppliedAnimals.add(Species.LION);
                     break;
                 }
-                case ("BEAR"):{
+                case ("BEAR"): {
                     suppliedAnimals.add(Species.BEAR);
                     break;
                 }
-                case ("GIRAFFE"):{
+                case ("GIRAFFE"): {
                     suppliedAnimals.add(Species.GIRAFFE);
                     break;
                 }
-                case ("PENGUIN"):{
+                case ("PENGUIN"): {
                     suppliedAnimals.add(Species.PENGUIN);
                     break;
                 }
-                case ("WHALE"):{
+                case ("WHALE"): {
                     suppliedAnimals.add(Species.WHALE);
                     break;
                 }
-                case ("RHINO"):{
+                case ("RHINO"): {
                     suppliedAnimals.add(Species.RHINO);
                     break;
                 }
-                case ("SEAL"):{
+                case ("SEAL"): {
                     suppliedAnimals.add(Species.SEAL);
                     break;
                 }
-                case ("FOX"):{
+                case ("FOX"): {
                     suppliedAnimals.add(Species.FOX);
                     break;
                 }
-                case ("WOLF"):{
+                case ("WOLF"): {
                     suppliedAnimals.add(Species.WOLF);
                     break;
                 }
-                case ("PEACOCK"):{
+                case ("PEACOCK"): {
                     suppliedAnimals.add(Species.PEACOCK);
                     break;
                 }
             }
         }
-
 
 
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));
@@ -101,12 +106,12 @@ public class AddGondoZoo extends HttpServlet {
 
         }
 
-        empDao.save(new GondoZoo(currentZoo.get(0).getId(),name,birthDate,appointmentDate,gender,suppliedAnimals),"gondoZoo");
+        empDao.save(new GondoZoo(currentZoo.get(0).getId(), name, birthDate, appointmentDate, gender, suppliedAnimals), "gondoZoo");
 
-        req.setAttribute("employees",empDao.findById(currentZoo.get(0).getId()));
+        req.setAttribute("employees", empDao.findById(currentZoo.get(0).getId()));
         manager.closeConnection();
 
-        req.getRequestDispatcher("/listEmployee.jsp").forward(req,resp);
+        req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);
     }
 
     @Override

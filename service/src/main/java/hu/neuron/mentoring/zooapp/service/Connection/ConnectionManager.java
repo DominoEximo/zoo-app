@@ -1,7 +1,10 @@
 package hu.neuron.mentoring.zooapp.service.Connection;
 
-import java.sql.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.sql.*;
+@Component
 public class ConnectionManager {
 
     private final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
@@ -9,8 +12,8 @@ public class ConnectionManager {
     private final String PASS = "Xbox11223344";
 
     private Connection myConn = null;
-
-    public ConnectionManager(){
+    @Autowired
+    public ConnectionManager() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -19,17 +22,19 @@ public class ConnectionManager {
 
 
         try {
-            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
+            myConn = DriverManager.getConnection(DB_URL, USER, PASS);
+            myConn.setAutoCommit(false);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public Connection getMyConn() {
         return myConn;
     }
 
-    public void closeConnection(){
+    public void closeConnection() {
         try {
             myConn.close();
         } catch (SQLException e) {

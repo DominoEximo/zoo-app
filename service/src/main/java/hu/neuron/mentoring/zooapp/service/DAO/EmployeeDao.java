@@ -107,7 +107,7 @@ public class EmployeeDao implements Dao<Employee>{
                 employees.add(new Cleaner(id, employeeName, birthDate, appointmentDate, gender, cleanedAreas));
 
             }
-
+            conn.commit();
         }
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -141,6 +141,7 @@ public class EmployeeDao implements Dao<Employee>{
                 myStmt.setString(8,null);
             }
             myStmt.executeUpdate();
+            conn.commit();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -158,6 +159,7 @@ public class EmployeeDao implements Dao<Employee>{
             myStmt.setInt(1,employee.getId());
             myStmt.setString(2,employee.getName());
             myStmt.executeUpdate();
+            conn.commit();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
