@@ -29,7 +29,8 @@ public class RemoveAnimalServlet extends HttpServlet {
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect(manager.getMyConn());
-        AnimalDao animalDao = new AnimalDao(manager.getMyConn());
+        AnimalDao animalDao = ac.getBean(AnimalDao.class);
+        animalDao.connect(manager.getMyConn());
 
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));
 

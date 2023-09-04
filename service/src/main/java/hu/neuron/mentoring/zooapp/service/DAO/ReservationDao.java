@@ -11,7 +11,9 @@ public class ReservationDao implements Dao<Reservation>{
     private Connection conn;
     private PreparedStatement myStmt;
 
-    public ReservationDao(Connection conn){
+    public ReservationDao(){}
+
+    public void connect(Connection conn){
         this.conn = conn;
     }
 

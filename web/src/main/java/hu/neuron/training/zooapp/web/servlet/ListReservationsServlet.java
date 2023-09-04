@@ -25,7 +25,8 @@ public class ListReservationsServlet extends HttpServlet {
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect(manager.getMyConn());
-        ReservationDao resDao = new ReservationDao(manager.getMyConn());
+        ReservationDao resDao = ac.getBean(ReservationDao.class);
+        resDao.connect(manager.getMyConn());
 
 
         req.setAttribute("Zoos", zooDao.getAll());

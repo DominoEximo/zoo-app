@@ -13,7 +13,9 @@ public class AnimalDao implements Dao<Animal>{
     private PreparedStatement myStmt = null;
     private ResultSet zooResult = null;
 
-    public AnimalDao(Connection conn){
+    public AnimalDao(){}
+
+    public void connect(Connection conn){
         this.conn = conn;
     }
     @Override

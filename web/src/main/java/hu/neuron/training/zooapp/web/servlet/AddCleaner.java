@@ -32,7 +32,8 @@ public class AddCleaner extends HttpServlet {
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect(manager.getMyConn());
-        EmployeeDao empDao = new EmployeeDao(manager.getMyConn());
+        EmployeeDao empDao = ac.getBean(EmployeeDao.class);
+        empDao.connect(manager.getMyConn());
 
         String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));

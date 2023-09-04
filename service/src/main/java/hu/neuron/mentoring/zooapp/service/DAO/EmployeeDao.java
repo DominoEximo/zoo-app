@@ -1,6 +1,7 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
 import hu.neuron.mentoring.zooapp.service.*;
+import org.springframework.context.annotation.Bean;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +13,9 @@ public class EmployeeDao implements Dao<Employee>{
     private PreparedStatement myStmt = null;
     private ResultSet zooResult = null;
 
-    public EmployeeDao(Connection conn){
+    public EmployeeDao(){}
+
+    public void connect(Connection conn){
         this.conn = conn;
     }
     @Override
