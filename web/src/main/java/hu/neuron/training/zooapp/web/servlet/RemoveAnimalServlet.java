@@ -27,7 +27,8 @@ public class RemoveAnimalServlet extends HttpServlet {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
-        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        ZooDao zooDao = ac.getBean(ZooDao.class);
+        zooDao.connect(manager.getMyConn());
         AnimalDao animalDao = new AnimalDao(manager.getMyConn());
 
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));

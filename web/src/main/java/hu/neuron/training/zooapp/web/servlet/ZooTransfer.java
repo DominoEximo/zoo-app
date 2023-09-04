@@ -26,7 +26,8 @@ public class ZooTransfer extends HttpServlet {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
-        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        ZooDao zooDao = ac.getBean(ZooDao.class);
+        zooDao.connect(manager.getMyConn());
 
         Integer id = Integer.parseInt(req.getParameter("zooID"));
         String source = req.getParameter("source");

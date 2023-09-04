@@ -23,7 +23,8 @@ public class ListReservationsServlet extends HttpServlet {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
-        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        ZooDao zooDao = ac.getBean(ZooDao.class);
+        zooDao.connect(manager.getMyConn());
         ReservationDao resDao = new ReservationDao(manager.getMyConn());
 
 
@@ -32,6 +33,7 @@ public class ListReservationsServlet extends HttpServlet {
 
 
         req.getRequestDispatcher("/listReservations.jsp").forward(req, resp);
+        manager.closeConnection();
     }
 
     @Override

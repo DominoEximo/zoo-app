@@ -25,7 +25,8 @@ public class ZooListServlet extends HttpServlet {
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
 
-        ZooDao zooDao = new ZooDao(manager.getMyConn());
+        ZooDao zooDao = ac.getBean(ZooDao.class);
+        zooDao.connect(manager.getMyConn());
 
         req.setAttribute("zoos",zooDao.getAll());
         manager.closeConnection();

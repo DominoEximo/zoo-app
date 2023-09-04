@@ -10,15 +10,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+@Component
 public class ZooDao implements Dao<Zoo>{
 
     private Connection conn;
     private PreparedStatement myStmt = null;
     private ResultSet zooResult = null;
 
-
-    public ZooDao(Connection conn){
-
+    @Autowired
+    public ZooDao(){
+    }
+    public void connect(Connection conn){
         this.conn = conn;
     }
 
