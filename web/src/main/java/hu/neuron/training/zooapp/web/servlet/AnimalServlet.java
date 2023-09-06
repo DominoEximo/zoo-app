@@ -20,10 +20,18 @@ import java.util.List;
 @WebServlet(urlPatterns = "/animals")
 public class AnimalServlet extends HttpServlet {
 
+    ApplicationContext ac;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+
 
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
