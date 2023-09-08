@@ -1,12 +1,18 @@
 package hu.neuron.mentoring.zooapp.service;
 
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.Objects;
-
+@Entity
 public class Ticket implements Serializable {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "type")
     private TicketType type;
-
+    @Column(name = "variant")
     private TicketVariant variant;
 
     private Integer price;

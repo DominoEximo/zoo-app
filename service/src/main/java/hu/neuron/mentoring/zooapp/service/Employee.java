@@ -10,19 +10,31 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import javax.persistence.*;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes({ @JsonSubTypes.Type(value = GondoZoo.class, name = "GondoZoo"),
 
         @JsonSubTypes.Type(value = Cleaner.class, name = "Cleaner") })
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type",
+        discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Employee extends LogManager implements Serializable {
 
     private static final long serialVersionUID = 7491430318788362737L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "birthDate")
     private Date birthDate;
+    @Column(name = "appointmentDate")
     private Date appointmentDate;
+    @Column(name = "gender")
     private Character gender;
 
     public Employee() {

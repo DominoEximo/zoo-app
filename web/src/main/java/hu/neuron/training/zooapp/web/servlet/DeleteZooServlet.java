@@ -28,7 +28,7 @@ public class DeleteZooServlet extends HttpServlet {
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
 
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect(manager.getMyConn());
+        zooDao.connect();
 
 
         for (Zoo zoo : zooDao.getAll()) {

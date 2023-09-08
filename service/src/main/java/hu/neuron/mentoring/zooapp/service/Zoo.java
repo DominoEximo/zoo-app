@@ -19,39 +19,42 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Zoo")
 public class Zoo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    final String DB_URL = "jdbc:mysql://localhost:3306/zoo";
-    final String USER = "root";
-    final String PASS = "Xbox11223344";
 
     private static Logger logger = Logger.getLogger(Zoo.class.getName());
 
     private static int counter;
-
+    @Id
+    @Column(name = "id")
     private Integer id;
+    @Column(name = "name")
     private String name;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "director", referencedColumnName = "id")
     private Director director;
 
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "employees", referencedColumnName = "id")
     private List<Employee> employees;
-
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "animals", referencedColumnName = "id")
     private List<Animal> animals;
-
-    private List<Job> loggedJobs;
-
-    private List<Employee> rewardApplicables;
-
-    private List<Sight> sights;
-
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservations", referencedColumnName = "id")
     private List<Reservation> reservations;
 
     public Zoo() {
         employees = new ArrayList<>();
         animals = new ArrayList<>();
-        loggedJobs = new ArrayList<>();
-        rewardApplicables = new ArrayList<>();
-        sights = new ArrayList<>();
+
         reservations = new ArrayList<>();
         counter++;
     }
@@ -59,9 +62,7 @@ public class Zoo implements Serializable {
         this.setName(name);
         employees = new ArrayList<>();
         animals = new ArrayList<>();
-        loggedJobs = new ArrayList<>();
-        rewardApplicables = new ArrayList<>();
-        sights = new ArrayList<>();
+
         reservations = new ArrayList<>();
         counter++;
     }
@@ -69,9 +70,7 @@ public class Zoo implements Serializable {
     public Zoo(Director director) {
         employees = new ArrayList<>();
         animals = new ArrayList<>();
-        loggedJobs = new ArrayList<>();
-        rewardApplicables = new ArrayList<>();
-        sights = new ArrayList<>();
+
         reservations = new ArrayList<>();
         counter++;
         this.setDirector(director);
@@ -85,7 +84,7 @@ public class Zoo implements Serializable {
         logger.info("Az állatkert megalapulása: " + LocalTime.now() + "\n");
     }
 
-    public void recordJob(Employee employee) {
+    /*public void recordJob(Employee employee) {
         Boolean isValid = false;
 
         if (employees.contains(employee)) {
@@ -166,7 +165,7 @@ public class Zoo implements Serializable {
         }
 
         return records;
-    }
+    }*/
 
     public void reserve(Reservation reservation) {
         this.reservations.add(reservation);
@@ -176,7 +175,7 @@ public class Zoo implements Serializable {
         this.reservations.clear();
     }
 
-    public void createSight(Sight sight) {
+    /*public void createSight(Sight sight) {
 
         if (((GondoZoo) sight.getEmployee()).getSuppliedAnimals().contains(sight.getType())) {
             sights.add(sight);
@@ -201,7 +200,7 @@ public class Zoo implements Serializable {
         }
 
         return records;
-    }
+    }*/
 
     public void listAnimalsWithSpecies(Species species) {
         for (Animal animal : animals) {
@@ -251,26 +250,6 @@ public class Zoo implements Serializable {
 
     public void sellAnimal(Animal animal) {
         logger.info("Az " + animal.getNickname() + " nevú állatot eladták.");
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        Connection myConn = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
-
-        try {
-            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            myStmt = myConn.prepareStatement("DELETE from animal where nickname = ?");
-            myStmt.setString(1, animal.getNickname());
-            myStmt.executeUpdate();
-            myConn.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         this.animals.remove(animal);
     }
 
@@ -308,27 +287,6 @@ public class Zoo implements Serializable {
 
         if (Boolean.TRUE.equals(canFire)) {
             this.employees.remove(employee);
-
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-
-            Connection myConn = null;
-            PreparedStatement myStmt = null;
-            ResultSet myRs = null;
-
-            try {
-                myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-                myStmt = myConn.prepareStatement("DELETE from employee where name = ?");
-                myStmt.setString(1, employee.getName());
-                myStmt.executeUpdate();
-                myConn.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
             logger.info(employee.getName() + "nevű dolgozó eltávozott! \n");
         } else {
             logger.info("Az állatkertnek szüksége van " + problematicAnimal + " gondozóra! \n");
@@ -339,26 +297,6 @@ public class Zoo implements Serializable {
     }
 
     public void fireCleaner(Cleaner cleaner){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        Connection myConn = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
-
-        try {
-            myConn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            myStmt = myConn.prepareStatement("DELETE from employee where name = ?");
-            myStmt.setString(1, cleaner.getName());
-            myStmt.executeUpdate();
-            myConn.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         employees.remove(cleaner);
 
     }

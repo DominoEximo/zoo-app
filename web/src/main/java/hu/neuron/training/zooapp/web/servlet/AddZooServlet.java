@@ -43,7 +43,7 @@ public class AddZooServlet extends HttpServlet {
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect(manager.getMyConn());
+        zooDao.connect();
 
         zooDao.save(newZoo);
         manager.closeConnection();

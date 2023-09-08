@@ -28,7 +28,7 @@ public class ZooNamesServlet extends HttpServlet {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
         ConnectionManager manager = new ConnectionManager();
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect(manager.getMyConn());
+        zooDao.connect();
 
         String term = req.getParameter("term");
         String q = term.toLowerCase();

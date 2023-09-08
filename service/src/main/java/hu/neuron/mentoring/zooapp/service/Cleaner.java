@@ -1,14 +1,18 @@
 package hu.neuron.mentoring.zooapp.service;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
+@DiscriminatorValue("1")
 public class Cleaner extends Employee {
 
 
     private static final long serialVersionUID = -6192349358679720176L;
+    @ElementCollection(targetClass = CleanedArea.class, fetch = FetchType.LAZY)
+    @Column(name = "cleanedAreas")
     private List<CleanedArea> cleanedAreas;
 
 

@@ -1,24 +1,29 @@
 package hu.neuron.mentoring.zooapp.service;
 
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
 public class Reservation implements Serializable {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+    @Column(name = "name")
     private String name;
-
+    @Column(name = "reservationDate")
     private Date reservationDate;
-
+    @Column(name = "visitDate")
     private Date visitDate;
-
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "tickets", referencedColumnName = "id")
     private List<Ticket> tickets;
-
+    @Column(name = "discount")
     private Integer discount;
-
+    @Column(name = "price")
     private Integer price;
 
     public  Reservation(){};

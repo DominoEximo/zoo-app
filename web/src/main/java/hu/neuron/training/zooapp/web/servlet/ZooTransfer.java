@@ -2,6 +2,7 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import jakarta.servlet.ServletException;
@@ -18,16 +19,20 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/ZooTransfer")
 public class ZooTransfer extends HttpServlet {
-
+    ApplicationContext ac = null;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        ac = ContextManager.getInstance().getAc();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
-        ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect(manager.getMyConn());
+        ZooDao zooDao = new ZooDao();
+        zooDao.connect();
 
         Integer id = Integer.parseInt(req.getParameter("zooID"));
         String source = req.getParameter("source");

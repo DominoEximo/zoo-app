@@ -27,7 +27,7 @@ public class RemoveEmployeeServlet extends HttpServlet {
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect(manager.getMyConn());
+        zooDao.connect();
         EmployeeDao empDao = ac.getBean(EmployeeDao.class);
         empDao.connect(manager.getMyConn());
 

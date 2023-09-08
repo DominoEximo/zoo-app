@@ -1,5 +1,6 @@
 package hu.neuron.mentoring.zooapp.service;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -7,11 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 
 import java.util.Objects;
-
+@Entity
+@DiscriminatorValue("2")
 public class GondoZoo extends Employee {
 
 
     private static final long serialVersionUID = -3608765929799268696L;
+    @ElementCollection(targetClass = Species.class, fetch = FetchType.LAZY)
+    @Column(name = "suppliedAnimals")
     private List<Species> suppliedAnimals;
 
     public GondoZoo() {

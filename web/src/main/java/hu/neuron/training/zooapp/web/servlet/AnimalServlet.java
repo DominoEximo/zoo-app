@@ -36,7 +36,7 @@ public class AnimalServlet extends HttpServlet {
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect(manager.getMyConn());
+        zooDao.connect();
         AnimalDao animalDao = ac.getBean(AnimalDao.class);
         animalDao.connect(manager.getMyConn());
         String name = req.getParameter("name");

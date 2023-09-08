@@ -26,7 +26,7 @@ public class ReserveServlet extends HttpServlet {
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect(manager.getMyConn());
+        zooDao.connect();
         String name = req.getParameter("name");
 
         List<Zoo> currentZoo = new ArrayList<>();

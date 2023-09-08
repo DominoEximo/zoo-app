@@ -1,15 +1,22 @@
 package hu.neuron.mentoring.zooapp.service;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
-
+@Entity
 public class Animal implements Serializable{
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+    @Column(name = "species")
     private Species species;
+    @Column(name = "nickname")
     private String nickname;
+    @Column(name = "birthDate")
     private Date birthDate;
+    @Column(name = "gender")
     private Character gender;
 
 

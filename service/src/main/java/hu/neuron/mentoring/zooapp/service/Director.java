@@ -1,9 +1,13 @@
 package hu.neuron.mentoring.zooapp.service;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
-
+@Entity
+@DiscriminatorValue("3")
 public class Director extends Employee implements Serializable {
 
 

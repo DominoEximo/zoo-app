@@ -29,7 +29,7 @@ public class CreateReservationServlet extends HttpServlet {
 
         ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect(manager.getMyConn());
+        zooDao.connect();
         ReservationDao resDao = ac.getBean(ReservationDao.class);
         resDao.connect(manager.getMyConn());
 
