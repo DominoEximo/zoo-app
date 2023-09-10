@@ -32,34 +32,15 @@ public class RemoveAnimalServlet extends HttpServlet {
         AnimalDao animalDao = ac.getBean(AnimalDao.class);
         animalDao.connect(manager.getMyConn());
 
+        Integer animalID = Integer.parseInt(req.getParameter("animalID"));
+
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));
 
-        String animalToBeRemoved = req.getParameter("name");
 
-        List<Zoo> currentZoo = new ArrayList<>();
+        animalDao.delete( animalDao.findById(animalID));
 
-        for (Zoo zoo : zooDao.getAll()) {
-            if (zooID.equals(zoo.getId())) {
-                currentZoo.add(zoo);
-            }
-
-        }
-
-        for (Animal animal : animalDao.findById(currentZoo.get(0).getId())) {
-            if (animalToBeRemoved.equals(animal.getNickname())) {
-                animalDao.delete(animal);
-
-                break;
-            }
-        }
-
-
-        if (currentZoo.size() != 0 && !animalDao.findById(currentZoo.get(0).getId()).isEmpty()) {
-            req.setAttribute("animals", animalDao.findById(currentZoo.get(0).getId()));
-
-
-        }
-        req.setAttribute("id", currentZoo.get(0).getId());
+        req.setAttribute("animals", zooDao.findById(zooID).getAnimals());
+        req.setAttribute("id", zooID);
         manager.closeConnection();
 
         req.getRequestDispatcher("listAnimals.jsp").forward(req, resp);

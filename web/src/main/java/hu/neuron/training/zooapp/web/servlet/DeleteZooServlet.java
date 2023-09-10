@@ -21,7 +21,7 @@ public class DeleteZooServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        String name = req.getParameter("name");
+        Integer id = Integer.parseInt(req.getParameter("zooID"));
 
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
@@ -31,13 +31,7 @@ public class DeleteZooServlet extends HttpServlet {
         zooDao.connect();
 
 
-        for (Zoo zoo : zooDao.getAll()) {
-            if (name.equals(zoo.getName())) {
-                zooDao.delete(zoo);
-                break;
-            }
-
-        }
+        zooDao.delete(zooDao.findById(id));
 
         req.setAttribute("zoos", zooDao.getAll());
         manager.closeConnection();

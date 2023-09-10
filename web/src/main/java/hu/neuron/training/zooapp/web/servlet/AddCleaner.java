@@ -33,7 +33,7 @@ public class AddCleaner extends HttpServlet {
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
         EmployeeDao empDao = ac.getBean(EmployeeDao.class);
-        empDao.connect(manager.getMyConn());
+        empDao.connect();
 
         String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
@@ -75,7 +75,7 @@ public class AddCleaner extends HttpServlet {
 
         }
 
-        empDao.save(new Cleaner(currentZoo.get(0).getId(), name, birthDate, appointmentDate, gender, cleanedAreas), "cleaner");
+        empDao.save(new Cleaner(currentZoo.get(0).getId(), name, birthDate, appointmentDate, gender, cleanedAreas));
 
 
         req.setAttribute("employees", empDao.findById(currentZoo.get(0).getId()));

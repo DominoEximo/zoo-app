@@ -1,7 +1,6 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
-import hu.neuron.mentoring.zooapp.service.Director;
+import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +9,6 @@ import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +24,7 @@ public class ZooDao implements Dao<Zoo>{
     public void connect(){}
 
     @Override
-    public List<Zoo> findById(int id) {
+    public Zoo findById(int id) {
         return null;
 
     }

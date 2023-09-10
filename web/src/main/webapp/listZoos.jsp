@@ -52,7 +52,7 @@
 
                             <td>
                                 <form action="deleteZoo" method="GET">
-                                    <input type="hidden" name="name" value="${zoo.name}">
+                                    <input type="hidden" name="zooID" value="${zoo.id}">
                                     <button type="submit" class="btn btn-lg btn-secondary">Delete</button>
                                 </form>
                             </td>

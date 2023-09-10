@@ -1,13 +1,13 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
-import hu.neuron.mentoring.zooapp.service.Zoo;
+import hu.neuron.mentoring.zooapp.service.Employee;
 
 import java.util.List;
 
 public interface Dao<T> {
 
 
-    List<T> findById(int id);
+    T findById(int id);
 
     List<T> getAll();
 

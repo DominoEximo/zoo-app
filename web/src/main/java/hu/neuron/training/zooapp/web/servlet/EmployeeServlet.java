@@ -30,7 +30,7 @@ public class EmployeeServlet extends HttpServlet {
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
         EmployeeDao empDao = ac.getBean(EmployeeDao.class);
-        empDao.connect(manager.getMyConn());
+        empDao.connect();
 
         String name = req.getParameter("name");
 
@@ -42,7 +42,7 @@ public class EmployeeServlet extends HttpServlet {
             }
 
         }
-        if (currentZoo.size() != 0 && !empDao.findById(currentZoo.get(0).getId()).isEmpty()) {
+        if (currentZoo.size() != 0 && !empDao.findById(currentZoo.get(0).getId()).equals(null)) {
             req.setAttribute("employees", empDao.findById(currentZoo.get(0).getId()));
 
         }

@@ -52,8 +52,8 @@
 
                             <td>
                                 <form action="removeAnimal" method="GET">
-                                    <input type="hidden" name="zooID" value="${animal.id}">
-                                    <input type="hidden" name="name" value="${animal.nickname}">
+                                    <input type="hidden" name="animalID" value="${animal.id}">
+                                    <input type="hidden" name="zooID" value="${id}">
                                     <button type="submit" class="btn btn-lg btn-secondary">Remove</button>
                                 </form>
                             </td>

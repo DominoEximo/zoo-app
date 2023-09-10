@@ -29,31 +29,20 @@ public class RemoveEmployeeServlet extends HttpServlet {
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
         EmployeeDao empDao = ac.getBean(EmployeeDao.class);
-        empDao.connect(manager.getMyConn());
+        empDao.connect();
 
         Integer id = Integer.parseInt(req.getParameter("id"));
+        Integer zooID = Integer.parseInt(req.getParameter("zooID"));
 
         String employeeToBeRemoved = req.getParameter("name");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : zooDao.getAll()) {
-            if (id.equals(zoo.getId())) {
-                currentZoo.add(zoo);
-            }
-
-        }
-
-        for (Employee employee : empDao.findById(currentZoo.get(0).getId())) {
-            if (employeeToBeRemoved.equals(employee.getName())) {
-                empDao.delete(employee);
-
-                break;
-            }
-        }
+        empDao.delete(empDao.findById(id));
 
 
-        req.setAttribute("employees", empDao.findById(currentZoo.get(0).getId()));
+        req.setAttribute("employees", zooDao.findById(zooID).getEployees());
+        req.setAttribute("id", zooID);
         manager.closeConnection();
 
         req.getRequestDispatcher("listEmployee.jsp").forward(req, resp);

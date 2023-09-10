@@ -33,7 +33,7 @@ public class AddGondoZoo extends HttpServlet {
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
         EmployeeDao empDao = ac.getBean(EmployeeDao.class);
-        empDao.connect(manager.getMyConn());
+        empDao.connect();
 
         String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
@@ -108,7 +108,7 @@ public class AddGondoZoo extends HttpServlet {
 
         }
 
-        empDao.save(new GondoZoo(currentZoo.get(0).getId(), name, birthDate, appointmentDate, gender, suppliedAnimals), "gondoZoo");
+        empDao.save(new GondoZoo(currentZoo.get(0).getId(), name, birthDate, appointmentDate, gender, suppliedAnimals));
 
         req.setAttribute("employees", empDao.findById(currentZoo.get(0).getId()));
         manager.closeConnection();

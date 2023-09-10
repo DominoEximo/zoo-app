@@ -58,6 +58,7 @@
                             <td>
                                 <form action="removeEmployee" method="GET">
                                     <input type="hidden" name="id" value="${employee.id}">
+                                    <input id="data" type="hidden" name="zooID" value="${id}">
                                     <input type="hidden" name="name" value="${employee.name}">
                                     <button type="submit" class="btn btn-lg btn-secondary">Remove</button>
                                 </form>

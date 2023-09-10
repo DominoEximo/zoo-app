@@ -49,7 +49,7 @@ public class AnimalServlet extends HttpServlet {
             }
 
         }
-        if (currentZoo.size() != 0 && !animalDao.findById(currentZoo.get(0).getId()).isEmpty()) {
+        if (currentZoo.size() != 0 && !animalDao.findById(currentZoo.get(0).getId()).equals(null)) {
             req.setAttribute("animals", animalDao.findById(currentZoo.get(0).getId()));
 
 
