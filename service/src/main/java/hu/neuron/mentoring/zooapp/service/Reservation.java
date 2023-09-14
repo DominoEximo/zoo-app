@@ -19,7 +19,7 @@ public class Reservation implements Serializable {
     @Column(name = "visitDate")
     private Date visitDate;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "tickets", referencedColumnName = "id")
+    @JoinColumn(name = "reservation_fk")
     private List<Ticket> tickets;
     @Column(name = "discount")
     private Integer discount;

@@ -23,7 +23,6 @@ public class AddZooServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        Integer id = Integer.parseInt(req.getParameter("id"));
 
         String name = req.getParameter("name");
         String directorName = req.getParameter("directorName");
@@ -35,8 +34,7 @@ public class AddZooServlet extends HttpServlet {
         Character gender = g.charAt(0);
 
         Zoo newZoo = new Zoo(name);
-        newZoo.setDirector(new Director(newZoo.getId(), directorName, birthDate, appointmentDate, gender));
-        newZoo.setId(id);
+        newZoo.setDirector(new Director(directorName, birthDate, appointmentDate, gender));
 
 
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);

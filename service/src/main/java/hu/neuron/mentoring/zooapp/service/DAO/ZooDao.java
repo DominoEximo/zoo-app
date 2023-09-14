@@ -25,7 +25,12 @@ public class ZooDao implements Dao<Zoo>{
 
     @Override
     public Zoo findById(int id) {
-        return null;
+        Zoo zoo = em.find(Zoo.class, id);
+        if (zoo == null) {
+            throw new EntityNotFoundException("Can't find Zoo for ID "
+                    + id);
+        }
+        return zoo;
 
     }
 
@@ -64,8 +69,7 @@ public class ZooDao implements Dao<Zoo>{
         em.getTransaction().begin();
         em.remove(zoo);
         em.getTransaction().commit();
-        emf.close();
-        em.close();
+
     }
 
     public static List<String> filterListByTerm(List<String> list, String term) {

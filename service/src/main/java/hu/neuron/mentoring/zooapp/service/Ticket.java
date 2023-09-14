@@ -10,9 +10,9 @@ public class Ticket implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private TicketType type;
-    @Column(name = "variant")
+    @Enumerated(EnumType.STRING)
     private TicketVariant variant;
 
     private Integer price;

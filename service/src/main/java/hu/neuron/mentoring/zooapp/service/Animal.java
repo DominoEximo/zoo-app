@@ -11,6 +11,7 @@ public class Animal implements Serializable{
     @Column(name = "id")
     private Integer id;
     @Column(name = "species")
+    @Enumerated(EnumType.STRING)
     private Species species;
     @Column(name = "nickname")
     private String nickname;

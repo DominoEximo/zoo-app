@@ -41,7 +41,7 @@ public class RemoveEmployeeServlet extends HttpServlet {
         empDao.delete(empDao.findById(id));
 
 
-        req.setAttribute("employees", zooDao.findById(zooID).getEployees());
+        //req.setAttribute("employees", zooDao.findById(zooID).getEployees());
         req.setAttribute("id", zooID);
         manager.closeConnection();
 

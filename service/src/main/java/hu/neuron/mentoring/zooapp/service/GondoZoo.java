@@ -9,13 +9,13 @@ import java.util.List;
 
 import java.util.Objects;
 @Entity
-@DiscriminatorValue("2")
 public class GondoZoo extends Employee {
 
 
     private static final long serialVersionUID = -3608765929799268696L;
-    @ElementCollection(targetClass = Species.class, fetch = FetchType.LAZY)
-    @Column(name = "suppliedAnimals")
+    @ElementCollection(targetClass = Species.class)
+    @JoinTable(name = "gondozoo_species", joinColumns = @JoinColumn(name = "gondozoo_fk"))
+    @Enumerated(EnumType.STRING)
     private List<Species> suppliedAnimals;
 
     public GondoZoo() {

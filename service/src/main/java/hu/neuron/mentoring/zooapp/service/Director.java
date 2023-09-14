@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 @Entity
-@DiscriminatorValue("3")
 public class Director extends Employee implements Serializable {
 
 
@@ -17,8 +16,8 @@ public class Director extends Employee implements Serializable {
         super();
     }
 
-    public Director(Integer id,String name, Date birthDate, Date appointmentDate, Character gender) {
-        super(id,name, birthDate, appointmentDate, gender);
+    public Director(String name, Date birthDate, Date appointmentDate, Character gender) {
+        super(null,name, birthDate, appointmentDate, gender);
     }
 
     @Override

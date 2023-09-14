@@ -31,28 +31,24 @@ public class Zoo implements Serializable {
 
     private static int counter;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @Column(name = "name")
     private String name;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "director", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     private Director director;
-
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "employees", referencedColumnName = "id")
-    private List<Employee> employees;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "animals", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    @JoinColumn(name = "zoo_fk")
     private List<Animal> animals;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "reservations", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    @JoinColumn(name = "zoo_fk")
     private List<Reservation> reservations;
 
     public Zoo() {
-        employees = new ArrayList<>();
+
         animals = new ArrayList<>();
 
         reservations = new ArrayList<>();
@@ -60,7 +56,7 @@ public class Zoo implements Serializable {
     }
     public Zoo(String name) {
         this.setName(name);
-        employees = new ArrayList<>();
+
         animals = new ArrayList<>();
 
         reservations = new ArrayList<>();
@@ -68,7 +64,7 @@ public class Zoo implements Serializable {
     }
 
     public Zoo(Director director) {
-        employees = new ArrayList<>();
+
         animals = new ArrayList<>();
 
         reservations = new ArrayList<>();
@@ -215,91 +211,18 @@ public class Zoo implements Serializable {
         logger.info("Az országnak " + counter + " állatkertje van jelenleg. \n");
     }
 
-    public void listEmployees() {
-        try {
-            for (Employee employee : employees) {
-                logger.info(employee.getName() + employee.getBirthDate() + employee.getGender());
-            }
-        } catch (NullPointerException e) {
-            logger.info("Az állatkertnek nincsenek dolgozói!");
-        }
-    }
 
-    public void addAnimal(Animal animal) throws GondoZooNotAvailableException {
-        Boolean canBuy = false;
-        if (Boolean.FALSE.equals(canBuy)) {
-            for (Employee employee : employees) {
-                if (employee instanceof GondoZoo) {
-                    if (((GondoZoo) employee).getSuppliedAnimals().contains(animal.getSpecies())) {
-                        canBuy = true;
-                        break;
-                    }
-                }
-            }
-        }
 
-        if (Boolean.TRUE.equals(canBuy)) {
-            this.animals.add(animal);
-            logger.info("Az állatkert befogadta a(z) " + animal.getNickname() + " nevű állatot! \n");
-        } else {
-            logger.info("A(z)" + animal.getSpecies() + "állatot az állatkert nem tudja fogadni. \n");
-            throw new GondoZooNotAvailableException();
-
-        }
-    }
 
     public void sellAnimal(Animal animal) {
         logger.info("Az " + animal.getNickname() + " nevú állatot eladták.");
         this.animals.remove(animal);
     }
 
-    public void addEmployee(Employee employee) {
-        this.employees.add(employee);
-    }
 
-    public void fireGondoZoo(GondoZoo employee) throws ZooEmployeeException {
 
-        Boolean canFire = true;
 
-        Set<Species> caredAnimals = new HashSet<>();
-        Set<Species> animalsInZoo = new HashSet<>();
 
-        Species problematicAnimal = null;
-
-        for (Employee caretaker : employees) {
-            if (caretaker instanceof GondoZoo && !caretaker.equals(employee)) {
-                caredAnimals.addAll(((GondoZoo) caretaker).getSuppliedAnimals());
-            }
-        }
-
-        for (Animal animal : animals) {
-            animalsInZoo.add(animal.getSpecies());
-        }
-
-        for (Species species : employee.getSuppliedAnimals()) {
-            if (!caredAnimals.contains(species) && animalsInZoo.contains(species)) {
-                canFire = false;
-
-                problematicAnimal = species;
-                break;
-            }
-        }
-
-        if (Boolean.TRUE.equals(canFire)) {
-            this.employees.remove(employee);
-            logger.info(employee.getName() + "nevű dolgozó eltávozott! \n");
-        } else {
-            logger.info("Az állatkertnek szüksége van " + problematicAnimal + " gondozóra! \n");
-            throw new ZooEmployeeException();
-
-        }
-
-    }
-
-    public void fireCleaner(Cleaner cleaner){
-        employees.remove(cleaner);
-
-    }
 
     public void fireDirector() throws ZooEmployeeException {
         if (this.director == null) {
@@ -355,13 +278,7 @@ public class Zoo implements Serializable {
 
     }
 
-    public List<Employee> getEployees() {
-        return employees;
-    }
 
-    public void setEmployees(List<Employee> eployees) {
-        this.employees = eployees;
-    }
 
     public List<Animal> getAnimals() {
         return animals;
@@ -399,11 +316,9 @@ public class Zoo implements Serializable {
         public void move(Zoo from, Zoo to) {
             to.setAnimals(from.getAnimals());
             to.setDirector(from.getDirector());
-            to.setEmployees(from.getEployees());
             counter--;
             from.setDirector(null);
             from.setAnimals(null);
-            from.setEmployees(null);
         }
 
     }

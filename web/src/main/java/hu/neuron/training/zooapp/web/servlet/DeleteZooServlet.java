@@ -30,8 +30,9 @@ public class DeleteZooServlet extends HttpServlet {
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
 
-
-        zooDao.delete(zooDao.findById(id));
+        if (!zooDao.findById(id).equals(null)){
+            zooDao.delete(zooDao.findById(id));
+        }
 
         req.setAttribute("zoos", zooDao.getAll());
         manager.closeConnection();

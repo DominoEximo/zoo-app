@@ -30,10 +30,6 @@
       <h2>Zoo</h2>
       <form action= "AddZoo" method="GET">
         <div class="form-group">
-          <label for="id">ID</label>
-          <input type="text" class="form-control" id="id" placeholder="ID" name="id">
-        </div>
-        <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name" placeholder="Name" name="name">
         </div>

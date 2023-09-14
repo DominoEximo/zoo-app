@@ -12,15 +12,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
-@JsonSubTypes({ @JsonSubTypes.Type(value = GondoZoo.class, name = "GondoZoo"),
-
-        @JsonSubTypes.Type(value = Cleaner.class, name = "Cleaner") })
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type",
-        discriminatorType = DiscriminatorType.INTEGER)
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Employee extends LogManager implements Serializable {
 
     private static final long serialVersionUID = 7491430318788362737L;
@@ -36,6 +29,9 @@ public abstract class Employee extends LogManager implements Serializable {
     private Date appointmentDate;
     @Column(name = "gender")
     private Character gender;
+
+    @ManyToOne
+    private Zoo zoo;
 
     public Employee() {
         super();
