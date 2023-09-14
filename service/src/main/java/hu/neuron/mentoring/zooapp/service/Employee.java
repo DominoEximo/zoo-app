@@ -30,19 +30,19 @@ public abstract class Employee extends LogManager implements Serializable {
     @Column(name = "gender")
     private Character gender;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Zoo zoo;
 
     public Employee() {
         super();
     }
 
-    public Employee(Integer id,String name, Date birthDate, Date appointmentDate, char gender) {
-        this.id = id;
+    public Employee(String name, Date birthDate, Date appointmentDate, char gender,Zoo zoo) {
         this.name = name;
         this.birthDate = birthDate;
         this.appointmentDate = appointmentDate;
         this.gender = gender;
+        this.zoo = zoo;
     }
 
 
@@ -84,6 +84,14 @@ public abstract class Employee extends LogManager implements Serializable {
 
     public void setAppointmentDate(Date appointmentDate) {
         this.appointmentDate = appointmentDate;
+    }
+
+    public Zoo getZoo() {
+        return zoo;
+    }
+
+    public void setZoo(Zoo zoo) {
+        this.zoo = zoo;
     }
 
     @Override

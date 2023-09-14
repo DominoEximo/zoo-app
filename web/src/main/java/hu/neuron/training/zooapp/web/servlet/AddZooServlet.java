@@ -34,7 +34,7 @@ public class AddZooServlet extends HttpServlet {
         Character gender = g.charAt(0);
 
         Zoo newZoo = new Zoo(name);
-        newZoo.setDirector(new Director(directorName, birthDate, appointmentDate, gender));
+        newZoo.setDirector(new Director(directorName, birthDate, appointmentDate, gender,newZoo));
 
 
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);

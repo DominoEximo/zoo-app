@@ -1,17 +1,21 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
 import hu.neuron.mentoring.zooapp.service.*;
+import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeeDao implements Dao<Employee>{
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ZooPU");
-    EntityManager em = emf.createEntityManager();
+    EntityManagerFactory emf = EntityManagement.getInstance().getEmf();
+    EntityManager em = EntityManagement.getInstance().getEm();
 
     public EmployeeDao(){}
 
@@ -26,18 +30,29 @@ public class EmployeeDao implements Dao<Employee>{
         return employee;
     }
 
-    @Override
-    public List<Employee> getAll() {
-        return null;
+    public List<Employee> findByZoo(Zoo zoo){
+        List<Employee> employees = getAll().stream()
+                .filter(e -> zoo.equals(e.getZoo()))
+                .collect(Collectors.toList());
+
+        return  employees;
     }
 
+    @Override
+    public List<Employee> getAll() {
+        List<Employee> employees = em.createQuery("Select gondozoo from GondoZoo gondozoo",Employee.class).getResultList();
+        return employees;
+    }
 
     public void save(Employee newEmployee) {
         em.getTransaction().begin();
-        em.persist(newEmployee);
+        if(em.contains(newEmployee)){
+            em.merge(newEmployee);
+        }else {
+            em.persist(newEmployee);
+        }
         em.getTransaction().commit();
-        emf.close();
-        em.close();
+
     }
 
     @Override

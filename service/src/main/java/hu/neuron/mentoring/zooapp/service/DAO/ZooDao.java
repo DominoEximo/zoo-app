@@ -1,6 +1,7 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
 import hu.neuron.mentoring.zooapp.service.Employee;
+import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,8 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Component
 public class ZooDao implements Dao<Zoo>{
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ZooPU");
-    EntityManager em = emf.createEntityManager();
+    EntityManagerFactory emf = EntityManagement.getInstance().getEmf();
+    EntityManager em = EntityManagement.getInstance().getEm();
 
 
     @Autowired
@@ -53,8 +54,7 @@ public class ZooDao implements Dao<Zoo>{
         em.getTransaction().begin();
         em.persist(newZoo);
         em.getTransaction().commit();
-        emf.close();
-        em.close();
+
 
 
 

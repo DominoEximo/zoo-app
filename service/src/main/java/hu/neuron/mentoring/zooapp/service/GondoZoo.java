@@ -22,9 +22,9 @@ public class GondoZoo extends Employee {
         super();
     }
 
-    public GondoZoo(Integer id,String name, Date birthDate, Date appointmentDate, Character gender,
-                    List<Species> suppliedAnimals) {
-        super(id,name,birthDate,appointmentDate,gender);
+    public GondoZoo(String name, Date birthDate, Date appointmentDate, Character gender,
+                    List<Species> suppliedAnimals, Zoo zoo) {
+        super(name,birthDate,appointmentDate,gender,zoo);
         this.suppliedAnimals = suppliedAnimals;
     }
 

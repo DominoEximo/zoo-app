@@ -1,6 +1,7 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
 import hu.neuron.mentoring.zooapp.service.*;
+import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,8 +16,8 @@ public class ReservationDao implements Dao<Reservation>{
     private Connection conn;
     private PreparedStatement myStmt;
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ZooPU");
-    EntityManager em = emf.createEntityManager();
+    EntityManagerFactory emf = EntityManagement.getInstance().getEmf();
+    EntityManager em = EntityManagement.getInstance().getEm();
 
     public ReservationDao(){}
 

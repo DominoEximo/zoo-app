@@ -2,6 +2,7 @@ package hu.neuron.mentoring.zooapp.service.DAO;
 
 import hu.neuron.mentoring.zooapp.service.Animal;
 import hu.neuron.mentoring.zooapp.service.Employee;
+import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
 import hu.neuron.mentoring.zooapp.service.Species;
 
 import javax.persistence.EntityManager;
@@ -18,8 +19,8 @@ public class AnimalDao implements Dao<Animal>{
     private PreparedStatement myStmt = null;
     private ResultSet zooResult = null;
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ZooPU");
-    EntityManager em = emf.createEntityManager();
+    EntityManagerFactory emf = EntityManagement.getInstance().getEmf();
+    EntityManager em = EntityManagement.getInstance().getEm();
 
     public AnimalDao(){}
 

@@ -20,8 +20,8 @@ public class Cleaner extends Employee {
         super();
     }
 
-    public Cleaner(Integer id,String name, Date birthDate, Date appointmentDate, Character gender, List<CleanedArea> cleanedAreas) {
-        super(id,name, birthDate,appointmentDate, gender);
+    public Cleaner(String name, Date birthDate, Date appointmentDate, Character gender, List<CleanedArea> cleanedAreas, Zoo zoo) {
+        super(name, birthDate,appointmentDate, gender,zoo);
 
         this.cleanedAreas = cleanedAreas;
     }

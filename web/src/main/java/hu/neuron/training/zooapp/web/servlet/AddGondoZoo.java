@@ -108,9 +108,9 @@ public class AddGondoZoo extends HttpServlet {
 
         }
 
-        empDao.save(new GondoZoo(currentZoo.get(0).getId(), name, birthDate, appointmentDate, gender, suppliedAnimals));
+        empDao.save(new GondoZoo( name, birthDate, appointmentDate, gender, suppliedAnimals,zooDao.findById(zooID)));
 
-        req.setAttribute("employees", empDao.findById(currentZoo.get(0).getId()));
+        req.setAttribute("employees", empDao.findByZoo(currentZoo.get(0)));
         manager.closeConnection();
 
         req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);

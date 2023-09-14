@@ -43,7 +43,7 @@ public class EmployeeServlet extends HttpServlet {
 
         }
         if (currentZoo.size() != 0) {
-            //req.setAttribute("employees", zooDao.findById(currentZoo.get(0).getId()).getEployees());
+            req.setAttribute("employees", empDao.findByZoo(currentZoo.get(0)));
 
         }
 

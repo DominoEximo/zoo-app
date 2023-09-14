@@ -75,10 +75,10 @@ public class AddCleaner extends HttpServlet {
 
         }
 
-        empDao.save(new Cleaner(currentZoo.get(0).getId(), name, birthDate, appointmentDate, gender, cleanedAreas));
+        empDao.save(new Cleaner(name, birthDate, appointmentDate, gender, cleanedAreas,currentZoo.get(0)));
 
 
-        req.setAttribute("employees", empDao.findById(currentZoo.get(0).getId()));
+        req.setAttribute("employees", empDao.findByZoo(currentZoo.get(0)));
         manager.closeConnection();
         req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);
     }

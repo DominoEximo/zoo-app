@@ -16,8 +16,8 @@ public class Director extends Employee implements Serializable {
         super();
     }
 
-    public Director(String name, Date birthDate, Date appointmentDate, Character gender) {
-        super(null,name, birthDate, appointmentDate, gender);
+    public Director(String name, Date birthDate, Date appointmentDate, Character gender,Zoo zoo) {
+        super(name, birthDate, appointmentDate, gender,zoo);
     }
 
     @Override
