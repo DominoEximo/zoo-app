@@ -3,7 +3,6 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Animal;
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Species;
@@ -28,11 +27,11 @@ public class AddAnimal extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
-        ConnectionManager manager = ac.getBean(ConnectionManager.class);
+
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
         AnimalDao animalDao = ac.getBean(AnimalDao.class);
-        animalDao.connect(manager.getMyConn());
+
 
         String specie = req.getParameter("species");
         Species species = null;
@@ -105,7 +104,6 @@ public class AddAnimal extends HttpServlet {
 
 
         req.setAttribute("animals", animalDao.findById(currentZoo.get(0).getId()));
-        manager.closeConnection();
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req, resp);
     }

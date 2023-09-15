@@ -6,7 +6,6 @@ import hu.neuron.mentoring.zooapp.service.*;
 import java.sql.*;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
@@ -29,11 +28,11 @@ public class AddGondoZoo extends HttpServlet {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
 
-        ConnectionManager manager = ac.getBean(ConnectionManager.class);
+
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
         EmployeeDao empDao = ac.getBean(EmployeeDao.class);
-        empDao.connect();
+
 
         String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
@@ -102,16 +101,17 @@ public class AddGondoZoo extends HttpServlet {
 
         for (Zoo zoo : zooDao.getAll()) {
             if (zooID.equals(zoo.getId())) {
-
                 currentZoo.add(zoo);
+                empDao.save(new GondoZoo( name, birthDate, appointmentDate, gender, suppliedAnimals,zoo));
             }
 
         }
 
-        empDao.save(new GondoZoo( name, birthDate, appointmentDate, gender, suppliedAnimals,zooDao.findById(zooID)));
+
 
         req.setAttribute("employees", empDao.findByZoo(currentZoo.get(0)));
-        manager.closeConnection();
+        req.setAttribute("id", zooID);
+
 
         req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);
     }

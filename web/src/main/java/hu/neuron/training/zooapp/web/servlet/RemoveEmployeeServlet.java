@@ -2,7 +2,6 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.*;
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
@@ -25,11 +24,10 @@ public class RemoveEmployeeServlet extends HttpServlet {
 
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
-        ConnectionManager manager = ac.getBean(ConnectionManager.class);
+
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect();
         EmployeeDao empDao = ac.getBean(EmployeeDao.class);
-        empDao.connect();
+
 
         Integer id = Integer.parseInt(req.getParameter("id"));
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));
@@ -41,9 +39,9 @@ public class RemoveEmployeeServlet extends HttpServlet {
         empDao.delete(empDao.findById(id));
 
 
-        //req.setAttribute("employees", zooDao.findById(zooID).getEployees());
+        req.setAttribute("employees", empDao.findByZoo(zooDao.findById(zooID)));
         req.setAttribute("id", zooID);
-        manager.closeConnection();
+
 
         req.getRequestDispatcher("listEmployee.jsp").forward(req, resp);
 

@@ -2,7 +2,7 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import com.google.gson.Gson;
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,10 +25,8 @@ public class ZooNamesServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
-        ConnectionManager manager = new ConnectionManager();
+        ApplicationContext ac = ContextManager.getInstance().getAc();
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect();
 
         String term = req.getParameter("term");
         String q = term.toLowerCase();

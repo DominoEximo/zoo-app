@@ -2,7 +2,6 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.*;
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
@@ -27,11 +26,9 @@ public class CreateReservationServlet extends HttpServlet {
 
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
-        ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
         ReservationDao resDao = ac.getBean(ReservationDao.class);
-        resDao.connect(manager.getMyConn());
 
 
         Integer id = Integer.parseInt(req.getParameter("id"));
@@ -108,7 +105,6 @@ public class CreateReservationServlet extends HttpServlet {
 
         currentZoo.get(0).reserve(new Reservation(id, name, reservationDate, visitDate, tickets, discount, price));
         resDao.save(new Reservation(id, name, reservationDate, visitDate, tickets, discount, price), currentZoo.get(0));
-        manager.closeConnection();
 
 
         req.setAttribute("currentZoo", currentZoo.get(0));

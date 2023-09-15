@@ -1,7 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
+import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
 import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
@@ -24,13 +24,13 @@ public class EmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+        ApplicationContext ac = ContextManager.getInstance().getAc();
 
-        ConnectionManager manager = ac.getBean(ConnectionManager.class);
+
         ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect();
+
         EmployeeDao empDao = ac.getBean(EmployeeDao.class);
-        empDao.connect();
+
 
         String name = req.getParameter("name");
 
@@ -42,13 +42,13 @@ public class EmployeeServlet extends HttpServlet {
             }
 
         }
-        if (currentZoo.size() != 0) {
+
             req.setAttribute("employees", empDao.findByZoo(currentZoo.get(0)));
 
-        }
 
-        req.setAttribute("id", String.valueOf(currentZoo.get(0).getId()));
-        manager.closeConnection();
+
+        req.setAttribute("id",currentZoo.get(0).getId());
+
 
         req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);
         //resp.sendRedirect("listEmployee.jsp");

@@ -1,9 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
-import hu.neuron.mentoring.zooapp.service.Zoo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +23,6 @@ public class DeleteZooServlet extends HttpServlet {
 
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
-        ConnectionManager manager = ac.getBean(ConnectionManager.class);
 
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
@@ -35,7 +32,6 @@ public class DeleteZooServlet extends HttpServlet {
         }
 
         req.setAttribute("zoos", zooDao.getAll());
-        manager.closeConnection();
         req.getRequestDispatcher("listZoos.jsp").forward(req, resp);
     }
 

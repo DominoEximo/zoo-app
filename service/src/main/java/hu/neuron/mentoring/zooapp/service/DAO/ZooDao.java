@@ -52,7 +52,11 @@ public class ZooDao implements Dao<Zoo>{
 
 
         em.getTransaction().begin();
-        em.persist(newZoo);
+        if(em.contains(newZoo)){
+            em.merge(newZoo);
+        }else {
+            em.persist(newZoo);
+        }
         em.getTransaction().commit();
 
 

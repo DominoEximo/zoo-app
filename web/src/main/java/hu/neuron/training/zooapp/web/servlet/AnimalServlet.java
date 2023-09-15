@@ -1,7 +1,6 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
@@ -34,11 +33,9 @@ public class AnimalServlet extends HttpServlet {
 
 
 
-        ConnectionManager manager = ac.getBean(ConnectionManager.class);
         ZooDao zooDao = ac.getBean(ZooDao.class);
         zooDao.connect();
         AnimalDao animalDao = ac.getBean(AnimalDao.class);
-        animalDao.connect(manager.getMyConn());
         String name = req.getParameter("name");
 
         List<Zoo> currentZoo = new ArrayList<>();
@@ -55,7 +52,6 @@ public class AnimalServlet extends HttpServlet {
 
         }
         req.setAttribute("id", currentZoo.get(0).getId());
-        manager.closeConnection();
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req, resp);
         //resp.sendRedirect("listEmployee.jsp");

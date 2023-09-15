@@ -41,6 +41,8 @@ public class EmployeeDao implements Dao<Employee>{
     @Override
     public List<Employee> getAll() {
         List<Employee> employees = em.createQuery("Select gondozoo from GondoZoo gondozoo",Employee.class).getResultList();
+
+
         return employees;
     }
 

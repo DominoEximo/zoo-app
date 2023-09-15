@@ -1,7 +1,5 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ConnectionManager;
 import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
@@ -11,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,9 +27,9 @@ public class ZooTransfer extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        ConnectionManager manager = ac.getBean(ConnectionManager.class);
+
         ZooDao zooDao = new ZooDao();
-        zooDao.connect();
+
 
         Integer id = Integer.parseInt(req.getParameter("zooID"));
         String source = req.getParameter("source");

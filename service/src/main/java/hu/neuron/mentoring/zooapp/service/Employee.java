@@ -30,7 +30,7 @@ public abstract class Employee extends LogManager implements Serializable {
     @Column(name = "gender")
     private Character gender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Zoo zoo;
 
     public Employee() {
