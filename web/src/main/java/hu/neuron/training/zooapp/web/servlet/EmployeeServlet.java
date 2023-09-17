@@ -39,11 +39,12 @@ public class EmployeeServlet extends HttpServlet {
         for (Zoo zoo : zooDao.getAll()) {
             if (name.equals(zoo.getName())) {
                 currentZoo.add(zoo);
+                System.out.println(currentZoo.get(0).getId());
             }
 
         }
 
-            req.setAttribute("employees", empDao.findByZoo(currentZoo.get(0)));
+            req.setAttribute("employees", empDao.findByZoo(zooDao.findById(currentZoo.get(0).getId())));
 
 
 

@@ -32,7 +32,7 @@ public class EmployeeDao implements Dao<Employee>{
 
     public List<Employee> findByZoo(Zoo zoo){
         List<Employee> employees = getAll().stream()
-                .filter(e -> zoo.equals(e.getZoo()))
+                .filter(e -> zoo.getId().equals(e.getZoo().getId()))
                 .collect(Collectors.toList());
 
         return  employees;
@@ -41,7 +41,8 @@ public class EmployeeDao implements Dao<Employee>{
     @Override
     public List<Employee> getAll() {
         List<Employee> employees = em.createQuery("Select gondozoo from GondoZoo gondozoo",Employee.class).getResultList();
-
+        List<Employee> employees1 = em.createQuery("Select cleaner from Cleaner cleaner",Employee.class).getResultList();
+        employees.addAll(employees1);
 
         return employees;
     }
@@ -67,7 +68,5 @@ public class EmployeeDao implements Dao<Employee>{
         em.getTransaction().begin();
         em.remove(employee);
         em.getTransaction().commit();
-        emf.close();
-        em.close();
     }
 }

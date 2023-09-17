@@ -30,14 +30,14 @@ public abstract class Employee extends LogManager implements Serializable {
     @Column(name = "gender")
     private Character gender;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Zoo zoo;
 
     public Employee() {
         super();
     }
 
-    public Employee(String name, Date birthDate, Date appointmentDate, char gender,Zoo zoo) {
+    public Employee(String name, Date birthDate, Date appointmentDate, char gender, Zoo zoo) {
         this.name = name;
         this.birthDate = birthDate;
         this.appointmentDate = appointmentDate;
@@ -86,14 +86,6 @@ public abstract class Employee extends LogManager implements Serializable {
         this.appointmentDate = appointmentDate;
     }
 
-    public Zoo getZoo() {
-        return zoo;
-    }
-
-    public void setZoo(Zoo zoo) {
-        this.zoo = zoo;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(appointmentDate, birthDate, gender, name);
@@ -119,5 +111,9 @@ public abstract class Employee extends LogManager implements Serializable {
     }
 
     public abstract List<Job> logJob(Zoo zoo);
+
+    public Zoo getZoo() {
+        return zoo;
+    }
 }
 
