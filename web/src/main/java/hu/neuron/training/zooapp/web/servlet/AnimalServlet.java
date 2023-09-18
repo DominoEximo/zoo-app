@@ -46,12 +46,12 @@ public class AnimalServlet extends HttpServlet {
             }
 
         }
-        if (currentZoo.size() != 0 && !animalDao.findById(currentZoo.get(0).getId()).equals(null)) {
-            req.setAttribute("animals", animalDao.findById(currentZoo.get(0).getId()));
+        if (currentZoo.size() != 0) {
+            req.setAttribute("animals", animalDao.findbyZoo(currentZoo.get(0)));
+            req.setAttribute("id", currentZoo.get(0).getId());
 
 
         }
-        req.setAttribute("id", currentZoo.get(0).getId());
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req, resp);
         //resp.sendRedirect("listEmployee.jsp");

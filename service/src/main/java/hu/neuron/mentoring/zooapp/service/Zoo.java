@@ -42,14 +42,10 @@ public class Zoo implements Serializable {
     private Director director;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
     @JoinColumn(name = "zoo_fk")
-    private List<Animal> animals;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
-    @JoinColumn(name = "zoo_fk")
     private List<Reservation> reservations;
 
     public Zoo() {
 
-        animals = new ArrayList<>();
 
         reservations = new ArrayList<>();
         counter++;
@@ -57,7 +53,6 @@ public class Zoo implements Serializable {
     public Zoo(String name) {
         this.setName(name);
 
-        animals = new ArrayList<>();
 
         reservations = new ArrayList<>();
         counter++;
@@ -65,7 +60,7 @@ public class Zoo implements Serializable {
 
     public Zoo(Director director) {
 
-        animals = new ArrayList<>();
+
 
         reservations = new ArrayList<>();
         counter++;
@@ -198,14 +193,7 @@ public class Zoo implements Serializable {
         return records;
     }*/
 
-    public void listAnimalsWithSpecies(Species species) {
-        for (Animal animal : animals) {
-            if (animal.getSpecies().equals(species)) {
-                logger.info(String.format("%s", animal));
-            }
-        }
 
-    }
 
     public static void listZoos() {
         logger.info("Az országnak " + counter + " állatkertje van jelenleg. \n");
@@ -214,10 +202,7 @@ public class Zoo implements Serializable {
 
 
 
-    public void sellAnimal(Animal animal) {
-        logger.info("Az " + animal.getNickname() + " nevú állatot eladták.");
-        this.animals.remove(animal);
-    }
+
 
 
 
@@ -236,25 +221,11 @@ public class Zoo implements Serializable {
 
     }
 
-    public void animalCount() {
-        logger.info("Az állatkertnek " + animals.size() + " lakója van jelenleg! \n");
-    }
 
-    public void listAnimals() {
-        if (animals != null) {
-            for (Animal animal : animals) {
-                logger.info(String.format("%s", animal));
-            }
-        }
 
-    }
 
-    public void sortAnimals() {
-        Collections.sort(animals, new CompareAnimals());
-        for (Animal animal : animals) {
-            logger.info(String.format("%s", animal));
-        }
-    }
+
+
 
     public Integer getId() {
         return id;
@@ -280,13 +251,6 @@ public class Zoo implements Serializable {
 
 
 
-    public List<Animal> getAnimals() {
-        return animals;
-    }
-
-    public void setAnimals(List<Animal> animals) {
-        this.animals = animals;
-    }
 
     public void listReservations() {
         for (Reservation reservation : reservations) {
@@ -314,11 +278,11 @@ public class Zoo implements Serializable {
     class Moving {
 
         public void move(Zoo from, Zoo to) {
-            to.setAnimals(from.getAnimals());
+
             to.setDirector(from.getDirector());
             counter--;
             from.setDirector(null);
-            from.setAnimals(null);
+            
         }
 
     }

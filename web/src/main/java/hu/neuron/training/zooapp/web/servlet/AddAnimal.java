@@ -95,15 +95,16 @@ public class AddAnimal extends HttpServlet {
         for (Zoo zoo : zooDao.getAll()) {
             if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
+                animalDao.save(new Animal(species, nickname, birthDate, gender,zoo));
             }
 
         }
 
 
-        animalDao.save(new Animal(currentZoo.get(0).getId(), species, nickname, birthDate, gender));
 
 
-        req.setAttribute("animals", animalDao.findById(currentZoo.get(0).getId()));
+
+        req.setAttribute("animals", animalDao.findbyZoo(currentZoo.get(0)));
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req, resp);
     }

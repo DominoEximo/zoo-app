@@ -20,19 +20,22 @@ public class Animal implements Serializable{
     @Column(name = "gender")
     private Character gender;
 
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private Zoo zoo;
+
 
     public Animal() {
         super();
     }
 
 
-    public Animal(Integer id,Species species, String nickname, Date birth_date, Character gender) {
+    public Animal(Species species, String nickname, Date birth_date, Character gender,Zoo zoo) {
         super();
-        this.id = id;
         this.species = species;
         this.nickname = nickname;
         this.birthDate = birth_date;
         this.gender = gender;
+        this.zoo = zoo;
     }
 
     public Integer getId() {
@@ -73,6 +76,14 @@ public class Animal implements Serializable{
 
     public void setGender(char gender) {
         this.gender = gender;
+    }
+
+    public Zoo getZoo() {
+        return zoo;
+    }
+
+    public void setZoo(Zoo zoo) {
+        this.zoo = zoo;
     }
 
     @Override

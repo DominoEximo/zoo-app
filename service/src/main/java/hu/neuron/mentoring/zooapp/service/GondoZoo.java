@@ -67,22 +67,7 @@ public class GondoZoo extends Employee {
 
     @Override
     public List<Job> logJob(Zoo zoo) {
-        ArrayList<Job> records = new ArrayList<>();
-        HashSet<Species> currentTypesOfAnimals = new HashSet<>();
-
-        for (Animal animal : zoo.getAnimals()) {
-            currentTypesOfAnimals.add(animal.getSpecies());
-        }
-
-        for (Species animal : this.getSuppliedAnimals()) {
-            if (currentTypesOfAnimals.contains(animal)) {
-                records.add(new Job(2, String.format("%s gondozás", animal), this));
-            }
-
-        }
-
-        return records;
+        return null;
     }
-
 }
 

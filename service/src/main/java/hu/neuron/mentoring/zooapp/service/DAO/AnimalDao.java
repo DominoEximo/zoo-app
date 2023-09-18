@@ -1,9 +1,11 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
+import com.beust.ah.A;
 import hu.neuron.mentoring.zooapp.service.Animal;
 import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
 import hu.neuron.mentoring.zooapp.service.Species;
+import hu.neuron.mentoring.zooapp.service.Zoo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,6 +14,7 @@ import javax.persistence.Persistence;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AnimalDao implements Dao<Animal>{
 
@@ -38,24 +41,29 @@ public class AnimalDao implements Dao<Animal>{
         return animal;
     }
 
+    public List<Animal> findbyZoo(Zoo zoo){
+        List<Animal> animals = getAll().stream()
+                .filter(e -> zoo.getId().equals(e.getZoo().getId()))
+                .collect(Collectors.toList());
+
+        return  animals;
+    }
     @Override
     public List<Animal> getAll() {
-        return null;
+        List<Animal> animals = em.createQuery("Select animal from Animal animal",Animal.class).getResultList();
+
+
+        return animals;
     }
 
     public void save(Animal animal){
-        try{
-            myStmt = conn.prepareStatement("INSERT INTO animal(id,species,nickname,birthDate,gender) VALUES(?,?,?,?,?)");
-            myStmt.setInt(1,animal.getId());
-            myStmt.setString(2, String.valueOf(animal.getSpecies()));
-            myStmt.setString(3,animal.getNickname());
-            myStmt.setDate(4,animal.getBirth_date());
-            myStmt.setString(5,String.valueOf(animal.getGender()));
-            myStmt.executeUpdate();
-            conn.commit();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
+        em.getTransaction().begin();
+        if(em.contains(animal)){
+            em.merge(animal);
+        }else {
+            em.persist(animal);
         }
+        em.getTransaction().commit();
 
     }
 
@@ -66,14 +74,8 @@ public class AnimalDao implements Dao<Animal>{
 
     @Override
     public void delete(Animal animal) {
-        try{
-            myStmt = conn.prepareStatement("DELETE FROM animal where id = ? and nickname = ?");
-            myStmt.setInt(1,animal.getId());
-            myStmt.setString(2, animal.getNickname());
-            myStmt.executeUpdate();
-            conn.commit();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
+        em.getTransaction().begin();
+        em.remove(animal);
+        em.getTransaction().commit();
     }
 }

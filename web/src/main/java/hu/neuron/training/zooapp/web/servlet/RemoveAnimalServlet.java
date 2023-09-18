@@ -34,7 +34,7 @@ public class RemoveAnimalServlet extends HttpServlet {
 
         animalDao.delete( animalDao.findById(animalID));
 
-        req.setAttribute("animals", zooDao.findById(zooID).getAnimals());
+        req.setAttribute("animals", animalDao.findbyZoo(zooDao.findById(zooID)));
         req.setAttribute("id", zooID);
 
 
