@@ -2,8 +2,7 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.*;
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.DAO.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,24 +21,31 @@ public class RemoveEmployeeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
 
-        ZooDao zooDao = ac.getBean(ZooDao.class);
-        EmployeeDao empDao = ac.getBean(EmployeeDao.class);
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
+        CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
 
 
         Integer id = Integer.parseInt(req.getParameter("id"));
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));
-
-        String employeeToBeRemoved = req.getParameter("name");
-
-        List<Zoo> currentZoo = new ArrayList<>();
-
-        empDao.delete(empDao.findById(id));
+        String type = req.getParameter("class");
 
 
-        req.setAttribute("employees", empDao.findByZoo(zooDao.findById(zooID)));
+
+        Zoo currentZoo = zooDao.findById(zooID);
+
+        if("class hu.neuron.mentoring.zooapp.service.GondoZoo".equals(type)){
+            gondoZooDao.delete(gondoZooDao.findById(id));
+        } else if ("class hu.neuron.mentoring.zooapp.service.Cleaner".equals(type)) {
+            cleanerDao.delete(cleanerDao.findById(id));
+        }
+
+
+        List<Employee> employees = gondoZooDao.findByZoo(currentZoo);
+        employees.addAll(cleanerDao.findByZoo(currentZoo));
+        req.setAttribute("employees", employees);
         req.setAttribute("id", zooID);
 
 

@@ -1,5 +1,6 @@
 package hu.neuron.training.zooapp.web.servlet;
 
+import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,8 +22,7 @@ public class ZooListServlet extends HttpServlet {
 
 
 
-        ZooDao zooDao = new ZooDao();
-        zooDao.connect();
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
 
         req.setAttribute("zoos",zooDao.getAll());
 

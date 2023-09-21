@@ -1,6 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
+import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
@@ -19,12 +20,12 @@ public class ListReservationsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
 
-        ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect();
-        ReservationDao resDao = ac.getBean(ReservationDao.class);
+
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+
+        ReservationDao resDao = DaoManager.getInstance().getReservationDao();
 
 
 

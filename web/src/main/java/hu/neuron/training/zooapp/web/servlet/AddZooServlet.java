@@ -1,6 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
+import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Director;
 import hu.neuron.mentoring.zooapp.service.Zoo;
@@ -35,11 +36,7 @@ public class AddZooServlet extends HttpServlet {
         Zoo newZoo = new Zoo(name);
         newZoo.setDirector(new Director(directorName, birthDate, appointmentDate, gender,newZoo));
 
-
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
-
-        ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect();
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
 
         zooDao.save(newZoo);
 

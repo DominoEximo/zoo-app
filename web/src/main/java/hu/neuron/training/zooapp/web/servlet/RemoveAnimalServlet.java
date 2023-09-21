@@ -2,6 +2,7 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
+import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,12 +20,12 @@ public class RemoveAnimalServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
 
-        ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect();
-        AnimalDao animalDao = ac.getBean(AnimalDao.class);
+
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+
+        AnimalDao animalDao = DaoManager.getInstance().getAnimalDao();
 
 
         Integer animalID = Integer.parseInt(req.getParameter("animalID"));

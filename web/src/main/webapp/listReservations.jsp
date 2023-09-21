@@ -32,7 +32,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <c:forEach var="reservation" items="${Reservations.findById(zoo.id)}">
+                            <c:forEach var="reservation" items="${Reservations.findByZoo(zoo)}">
 
                                              <tr>
                                                 <td>

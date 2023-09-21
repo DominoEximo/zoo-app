@@ -1,10 +1,8 @@
 package hu.neuron.mentoring.zooapp.service.Config;
 
 
-import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
-import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
-import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.Cleaner;
+import hu.neuron.mentoring.zooapp.service.DAO.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +20,10 @@ public class ConnectionConfig {
 
     @Bean
     public EmployeeDao employeeDao() {return new EmployeeDao();}
+    @Bean
+    public GondoZooDao gondoZooDao() {return new GondoZooDao();}
+    @Bean
+    public CleanerDao cleanerDao() {return new CleanerDao();}
 
     @Bean
     public ReservationDao reservationDao() {return new ReservationDao();}

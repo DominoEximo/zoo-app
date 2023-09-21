@@ -1,6 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
+import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import jakarta.servlet.ServletException;
@@ -28,7 +29,7 @@ public class ZooTransfer extends HttpServlet {
 
 
 
-        ZooDao zooDao = new ZooDao();
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
 
 
         Integer id = Integer.parseInt(req.getParameter("zooID"));

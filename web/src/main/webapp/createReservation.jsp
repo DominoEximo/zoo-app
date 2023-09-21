@@ -30,13 +30,9 @@
 </head>
 <body>
     <div class="container">
-      <h2>Zoo</h2>
+      <h2>Reservation</h2>
       <form action= "createReservationServlet" method="GET">
         <input type="hidden" name="zoo" value="${currentZoo.name}">
-        <div class="form-group">
-          <label for="id">Name</label>
-          <input type="text" class="form-control" id="id" placeholder="ID" name="id">
-        </div>
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name" placeholder="Name" name="name">

@@ -6,8 +6,8 @@ import java.sql.*;
 import hu.neuron.mentoring.zooapp.service.CleanedArea;
 import hu.neuron.mentoring.zooapp.service.Cleaner;
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.DAO.*;
+import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,10 +26,10 @@ public class AddCleaner extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
-        ZooDao zooDao = ac.getBean(ZooDao.class);
-        EmployeeDao empDao = ac.getBean(EmployeeDao.class);
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
+        CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
 
         String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
@@ -67,14 +67,17 @@ public class AddCleaner extends HttpServlet {
         for (Zoo zoo : zooDao.getAll()) {
             if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
-                empDao.save(new Cleaner(name, birthDate, appointmentDate, gender, cleanedAreas,zoo));
+                cleanerDao.save(new Cleaner(name, birthDate, appointmentDate, gender, cleanedAreas,zoo));
             }
 
         }
 
 
 
-        req.setAttribute("employees", empDao.findByZoo(currentZoo.get(0)));
+        List<Employee> employees = gondoZooDao.findByZoo(currentZoo.get(0));
+        employees.addAll(cleanerDao.findByZoo(currentZoo.get(0)));
+        req.setAttribute("employees", employees);
+        req.setAttribute("id", zooID);
         req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);
     }
 

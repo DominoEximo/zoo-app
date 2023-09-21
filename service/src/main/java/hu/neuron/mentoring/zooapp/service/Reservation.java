@@ -25,18 +25,21 @@ public class Reservation implements Serializable {
     private Integer discount;
     @Column(name = "price")
     private Integer price;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private Zoo zoo;
 
     public  Reservation(){};
-    public Reservation(Integer id,String name, Date reservationDate, Date visitDate, List<Ticket> tickets, Integer discount,
-                       Integer price) {
+    public Reservation(String name, Date reservationDate, Date visitDate, List<Ticket> tickets, Integer discount,
+                       Integer price, Zoo zoo) {
         super();
-        this.id = id;
+
         this.name = name;
         this.reservationDate = reservationDate;
         this.visitDate = visitDate;
         this.tickets = tickets;
         this.discount = discount;
         this.price = price;
+        this.zoo = zoo;
     }
 
     public Integer getId() {
@@ -93,6 +96,14 @@ public class Reservation implements Serializable {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public Zoo getZoo() {
+        return zoo;
+    }
+
+    public void setZoo(Zoo zoo) {
+        this.zoo = zoo;
     }
 
     @Override

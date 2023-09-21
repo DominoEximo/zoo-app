@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReservationDao implements Dao<Reservation>{
 
@@ -35,32 +36,30 @@ public class ReservationDao implements Dao<Reservation>{
         return reservation;
     }
 
-    @Override
-    public List<Reservation> getAll() {
-        return null;
+    public List<Reservation> findByZoo(Zoo zoo){
+        List<Reservation> reservations = getAll().stream()
+                .filter(e -> zoo.getId().equals(e.getZoo().getId()))
+                .collect(Collectors.toList());
+
+        return  reservations;
     }
 
-    public void save(Reservation reservation, Zoo currentZoo){
-        try {
-        myStmt = conn.prepareStatement("INSERT INTO reservation VALUES(?,?,?,?,?,?,?,?)");
-        myStmt.setInt(1,reservation.getId());
-        myStmt.setInt(2, currentZoo.getId());
-        myStmt.setString(3,reservation.getName());
-        myStmt.setDate(4,reservation.getReservationDate());
-        myStmt.setDate(5,reservation.getVisitDate());
-        myStmt.setInt(6,reservation.getId() );
-        myStmt.setInt(7,reservation.getDiscount());
-        myStmt.setInt(8,reservation.getPrice());
-        myStmt.executeUpdate();
-        myStmt = conn.prepareStatement("INSERT INTO ticket VALUES(?,?,?)");
-        myStmt.setInt(1,reservation.getId());
-        myStmt.setString(2,String.valueOf(reservation.getTickets().get(0).getType()));
-        myStmt.setString(3,String.valueOf(reservation.getTickets().get(0).getVariant()));
-        myStmt.executeUpdate();
-        conn.commit();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
+    @Override
+    public List<Reservation> getAll() {
+        List<Reservation> reservations = em.createQuery("Select reservation from Reservation reservation",Reservation.class).getResultList();
+
+
+        return reservations;
+    }
+
+    public void save(Reservation reservation){
+        em.getTransaction().begin();
+        if(em.contains(reservation)){
+            em.merge(reservation);
+        }else {
+            em.persist(reservation);
         }
+        em.getTransaction().commit();
     }
 
     @Override

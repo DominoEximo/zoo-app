@@ -2,6 +2,7 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.*;
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
+import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import jakarta.servlet.ServletException;
@@ -24,14 +25,11 @@ public class CreateReservationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
-
-        ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect();
-        ReservationDao resDao = ac.getBean(ReservationDao.class);
 
 
-        Integer id = Integer.parseInt(req.getParameter("id"));
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        ReservationDao resDao = DaoManager.getInstance().getReservationDao();
+
 
         String zooName = req.getParameter("zoo");
         String name = req.getParameter("name");
@@ -103,8 +101,8 @@ public class CreateReservationServlet extends HttpServlet {
 
         }
 
-        currentZoo.get(0).reserve(new Reservation(id, name, reservationDate, visitDate, tickets, discount, price));
-        resDao.save(new Reservation(id, name, reservationDate, visitDate, tickets, discount, price), currentZoo.get(0));
+        currentZoo.get(0).reserve(new Reservation( name, reservationDate, visitDate, tickets, discount, price,currentZoo.get(0)));
+        resDao.save(new Reservation( name, reservationDate, visitDate, tickets, discount, price,currentZoo.get(0)));
 
 
         req.setAttribute("currentZoo", currentZoo.get(0));

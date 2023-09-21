@@ -2,8 +2,8 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
-import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.DAO.*;
+import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,12 +24,12 @@ public class EmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ApplicationContext ac = ContextManager.getInstance().getAc();
 
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
 
-        ZooDao zooDao = ac.getBean(ZooDao.class);
+        GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
 
-        EmployeeDao empDao = ac.getBean(EmployeeDao.class);
+        CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
 
 
         String name = req.getParameter("name");
@@ -44,7 +44,10 @@ public class EmployeeServlet extends HttpServlet {
 
         }
 
-            req.setAttribute("employees", empDao.findByZoo(zooDao.findById(currentZoo.get(0).getId())));
+            List<Employee> employees = gondoZooDao.findByZoo(currentZoo.get(0));
+            employees.addAll(cleanerDao.findByZoo(currentZoo.get(0)));
+            req.setAttribute("employees", employees);
+
 
 
 

@@ -6,8 +6,7 @@ import hu.neuron.mentoring.zooapp.service.*;
 import java.sql.*;
 
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.DAO.EmployeeDao;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.DAO.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,9 +28,9 @@ public class AddGondoZoo extends HttpServlet {
 
 
 
-        ZooDao zooDao = ac.getBean(ZooDao.class);
-        zooDao.connect();
-        EmployeeDao empDao = ac.getBean(EmployeeDao.class);
+        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
+        CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
 
 
         String name = req.getParameter("name");
@@ -102,14 +101,16 @@ public class AddGondoZoo extends HttpServlet {
         for (Zoo zoo : zooDao.getAll()) {
             if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
-                empDao.save(new GondoZoo( name, birthDate, appointmentDate, gender, suppliedAnimals,zoo));
+                gondoZooDao.save(new GondoZoo( name, birthDate, appointmentDate, gender, suppliedAnimals,zoo));
             }
 
         }
 
 
 
-        req.setAttribute("employees", empDao.findByZoo(currentZoo.get(0)));
+        List<Employee> employees = gondoZooDao.findByZoo(currentZoo.get(0));
+        employees.addAll(cleanerDao.findByZoo(currentZoo.get(0)));
+        req.setAttribute("employees", employees);
         req.setAttribute("id", zooID);
 
 
