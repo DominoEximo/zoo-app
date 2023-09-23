@@ -1,13 +1,14 @@
 package hu.neuron.mentoring.zooapp.service.EntitiManager;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
 
 public class EntityManagement {
-
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ZooPU");
-    EntityManager em = emf.createEntityManager();
+    @Autowired
+    EntityManagerFactory emf;
+    @Autowired
+    EntityManager em;
 
     private static EntityManagement singleInstance = null;
 

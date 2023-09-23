@@ -1,6 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 
+import Service.Impl.ZooDaoServiceImpl;
 import hu.neuron.mentoring.zooapp.service.*;
 
 import java.sql.*;
@@ -28,7 +29,7 @@ public class AddGondoZoo extends HttpServlet {
 
 
 
-        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
         GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
         CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
 
@@ -98,7 +99,7 @@ public class AddGondoZoo extends HttpServlet {
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : zooDao.getAll()) {
+        for (Zoo zoo : zooDaoServiceImpl.getAll()) {
             if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
                 gondoZooDao.save(new GondoZoo( name, birthDate, appointmentDate, gender, suppliedAnimals,zoo));

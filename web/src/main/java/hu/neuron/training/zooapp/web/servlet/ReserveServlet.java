@@ -1,6 +1,6 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
+import Service.Impl.ZooDaoServiceImpl;
 import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
@@ -9,8 +9,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,13 +22,13 @@ public class ReserveServlet extends HttpServlet {
 
 
 
-        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
 
         String name = req.getParameter("name");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : zooDao.getAll()) {
+        for (Zoo zoo : zooDaoServiceImpl.getAll()) {
             if (name.equals(zoo.getName())) {
                 currentZoo.add(zoo);
             }

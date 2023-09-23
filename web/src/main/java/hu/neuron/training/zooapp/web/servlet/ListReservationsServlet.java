@@ -1,6 +1,6 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
+import Service.Impl.ZooDaoServiceImpl;
 import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
@@ -9,8 +9,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 
@@ -23,13 +21,13 @@ public class ListReservationsServlet extends HttpServlet {
 
 
 
-        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
 
         ReservationDao resDao = DaoManager.getInstance().getReservationDao();
 
 
 
-        req.setAttribute("Zoos", zooDao.getAll());
+        req.setAttribute("Zoos", zooDaoServiceImpl.getAll());
         req.setAttribute("Reservations", resDao);
 
 

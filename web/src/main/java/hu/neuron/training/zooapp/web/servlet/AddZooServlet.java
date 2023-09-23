@@ -1,6 +1,6 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
+import Service.Impl.ZooDaoServiceImpl;
 import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Director;
@@ -10,8 +10,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.sql.*;
@@ -36,9 +34,9 @@ public class AddZooServlet extends HttpServlet {
         Zoo newZoo = new Zoo(name);
         newZoo.setDirector(new Director(directorName, birthDate, appointmentDate, gender,newZoo));
 
-        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
 
-        zooDao.save(newZoo);
+        zooDaoServiceImpl.save(newZoo);
 
 
         req.getRequestDispatcher("zooList").forward(req, resp);

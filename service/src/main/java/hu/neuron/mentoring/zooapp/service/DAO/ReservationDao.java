@@ -3,9 +3,7 @@ package hu.neuron.mentoring.zooapp.service.DAO;
 import hu.neuron.mentoring.zooapp.service.*;
 import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityNotFoundException;
+import javax.persistence.*;
 import javax.persistence.Persistence;
 import java.sql.*;
 import java.util.ArrayList;

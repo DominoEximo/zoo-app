@@ -1,18 +1,15 @@
 package hu.neuron.training.zooapp.web.servlet;
 
+import Service.Impl.ZooDaoServiceImpl;
 import hu.neuron.mentoring.zooapp.service.*;
-import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.DAO.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/removeEmployee")
@@ -23,7 +20,7 @@ public class RemoveEmployeeServlet extends HttpServlet {
 
 
 
-        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
         GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
         CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
 
@@ -34,7 +31,7 @@ public class RemoveEmployeeServlet extends HttpServlet {
 
 
 
-        Zoo currentZoo = zooDao.findById(zooID);
+        Zoo currentZoo = zooDaoServiceImpl.findById(zooID);
 
         if("class hu.neuron.mentoring.zooapp.service.GondoZoo".equals(type)){
             gondoZooDao.delete(gondoZooDao.findById(id));

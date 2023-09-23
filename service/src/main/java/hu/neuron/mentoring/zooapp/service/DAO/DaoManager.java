@@ -1,12 +1,13 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
+import Service.Impl.ZooDaoServiceImpl;
 import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
 
 public class DaoManager {
 
     private static DaoManager instance = null;
 
-    private ZooDao zooDao = ContextManager.getInstance().getAc().getBean(ZooDao.class);
+    private ZooDaoServiceImpl zooDaoServiceImpl = ContextManager.getInstance().getAc().getBean(ZooDaoServiceImpl.class);
 
     private EmployeeDao employeeDao = ContextManager.getInstance().getAc().getBean(EmployeeDao.class);
 
@@ -25,12 +26,12 @@ public class DaoManager {
         return instance;
     }
 
-    public ZooDao getZooDao() {
-        return zooDao;
+    public ZooDaoServiceImpl getZooDaoServiceImpl() {
+        return zooDaoServiceImpl;
     }
 
-    public void setZooDao(ZooDao zooDao) {
-        this.zooDao = zooDao;
+    public void setZooDao(ZooDaoServiceImpl zooDaoServiceImpl) {
+        this.zooDaoServiceImpl = zooDaoServiceImpl;
     }
 
     public EmployeeDao getEmployeeDao() {

@@ -1,6 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 
+import Service.Impl.ZooDaoServiceImpl;
 import hu.neuron.mentoring.zooapp.service.Animal;
 import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
 import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(urlPatterns = "/AddAnimal")
 public class AddAnimal extends HttpServlet {
@@ -29,7 +31,7 @@ public class AddAnimal extends HttpServlet {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
 
-        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
 
         AnimalDao animalDao = DaoManager.getInstance().getAnimalDao();
 
@@ -93,7 +95,7 @@ public class AddAnimal extends HttpServlet {
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : zooDao.getAll()) {
+        for (Zoo zoo : zooDaoServiceImpl.getAll()) {
             if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
                 animalDao.save(new Animal(species, nickname, birthDate, gender,zoo));
@@ -105,7 +107,7 @@ public class AddAnimal extends HttpServlet {
 
 
 
-        req.setAttribute("animals", animalDao.findbyZoo(currentZoo.get(0)));
+        req.setAttribute("animals", animalDao.findbyZoo(Optional.ofNullable(currentZoo.get(0))));
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req, resp);
     }

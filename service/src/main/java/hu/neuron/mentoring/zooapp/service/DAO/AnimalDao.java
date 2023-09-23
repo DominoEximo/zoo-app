@@ -1,35 +1,22 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
-import com.beust.ah.A;
 import hu.neuron.mentoring.zooapp.service.Animal;
-import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
-import hu.neuron.mentoring.zooapp.service.Species;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.Persistence;
-import java.sql.*;
-import java.util.ArrayList;
+import javax.persistence.*;
+
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AnimalDao implements Dao<Animal>{
-
-    private Connection conn;
-    private PreparedStatement myStmt = null;
-    private ResultSet zooResult = null;
 
     EntityManagerFactory emf = EntityManagement.getInstance().getEmf();
     EntityManager em = EntityManagement.getInstance().getEm();
 
     public AnimalDao(){}
 
-    public void connect(Connection conn){
-        this.conn = conn;
-    }
     @Override
     public Animal findById(int id) {
 
@@ -41,9 +28,10 @@ public class AnimalDao implements Dao<Animal>{
         return animal;
     }
 
-    public List<Animal> findbyZoo(Zoo zoo){
+    public List<Animal> findbyZoo(Optional<Zoo> zoo){
+        Zoo zoo1 = zoo.get();
         List<Animal> animals = getAll().stream()
-                .filter(e -> zoo.getId().equals(e.getZoo().getId()))
+                .filter(e -> zoo1.getId().equals(e.getZoo().getId()))
                 .collect(Collectors.toList());
 
         return  animals;

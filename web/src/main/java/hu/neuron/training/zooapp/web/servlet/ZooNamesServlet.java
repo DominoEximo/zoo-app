@@ -1,17 +1,12 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import com.google.gson.Gson;
-import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
-import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.NameManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
 import java.io.IOException;
@@ -26,13 +21,13 @@ public class ZooNamesServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        ZooDao zooDao = DaoManager.getInstance().getZooDao();
+        NameManager nameManager = new NameManager();
 
         String term = req.getParameter("term");
         String q = term.toLowerCase();
 
-        List<String> names = zooDao.zooNames();
-        List<String> filtered = zooDao.filterListByTerm(names,q);
+        List<String> names = nameManager.zooNames();
+        List<String> filtered = NameManager.filterListByTerm(names,q);
         Gson gson = new Gson();
         String jsonArray = gson.toJson(filtered);
 

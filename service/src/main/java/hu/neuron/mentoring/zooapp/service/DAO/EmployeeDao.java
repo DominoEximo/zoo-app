@@ -4,11 +4,6 @@ import hu.neuron.mentoring.zooapp.service.*;
 import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
