@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class EntityManagement {
     @Autowired
     EntityManagerFactory emf;
-    @Autowired
-    EntityManager em;
+
+    EntityManager em = emf.createEntityManager();
 
     private static EntityManagement singleInstance = null;
 

@@ -22,35 +22,8 @@ import java.util.Map;
 @Configuration
 @ComponentScan("hu.neuron.mentoring.zooapp.service")
 @EnableTransactionManagement
-@EnableJpaRepositories(value = "hu.neuron.mentoring.zooapp.service.DAO")
-
+@EnableJpaRepositories(value = "hu.neuron.mentoring.zooapp.service.*",entityManagerFactoryRef="emf")
 public class ConnectionConfig {
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/zoo2");
-        dataSource.setUsername("root");
-        dataSource.setPassword("Xbox11223344");
-        return dataSource;
-    }
-
-    @Bean
-    public EntityManager entityManager() {
-        return entityManagerFactory().getObject().createEntityManager();
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-        emf.setDataSource(dataSource());
-        emf.setPackagesToScan("hu.neuron.mentoring.zooapp.service");
-        Map<String, Object> jpaProperties = new HashMap<>();
-        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        emf.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        emf.setJpaPropertyMap(jpaProperties);
-        return emf;
-    }
 
     @Bean
     public ZooDaoServiceImpl zooDaoServiceImpl() {return new ZooDaoServiceImpl();}
@@ -69,4 +42,9 @@ public class ConnectionConfig {
     @Bean
     public ReservationDao reservationDao() {return new ReservationDao();}
 
+    @Bean
+    public EntityManagerFactory emf() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ZooPU");
+        return emf;
+    }
 }
