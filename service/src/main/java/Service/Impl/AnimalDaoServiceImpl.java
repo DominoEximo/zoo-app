@@ -3,11 +3,14 @@ package Service.Impl;
 import Service.service.AnimalDaoService;
 import hu.neuron.mentoring.zooapp.service.Animal;
 import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
-import hu.neuron.mentoring.zooapp.service.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class AnimalDaoServiceImpl implements AnimalDaoService {
 
     @Autowired
@@ -35,5 +38,11 @@ public class AnimalDaoServiceImpl implements AnimalDaoService {
     @Override
     public void delete(Animal animal) {
         animalDao.delete(animal);
+    }
+
+    @Override
+    public List<Animal> findByZoo(Integer zooId) {
+        List<Animal> animals = animalDao.findByZoo_id(zooId);
+        return animals;
     }
 }

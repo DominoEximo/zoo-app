@@ -3,11 +3,15 @@ package Service.Impl;
 import Service.service.CleanerDaoService;
 import hu.neuron.mentoring.zooapp.service.Cleaner;
 import hu.neuron.mentoring.zooapp.service.DAO.CleanerDao;
-import hu.neuron.mentoring.zooapp.service.Zoo;
+import hu.neuron.mentoring.zooapp.service.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class CleanerDaoServiceImpl implements CleanerDaoService {
 
     @Autowired
@@ -35,5 +39,11 @@ public class CleanerDaoServiceImpl implements CleanerDaoService {
     @Override
     public void delete(Cleaner cleaner) {
         cleanerDao.delete(cleaner);
+    }
+
+    @Override
+    public List<Employee> findByZoo(Integer zooId) {
+        List<Employee> cleaners = cleanerDao.findByZoo_id(zooId);
+        return cleaners;
     }
 }

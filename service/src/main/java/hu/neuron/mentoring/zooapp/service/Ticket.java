@@ -1,7 +1,6 @@
 package hu.neuron.mentoring.zooapp.service;
 
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 @Entity

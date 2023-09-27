@@ -9,8 +9,6 @@ public class DaoManager {
 
     private ZooDaoServiceImpl zooDaoServiceImpl = ContextManager.getInstance().getAc().getBean(ZooDaoServiceImpl.class);
 
-    private EmployeeDao employeeDao = ContextManager.getInstance().getAc().getBean(EmployeeDao.class);
-
     private GondoZooDao gondoZooDao = ContextManager.getInstance().getAc().getBean(GondoZooDao.class);
 
     private CleanerDao cleanerDao = ContextManager.getInstance().getAc().getBean(CleanerDao.class);
@@ -33,15 +31,6 @@ public class DaoManager {
     public void setZooDao(ZooDaoServiceImpl zooDaoServiceImpl) {
         this.zooDaoServiceImpl = zooDaoServiceImpl;
     }
-
-    public EmployeeDao getEmployeeDao() {
-        return employeeDao;
-    }
-
-    public void setEmployeeDao(EmployeeDao employeeDao) {
-        this.employeeDao = employeeDao;
-    }
-
     public GondoZooDao getGondoZooDao() {
         return gondoZooDao;
     }

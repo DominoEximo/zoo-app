@@ -1,12 +1,10 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 
-import Service.Impl.ZooDaoServiceImpl;
+import Service.service.AnimalDaoService;
+import Service.service.ZooDaoService;
 import hu.neuron.mentoring.zooapp.service.Animal;
-import hu.neuron.mentoring.zooapp.service.Config.ConnectionConfig;
-import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
-import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import hu.neuron.mentoring.zooapp.service.Species;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import jakarta.servlet.ServletException;
@@ -14,26 +12,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @WebServlet(urlPatterns = "/AddAnimal")
 public class AddAnimal extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ApplicationContext ac = new AnnotationConfigApplicationContext(ConnectionConfig.class);
 
 
-        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
+        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
+        AnimalDaoService animalDaoService = DaoController.getInstance().getAnimalDaoService();
 
-        AnimalDao animalDao = DaoManager.getInstance().getAnimalDao();
 
 
         String specie = req.getParameter("species");
@@ -95,10 +90,10 @@ public class AddAnimal extends HttpServlet {
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : zooDaoServiceImpl.getAll()) {
+        for (Zoo zoo : zooDaoService.getAll()) {
             if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
-                animalDao.save(new Animal(species, nickname, birthDate, gender,zoo));
+                animalDaoService.save(new Animal(species, nickname, birthDate, gender,zoo));
             }
 
         }
@@ -107,7 +102,7 @@ public class AddAnimal extends HttpServlet {
 
 
 
-        req.setAttribute("animals", animalDao.findbyZoo(currentZoo.get(0)));
+        req.setAttribute("animals", animalDaoService.findByZoo(currentZoo.get(0).getId()));
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req, resp);
     }

@@ -1,9 +1,8 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import Service.Impl.ZooDaoServiceImpl;
-import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
-import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import Service.service.ReservationDaoService;
+import Service.service.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,14 +20,14 @@ public class ListReservationsServlet extends HttpServlet {
 
 
 
-        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
+        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
 
-        ReservationDao resDao = DaoManager.getInstance().getReservationDao();
+        ReservationDaoService reservationDaoService = DaoController.getInstance().getReservationDaoService();
 
 
 
-        req.setAttribute("Zoos", zooDaoServiceImpl.getAll());
-        req.setAttribute("Reservations", resDao);
+        req.setAttribute("Zoos", zooDaoService.getAll());
+        req.setAttribute("Reservations", reservationDaoService);
 
 
         req.getRequestDispatcher("/listReservations.jsp").forward(req, resp);

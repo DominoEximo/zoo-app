@@ -2,12 +2,16 @@ package Service.Impl;
 
 import Service.service.GondoZooDaoService;
 import hu.neuron.mentoring.zooapp.service.DAO.GondoZooDao;
+import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.GondoZoo;
-import hu.neuron.mentoring.zooapp.service.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class GondoZooDaoServiceImpl implements GondoZooDaoService {
 
     @Autowired
@@ -35,5 +39,11 @@ public class GondoZooDaoServiceImpl implements GondoZooDaoService {
     @Override
     public void delete(GondoZoo gondoZoo) {
         gondoZooDao.delete(gondoZoo);
+    }
+
+    @Override
+    public List<Employee> findByZoo(Integer zooId) {
+        List<Employee> gondoZoos = gondoZooDao.findByZoo_id(zooId);
+        return gondoZoos;
     }
 }

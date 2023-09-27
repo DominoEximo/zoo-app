@@ -1,21 +1,19 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
 import hu.neuron.mentoring.zooapp.service.Animal;
-import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
-import hu.neuron.mentoring.zooapp.service.Zoo;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import javax.persistence.*;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+@Repository
+@Transactional(propagation = Propagation.SUPPORTS)
 public interface AnimalDao extends JpaRepository<Animal,Integer> {
 
 
 
-    public List<Animal> findbyZoo(Zoo zoo);
+    public List<Animal> findByZoo_id(Integer zooId);
 
 
 

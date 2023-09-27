@@ -1,7 +1,8 @@
 package Service.service;
 
 import hu.neuron.mentoring.zooapp.service.Cleaner;
-import hu.neuron.mentoring.zooapp.service.Zoo;
+import hu.neuron.mentoring.zooapp.service.Employee;
+import hu.neuron.mentoring.zooapp.service.GondoZoo;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface CleanerDaoService {
     void save(Cleaner cleaner);
 
     void delete(Cleaner cleaner);
+
+    public List<Employee> findByZoo(Integer zooId);
 }

@@ -1,7 +1,6 @@
 package Service.service;
 
 import hu.neuron.mentoring.zooapp.service.Animal;
-import hu.neuron.mentoring.zooapp.service.Zoo;
 
 import java.util.List;
 
@@ -14,4 +13,6 @@ public interface AnimalDaoService {
     void save(Animal animal);
 
     void delete(Animal animal);
+
+    public List<Animal> findByZoo(Integer zooId);
 }

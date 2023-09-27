@@ -1,7 +1,10 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import Service.Impl.ZooDaoServiceImpl;
-import hu.neuron.mentoring.zooapp.service.DAO.*;
+
+import Service.service.CleanerDaoService;
+import Service.service.GondoZooDaoService;
+import Service.service.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import jakarta.servlet.ServletException;
@@ -22,18 +25,18 @@ public class EmployeeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
+        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
 
-        GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
+        GondoZooDaoService gondoZooDaoService = DaoController.getInstance().getGondoZooDaoService();
 
-        CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
+        CleanerDaoService cleanerDaoService = DaoController.getInstance().getCleanerDaoService();
 
 
         String name = req.getParameter("name");
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : zooDaoServiceImpl.getAll()) {
+        for (Zoo zoo : zooDaoService.getAll()) {
             if (name.equals(zoo.getName())) {
                 currentZoo.add(zoo);
                 System.out.println(currentZoo.get(0).getId());
@@ -41,8 +44,8 @@ public class EmployeeServlet extends HttpServlet {
 
         }
 
-            List<Employee> employees = gondoZooDao.findByZoo(currentZoo.get(0));
-            employees.addAll(cleanerDao.findByZoo(currentZoo.get(0)));
+            List<Employee> employees = gondoZooDaoService.findByZoo(currentZoo.get(0).getId());
+            employees.addAll(cleanerDaoService.findByZoo(currentZoo.get(0).getId()));
             req.setAttribute("employees", employees);
 
 

@@ -1,6 +1,6 @@
 package hu.neuron.mentoring.zooapp.service;
 
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import Service.service.ZooDaoService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class NameManager {
     public NameManager() {
     }
 
-    ZooDao zooDao;
+    ZooDaoService zooDaoService;
     public static List<String> filterListByTerm(List<String> list, String term) {
 
         List<String> matching = list.stream()
@@ -24,7 +24,7 @@ public class NameManager {
 
         List<String> list = new ArrayList<>();
 
-        for (Zoo zoo : zooDao.findAll()){
+        for (Zoo zoo : zooDaoService.getAll()){
             list.add(zoo.getName());
         }
 

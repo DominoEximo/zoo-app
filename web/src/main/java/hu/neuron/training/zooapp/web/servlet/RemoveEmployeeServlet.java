@@ -1,9 +1,10 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import Service.Impl.ZooDaoServiceImpl;
+import Service.service.CleanerDaoService;
+import Service.service.GondoZooDaoService;
 import Service.service.ZooDaoService;
 import hu.neuron.mentoring.zooapp.service.*;
-import hu.neuron.mentoring.zooapp.service.DAO.*;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,9 +22,9 @@ public class RemoveEmployeeServlet extends HttpServlet {
 
 
 
-        ZooDaoService zooDaoService = DaoManager.getInstance().getZooDaoServiceImpl();
-        GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
-        CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
+        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
+        GondoZooDaoService gondoZooDaoService = DaoController.getInstance().getGondoZooDaoService();
+        CleanerDaoService cleanerDaoService = DaoController.getInstance().getCleanerDaoService();
 
 
         Integer id = Integer.parseInt(req.getParameter("id"));
@@ -35,14 +36,14 @@ public class RemoveEmployeeServlet extends HttpServlet {
         Zoo currentZoo = zooDaoService.findById(zooID);
 
         if("class hu.neuron.mentoring.zooapp.service.GondoZoo".equals(type)){
-            gondoZooDao.delete(gondoZooDao.findById(id));
+            gondoZooDaoService.delete(gondoZooDaoService.findById(id));
         } else if ("class hu.neuron.mentoring.zooapp.service.Cleaner".equals(type)) {
-            cleanerDao.delete(cleanerDao.findById(id));
+            cleanerDaoService.delete(cleanerDaoService.findById(id));
         }
 
 
-        List<Employee> employees = gondoZooDao.findByZoo(currentZoo);
-        employees.addAll(cleanerDao.findByZoo(currentZoo));
+        List<Employee> employees = gondoZooDaoService.findByZoo(currentZoo.getId());
+        employees.addAll(cleanerDaoService.findByZoo(currentZoo.getId()));
         req.setAttribute("employees", employees);
         req.setAttribute("id", zooID);
 

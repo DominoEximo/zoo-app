@@ -1,10 +1,9 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import Service.Impl.ZooDaoServiceImpl;
+import Service.service.ReservationDaoService;
+import Service.service.ZooDaoService;
 import hu.neuron.mentoring.zooapp.service.*;
-import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
-import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,8 +24,8 @@ public class CreateReservationServlet extends HttpServlet {
 
 
 
-        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
-        ReservationDao resDao = DaoManager.getInstance().getReservationDao();
+        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
+        ReservationDaoService reservationDaoService = DaoController.getInstance().getReservationDaoService();
 
 
         String zooName = req.getParameter("zoo");
@@ -92,7 +91,7 @@ public class CreateReservationServlet extends HttpServlet {
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : zooDaoServiceImpl.getAll()) {
+        for (Zoo zoo : zooDaoService.getAll()) {
             if (zooName.equals(zoo.getName())) {
                 currentZoo.add(zoo);
             }
@@ -100,7 +99,7 @@ public class CreateReservationServlet extends HttpServlet {
         }
 
         currentZoo.get(0).reserve(new Reservation( name, reservationDate, visitDate, tickets, discount, price,currentZoo.get(0)));
-        resDao.save(new Reservation( name, reservationDate, visitDate, tickets, discount, price,currentZoo.get(0)));
+        reservationDaoService.save(new Reservation( name, reservationDate, visitDate, tickets, discount, price,currentZoo.get(0)));
 
 
         req.setAttribute("currentZoo", currentZoo.get(0));

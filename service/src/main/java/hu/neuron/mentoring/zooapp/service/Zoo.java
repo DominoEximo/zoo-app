@@ -1,27 +1,17 @@
 package hu.neuron.mentoring.zooapp.service;
 
 import java.io.Serializable;
-import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import java.util.Arrays;
-
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Zoo")

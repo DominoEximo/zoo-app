@@ -1,6 +1,6 @@
 package hu.neuron.mentoring.zooapp.service;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.sql.Date;
 

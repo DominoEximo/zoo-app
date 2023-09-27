@@ -1,6 +1,7 @@
 package Service.service;
 
 import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
+import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.Reservation;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 
@@ -15,4 +16,6 @@ public interface ReservationDaoService {
     void save(Reservation reservation);
 
     void delete(Reservation reservation);
+
+    public List<Reservation> findByZoo(Integer zooId);
 }

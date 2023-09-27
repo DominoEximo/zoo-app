@@ -1,9 +1,8 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import Service.Impl.ZooDaoServiceImpl;
-import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
-import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import Service.service.AnimalDaoService;
+import Service.service.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet(urlPatterns = "/removeAnimal")
 public class RemoveAnimalServlet extends HttpServlet {
@@ -22,9 +20,9 @@ public class RemoveAnimalServlet extends HttpServlet {
 
 
 
-        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
+        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
 
-        AnimalDao animalDao = DaoManager.getInstance().getAnimalDao();
+        AnimalDaoService animalDaoService = DaoController.getInstance().getAnimalDaoService();
 
 
         Integer animalID = Integer.parseInt(req.getParameter("animalID"));
@@ -32,9 +30,9 @@ public class RemoveAnimalServlet extends HttpServlet {
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));
 
 
-        animalDao.delete( animalDao.findById(animalID));
+        animalDaoService.delete( animalDaoService.findById(animalID));
 
-        req.setAttribute("animals", animalDao.findbyZoo(Optional.ofNullable(zooDaoServiceImpl.findById(zooID))));
+        req.setAttribute("animals", animalDaoService.findByZoo(zooDaoService.findById(zooID).getId()));
         req.setAttribute("id", zooID);
 
 

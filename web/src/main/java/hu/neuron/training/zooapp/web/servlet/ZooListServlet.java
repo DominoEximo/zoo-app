@@ -1,17 +1,12 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import Service.Impl.ZooDaoServiceImpl;
 import Service.service.ZooDaoService;
-import hu.neuron.mentoring.zooapp.service.Connection.ContextManager;
-import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
 
@@ -27,8 +22,8 @@ public class ZooListServlet extends HttpServlet {
 
 
 
-        ZooDaoServiceImpl zooDaoServiceImpl = ContextManager.getInstance().getAc().getBean(ZooDaoServiceImpl.class);
-        req.setAttribute("zoos",zooDaoServiceImpl.getAll());
+        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
+        req.setAttribute("zoos",zooDaoService.getAll());
 
         req.getRequestDispatcher("/listZoos.jsp").forward(req, resp);
 

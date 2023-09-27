@@ -1,8 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import Service.Impl.ZooDaoServiceImpl;
-import hu.neuron.mentoring.zooapp.service.DAO.DaoManager;
-import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
+import Service.service.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,13 +19,13 @@ public class DeleteZooServlet extends HttpServlet {
 
         Integer id = Integer.parseInt(req.getParameter("zooID"));
 
-        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
+        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
 
-        if (!zooDaoServiceImpl.findById(id).equals(null)){
-            zooDaoServiceImpl.delete(zooDaoServiceImpl.findById(id));
+        if (!zooDaoService.findById(id).equals(null)){
+            zooDaoService.delete(zooDaoService.findById(id));
         }
 
-        req.setAttribute("zoos", zooDaoServiceImpl.getAll());
+        req.setAttribute("zoos", zooDaoService.getAll());
         req.getRequestDispatcher("listZoos.jsp").forward(req, resp);
     }
 

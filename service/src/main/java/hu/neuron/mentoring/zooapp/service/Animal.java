@@ -1,9 +1,11 @@
 package hu.neuron.mentoring.zooapp.service;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
+
 @Entity
 public class Animal implements Serializable{
     @Id

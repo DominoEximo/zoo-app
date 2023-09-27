@@ -1,17 +1,16 @@
 package hu.neuron.mentoring.zooapp.service.DAO;
 
 import hu.neuron.mentoring.zooapp.service.*;
-import hu.neuron.mentoring.zooapp.service.EntitiManager.EntityManagement;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
-import javax.persistence.Persistence;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Repository
+@Transactional(propagation = Propagation.SUPPORTS)
 public interface ReservationDao extends JpaRepository<Reservation,Integer> {
 
-    public List<Employee> findByZoo(Zoo zoo);
+    public List<Reservation> findByZoo_id(Integer zooId);
 }

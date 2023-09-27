@@ -3,12 +3,11 @@ package hu.neuron.training.zooapp.web.servlet;
 
 import java.sql.*;
 
-import Service.Impl.ZooDaoServiceImpl;
-import hu.neuron.mentoring.zooapp.service.CleanedArea;
-import hu.neuron.mentoring.zooapp.service.Cleaner;
-import hu.neuron.mentoring.zooapp.service.DAO.*;
-import hu.neuron.mentoring.zooapp.service.Employee;
-import hu.neuron.mentoring.zooapp.service.Zoo;
+import Service.service.CleanerDaoService;
+import Service.service.GondoZooDaoService;
+import Service.service.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.*;
+import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,9 +24,9 @@ public class AddCleaner extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
-        GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
-        CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
+        ZooDaoService zooDaoService= DaoController.getInstance().getZooDaoService();
+        GondoZooDaoService gondoZooDaoService = DaoController.getInstance().getGondoZooDaoService();
+        CleanerDaoService cleanerDaoService = DaoController.getInstance().getCleanerDaoService();
 
         String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
@@ -62,18 +61,18 @@ public class AddCleaner extends HttpServlet {
 
         List<Zoo> currentZoo = new ArrayList<>();
 
-        for (Zoo zoo : zooDaoServiceImpl.getAll()) {
+        for (Zoo zoo : zooDaoService.getAll()) {
             if (zooID.equals(zoo.getId())) {
                 currentZoo.add(zoo);
-                cleanerDao.save(new Cleaner(name, birthDate, appointmentDate, gender, cleanedAreas,zoo));
+                cleanerDaoService.save(new Cleaner(name, birthDate, appointmentDate, gender, cleanedAreas,zoo));
             }
 
         }
 
 
 
-        List<Employee> employees = gondoZooDao.findByZoo(currentZoo.get(0));
-        employees.addAll(cleanerDao.findByZoo(currentZoo.get(0)));
+        List<Employee> employees = gondoZooDaoService.findByZoo(currentZoo.get(0).getId());
+        employees.addAll(cleanerDaoService.findByZoo(currentZoo.get(0).getId()));
         req.setAttribute("employees", employees);
         req.setAttribute("id", zooID);
         req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);

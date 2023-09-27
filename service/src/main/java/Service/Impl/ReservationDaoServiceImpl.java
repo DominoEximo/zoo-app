@@ -3,11 +3,14 @@ package Service.Impl;
 import Service.service.ReservationDaoService;
 import hu.neuron.mentoring.zooapp.service.DAO.ReservationDao;
 import hu.neuron.mentoring.zooapp.service.Reservation;
-import hu.neuron.mentoring.zooapp.service.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class ReservationDaoServiceImpl implements ReservationDaoService {
 
     @Autowired
@@ -35,5 +38,11 @@ public class ReservationDaoServiceImpl implements ReservationDaoService {
     @Override
     public void delete(Reservation reservation) {
         reservationDao.delete(reservation);
+    }
+
+    @Override
+    public List<Reservation> findByZoo(Integer zooId) {
+        List<Reservation> reservations = reservationDao.findByZoo_id(zooId);
+        return reservations;
     }
 }

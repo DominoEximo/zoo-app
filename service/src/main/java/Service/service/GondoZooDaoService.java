@@ -1,7 +1,7 @@
 package Service.service;
 
+import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.GondoZoo;
-import hu.neuron.mentoring.zooapp.service.Zoo;
 
 import java.util.List;
 
@@ -14,4 +14,6 @@ public interface GondoZooDaoService {
     void save(GondoZoo gondoZoo);
 
     void delete(GondoZoo gondoZoo);
+
+    public List<Employee> findByZoo(Integer zooId);
 }
