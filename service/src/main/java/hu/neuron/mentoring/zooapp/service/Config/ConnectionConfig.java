@@ -29,22 +29,5 @@ public class ConnectionConfig {
     public ZooDaoServiceImpl zooDaoServiceImpl() {return new ZooDaoServiceImpl();}
 
 
-    @Bean
-    public AnimalDao animalDao() {return new AnimalDao();}
 
-    @Bean
-    public EmployeeDao employeeDao() {return new EmployeeDao();}
-    @Bean
-    public GondoZooDao gondoZooDao() {return new GondoZooDao();}
-    @Bean
-    public CleanerDao cleanerDao() {return new CleanerDao();}
-
-    @Bean
-    public ReservationDao reservationDao() {return new ReservationDao();}
-
-    @Bean
-    public EntityManagerFactory emf() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ZooPU");
-        return emf;
-    }
 }

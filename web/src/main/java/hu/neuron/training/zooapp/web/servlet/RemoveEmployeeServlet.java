@@ -1,6 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 import Service.Impl.ZooDaoServiceImpl;
+import Service.service.ZooDaoService;
 import hu.neuron.mentoring.zooapp.service.*;
 import hu.neuron.mentoring.zooapp.service.DAO.*;
 import jakarta.servlet.ServletException;
@@ -20,7 +21,7 @@ public class RemoveEmployeeServlet extends HttpServlet {
 
 
 
-        ZooDaoServiceImpl zooDaoServiceImpl = DaoManager.getInstance().getZooDaoServiceImpl();
+        ZooDaoService zooDaoService = DaoManager.getInstance().getZooDaoServiceImpl();
         GondoZooDao gondoZooDao = DaoManager.getInstance().getGondoZooDao();
         CleanerDao cleanerDao = DaoManager.getInstance().getCleanerDao();
 
@@ -31,7 +32,7 @@ public class RemoveEmployeeServlet extends HttpServlet {
 
 
 
-        Zoo currentZoo = zooDaoServiceImpl.findById(zooID);
+        Zoo currentZoo = zooDaoService.findById(zooID);
 
         if("class hu.neuron.mentoring.zooapp.service.GondoZoo".equals(type)){
             gondoZooDao.delete(gondoZooDao.findById(id));

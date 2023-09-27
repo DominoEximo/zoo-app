@@ -107,7 +107,7 @@ public class AddAnimal extends HttpServlet {
 
 
 
-        req.setAttribute("animals", animalDao.findbyZoo(Optional.ofNullable(currentZoo.get(0))));
+        req.setAttribute("animals", animalDao.findbyZoo(currentZoo.get(0)));
 
         req.getRequestDispatcher("/listAnimals.jsp").forward(req, resp);
     }
