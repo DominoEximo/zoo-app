@@ -1,6 +1,6 @@
 package Service.Impl;
 
-import Service.service.GondoZooDaoService;
+import Service.DaoService.GondoZooDaoService;
 import hu.neuron.mentoring.zooapp.service.DAO.GondoZooDao;
 import hu.neuron.mentoring.zooapp.service.Employee;
 import hu.neuron.mentoring.zooapp.service.GondoZoo;

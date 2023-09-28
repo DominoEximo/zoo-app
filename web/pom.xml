@@ -68,6 +68,12 @@
             <groupId>hu.neuron.training.zoo</groupId>
             <artifactId>service</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>6.0.12</version>
         </dependency>
     </dependencies>
     <build>

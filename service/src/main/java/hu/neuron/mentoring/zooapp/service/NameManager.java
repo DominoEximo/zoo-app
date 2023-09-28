@@ -1,6 +1,6 @@
 package hu.neuron.mentoring.zooapp.service;
 
-import Service.service.ZooDaoService;
+import Service.DaoService.ZooDaoService;
 
 import java.util.ArrayList;
 import java.util.List;

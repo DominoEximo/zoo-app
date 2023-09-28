@@ -1,9 +1,9 @@
 package hu.neuron.training.zooapp.web.servlet;
 
 
-import Service.service.CleanerDaoService;
-import Service.service.GondoZooDaoService;
-import Service.service.ZooDaoService;
+import Service.DaoService.CleanerDaoService;
+import Service.DaoService.GondoZooDaoService;
+import Service.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.service.*;
 
 import java.sql.*;

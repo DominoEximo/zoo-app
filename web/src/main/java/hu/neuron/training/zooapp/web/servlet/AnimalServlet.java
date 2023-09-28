@@ -1,7 +1,7 @@
 package hu.neuron.training.zooapp.web.servlet;
 
-import Service.service.AnimalDaoService;
-import Service.service.ZooDaoService;
+import Service.DaoService.AnimalDaoService;
+import Service.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.service.Controller.DaoController;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import jakarta.servlet.ServletException;

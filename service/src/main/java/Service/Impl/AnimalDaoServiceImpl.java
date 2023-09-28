@@ -1,6 +1,6 @@
 package Service.Impl;
 
-import Service.service.AnimalDaoService;
+import Service.DaoService.AnimalDaoService;
 import hu.neuron.mentoring.zooapp.service.Animal;
 import hu.neuron.mentoring.zooapp.service.DAO.AnimalDao;
 import org.springframework.beans.factory.annotation.Autowired;

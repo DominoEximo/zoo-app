@@ -1,6 +1,6 @@
 package Service.Impl;
 
-import Service.service.ZooDaoService;
+import Service.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.service.DAO.ZooDao;
 import hu.neuron.mentoring.zooapp.service.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,6 @@ import java.util.List;
 @Service
 @Transactional
 public class ZooDaoServiceImpl implements ZooDaoService {
-
-
-    public ZooDaoServiceImpl() {
-
-    }
 
     @Autowired
     ZooDao zooDao;

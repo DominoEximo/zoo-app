@@ -1,6 +1,6 @@
 package Service.Impl;
 
-import Service.service.CleanerDaoService;
+import Service.DaoService.CleanerDaoService;
 import hu.neuron.mentoring.zooapp.service.Cleaner;
 import hu.neuron.mentoring.zooapp.service.DAO.CleanerDao;
 import hu.neuron.mentoring.zooapp.service.Employee;
