@@ -15,7 +15,7 @@
               style="background-color: black">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">Zoo</a>
+            <a class="navbar-brand" href="index">Zoo</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="zooList">Home</a></li>

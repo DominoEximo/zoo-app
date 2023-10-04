@@ -4,7 +4,6 @@ import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController("/api")
 public class DaoController {
@@ -81,9 +80,6 @@ public class DaoController {
         return "hello";
     }
 
-    @GetMapping("/listZoos")
-    public ModelAndView listZoos(){
-        ModelAndView mav = new ModelAndView("WEB-INF/jsp/listZoos.jsp");
-        return  mav;
-    }
+
+
 }
