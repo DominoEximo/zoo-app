@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Employee extends LogManager implements Serializable {
+public abstract class Employee implements Serializable {
 
     private static final long serialVersionUID = 7491430318788362737L;
     @Id
@@ -106,8 +106,6 @@ public abstract class Employee extends LogManager implements Serializable {
         return "Employee [name=" + name + ", birthDate=" + birthDate + ", appointmentDate=" + appointmentDate
                 + ", gender=" + gender + "]";
     }
-
-    public abstract List<Job> logJob(Zoo zoo);
 
     public Zoo getZoo() {
         return zoo;

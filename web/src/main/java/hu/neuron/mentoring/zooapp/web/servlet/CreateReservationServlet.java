@@ -1,7 +1,7 @@
 package hu.neuron.mentoring.zooapp.web.servlet;
 
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.ReservationDaoService;
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ReservationDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.core.*;
 import hu.neuron.mentoring.zooapp.web.controller.DaoController;
 import jakarta.servlet.ServletException;
@@ -98,7 +98,6 @@ public class CreateReservationServlet extends HttpServlet {
 
         }
 
-        currentZoo.get(0).reserve(new Reservation( name, reservationDate, visitDate, tickets, discount, price,currentZoo.get(0)));
         reservationDaoService.save(new Reservation( name, reservationDate, visitDate, tickets, discount, price,currentZoo.get(0)));
 
 

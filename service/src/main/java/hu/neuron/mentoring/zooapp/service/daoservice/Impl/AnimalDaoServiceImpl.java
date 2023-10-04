@@ -1,6 +1,6 @@
-package hu.neuron.mentoring.zooapp.service.Controller.Service.Impl;
+package hu.neuron.mentoring.zooapp.service.daoservice.Impl;
 
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.AnimalDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.AnimalDaoService;
 import hu.neuron.mentoring.zooapp.core.Animal;
 import hu.neuron.mentoring.zooapp.core.dao.AnimalDao;
 import org.springframework.beans.factory.annotation.Autowired;

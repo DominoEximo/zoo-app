@@ -3,9 +3,9 @@ package hu.neuron.mentoring.zooapp.web.servlet;
 
 import java.sql.*;
 
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.CleanerDaoService;
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.GondoZooDaoService;
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.CleanerDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.GondoZooDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.core.CleanedArea;
 import hu.neuron.mentoring.zooapp.core.Cleaner;
 import hu.neuron.mentoring.zooapp.core.Employee;

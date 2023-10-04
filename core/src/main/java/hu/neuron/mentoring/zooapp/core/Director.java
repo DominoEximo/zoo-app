@@ -39,10 +39,7 @@ public class Director extends Employee implements Serializable {
         return super.toString();
     }
 
-    @Override
-    public List<Job> logJob(Zoo zoo) {
-        return null;
-    }
+
 
 }
 

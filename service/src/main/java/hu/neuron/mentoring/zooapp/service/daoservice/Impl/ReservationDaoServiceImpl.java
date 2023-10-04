@@ -1,6 +1,6 @@
-package hu.neuron.mentoring.zooapp.service.Controller.Service.Impl;
+package hu.neuron.mentoring.zooapp.service.daoservice.Impl;
 
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.ReservationDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ReservationDaoService;
 import hu.neuron.mentoring.zooapp.core.dao.ReservationDao;
 import hu.neuron.mentoring.zooapp.core.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;

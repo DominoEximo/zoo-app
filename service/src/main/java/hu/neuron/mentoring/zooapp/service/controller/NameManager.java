@@ -1,8 +1,8 @@
-package hu.neuron.mentoring.zooapp.service.Controller;
+package hu.neuron.mentoring.zooapp.service.controller;
 
 
 
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.core.Zoo;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService;
+package hu.neuron.mentoring.zooapp.service.daoservice.DaoService;
 
 import hu.neuron.mentoring.zooapp.core.Cleaner;
 import hu.neuron.mentoring.zooapp.core.Employee;

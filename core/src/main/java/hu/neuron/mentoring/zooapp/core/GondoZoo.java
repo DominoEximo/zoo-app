@@ -64,9 +64,6 @@ public class GondoZoo extends Employee {
         return super.toString() + "Supplied Animals=" + suppliedAnimals;
     }
 
-    @Override
-    public List<Job> logJob(Zoo zoo) {
-        return null;
-    }
+
 }
 

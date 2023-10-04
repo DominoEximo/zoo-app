@@ -19,9 +19,7 @@ public class Zoo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger logger = Logger.getLogger(Zoo.class.getName());
 
-    private static int counter;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -40,14 +38,12 @@ public class Zoo implements Serializable {
 
 
         reservations = new ArrayList<>();
-        counter++;
     }
     public Zoo(String name) {
         this.setName(name);
 
 
         reservations = new ArrayList<>();
-        counter++;
     }
 
     public Zoo(Director director) {
@@ -55,169 +51,8 @@ public class Zoo implements Serializable {
 
 
         reservations = new ArrayList<>();
-        counter++;
         this.setDirector(director);
     }
-
-    static {
-        listZoos();
-    }
-
-    {
-        logger.info("Az állatkert megalapulása: " + LocalTime.now() + "\n");
-    }
-
-    /*public void recordJob(Employee employee) {
-        Boolean isValid = false;
-
-        if (employees.contains(employee)) {
-            isValid = true;
-        }
-
-        if (isValid) {
-
-            List<Job> log = employee.logJob(this);
-            loggedJobs.addAll(log);
-
-        } else {
-            logger.info("Ilyen dongozó nem létezik!");
-        }
-
-    }
-
-    public void autoLogAllJobs(List<Employee> list) {
-
-        for (Employee employee : list) {
-            recordJob(employee);
-        }
-    }
-
-    public void listLoggedJobs() {
-        if (loggedJobs.size() == 0) {
-            logger.info("Jelenleg nincsenek feljegyzett munkák.");
-        } else {
-            for (Job job : loggedJobs) {
-                logger.info(String.format("%s", job));
-            }
-        }
-
-    }
-
-    public void checkRewardApplicability() {
-        if (this.employees.size() == 0) {
-            logger.info("Az állatkertnek nincsenek dolgozói!");
-        }
-        for (Employee employee : this.employees) {
-            if (employee instanceof Director) {
-                continue;
-            } else {
-                long diff = Calendar.getInstance().getTimeInMillis() - employee.getAppointmentDate().getTime();
-                TimeUnit time = TimeUnit.DAYS;
-                long difference = time.convert(diff, TimeUnit.MILLISECONDS);
-                if (difference / 365 > 5) {
-                    rewardApplicables.add(employee);
-                }
-            }
-        }
-    }
-
-    public void listRewardApplicables() {
-        if (this.rewardApplicables.size() == 0) {
-            logger.info("Jelenleg senki sem részesül jutalomban.");
-        } else {
-            for (Employee rewardable : this.rewardApplicables) {
-                logger.info(String.format("Jutalomban részesül: %s", rewardable.getName()));
-            }
-        }
-    }
-
-    public ArrayList<Job> logJobforGondoZoo(GondoZoo caretaker) {
-
-        ArrayList<Job> records = new ArrayList<>();
-        HashSet<Species> currentTypesOfAnimals = new HashSet<>();
-
-        for (Animal animal : animals) {
-            currentTypesOfAnimals.add(animal.getSpecies());
-        }
-
-        for (Species animal : caretaker.getSuppliedAnimals()) {
-            if (currentTypesOfAnimals.contains(animal)) {
-                records.add(new Job(2, String.format("%s gondozás", animal), caretaker));
-            }
-
-        }
-
-        return records;
-    }*/
-
-    public void reserve(Reservation reservation) {
-        this.reservations.add(reservation);
-    }
-
-    public void flushReservations() {
-        this.reservations.clear();
-    }
-
-    /*public void createSight(Sight sight) {
-
-        if (((GondoZoo) sight.getEmployee()).getSuppliedAnimals().contains(sight.getType())) {
-            sights.add(sight);
-        } else {
-            logger.info("Nincs megfelelő gondozó ilyen hely létrehozásához!");
-        }
-
-    }
-
-    public void listSights() {
-        for (Sight sight : sights) {
-            logger.info(String.format("%s", sight));
-        }
-    }
-
-    public ArrayList<Job> logJobforCleaner(Cleaner cleaner) {
-
-        ArrayList<Job> records = new ArrayList<>();
-
-        for (CleanedArea area : cleaner.getCleanedAreas()) {
-            records.add(new Job(3, String.format("%s takarÍtása", area), cleaner));
-        }
-
-        return records;
-    }*/
-
-
-
-    public static void listZoos() {
-        logger.info("Az országnak " + counter + " állatkertje van jelenleg. \n");
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public void fireDirector() throws ZooEmployeeException {
-        if (this.director == null) {
-            logger.info(String.format("Az állatkertnek nincs jelenleg igazgatója! \n"));
-        } else {
-            logger.info("Az állatkert " + director.getName() + " igazgatója eltávozott! \n");
-            this.director = null;
-            throw new ZooEmployeeException("Az állatkertnek nincs igazgatója!");
-
-        }
-
-    }
-
-
-
-
-
-
 
     public Integer getId() {
         return id;
@@ -232,23 +67,7 @@ public class Zoo implements Serializable {
     }
 
     public void setDirector(Director director) {
-        if (this.director == null) {
-            this.director = director;
-            logger.info("Az állatkert igazgatója " + director.getName() + " lett! \n");
-        } else {
-            logger.info(String.format("Az állatkertnek már van igazgatója. \n"));
-        }
-
-    }
-
-
-
-
-    public void listReservations() {
-        for (Reservation reservation : reservations) {
-            System.out.println(reservation);
-        }
-
+        this.director = director;
     }
 
     public List<Reservation> getReservations() {
@@ -267,26 +86,5 @@ public class Zoo implements Serializable {
         this.name = name;
     }
 
-    class Moving {
-
-        public void move(Zoo from, Zoo to) {
-
-            to.setDirector(from.getDirector());
-            counter--;
-            from.setDirector(null);
-            
-        }
-
-    }
-
-    public class CompareAnimals implements Comparator<Animal> {
-
-        @Override
-        public int compare(Animal o1, Animal o2) {
-            return new CompareToBuilder().append(o1.getSpecies(), o2.getSpecies())
-                    .append(o1.getNickname(), o2.getNickname()).build();
-        }
-
-    }
 
 }

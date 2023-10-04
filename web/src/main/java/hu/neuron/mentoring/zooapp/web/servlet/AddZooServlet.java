@@ -1,6 +1,6 @@
 package hu.neuron.mentoring.zooapp.web.servlet;
 
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.ZooDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.web.controller.DaoController;
 import hu.neuron.mentoring.zooapp.core.Director;
 import hu.neuron.mentoring.zooapp.core.Zoo;

@@ -59,17 +59,7 @@ public class Cleaner extends Employee {
         return super.toString() + "cleanedAreas=" + cleanedAreas;
     }
 
-    @Override
-    public List<Job> logJob(Zoo zoo) {
-        ArrayList<Job> records = new ArrayList<>();
 
-        for (CleanedArea area : this.getCleanedAreas()) {
-            records.add(new Job(3, String.format("%s takarÍtása", area), this));
-        }
-
-        return records;
-
-    }
 
 }
 

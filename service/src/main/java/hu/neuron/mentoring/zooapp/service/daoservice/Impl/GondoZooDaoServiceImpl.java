@@ -1,6 +1,6 @@
-package hu.neuron.mentoring.zooapp.service.Controller.Service.Impl;
+package hu.neuron.mentoring.zooapp.service.daoservice.Impl;
 
-import hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService.GondoZooDaoService;
+import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.GondoZooDaoService;
 import hu.neuron.mentoring.zooapp.core.dao.GondoZooDao;
 import hu.neuron.mentoring.zooapp.core.Employee;
 import hu.neuron.mentoring.zooapp.core.GondoZoo;

@@ -1,4 +1,4 @@
-package hu.neuron.mentoring.zooapp.service.Controller.Service.DaoService;
+package hu.neuron.mentoring.zooapp.service.daoservice.DaoService;
 
 import hu.neuron.mentoring.zooapp.core.Animal;
 import org.springframework.stereotype.Service;

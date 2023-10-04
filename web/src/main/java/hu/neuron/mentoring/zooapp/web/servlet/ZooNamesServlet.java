@@ -1,7 +1,7 @@
 package hu.neuron.mentoring.zooapp.web.servlet;
 
 import com.google.gson.Gson;
-import hu.neuron.mentoring.zooapp.service.Controller.NameManager;
+import hu.neuron.mentoring.zooapp.service.controller.NameManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
