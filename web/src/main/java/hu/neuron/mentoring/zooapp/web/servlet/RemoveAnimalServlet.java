@@ -8,27 +8,27 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/zoo/removeAnimal")
 public class RemoveAnimalServlet extends HttpServlet {
 
+
+    @Autowired
+    ZooDaoService zooDaoService;
+
+    @Autowired
+    AnimalDaoService animalDaoService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
-
-        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
-
-        AnimalDaoService animalDaoService = DaoController.getInstance().getAnimalDaoService();
-
-
         Integer animalID = Integer.parseInt(req.getParameter("animalID"));
-
+        System.out.println(animalID);
         Integer zooID = Integer.parseInt(req.getParameter("zooID"));
-
+        System.out.println(zooID);
 
         animalDaoService.delete( animalDaoService.findById(animalID));
 
@@ -36,7 +36,7 @@ public class RemoveAnimalServlet extends HttpServlet {
         req.setAttribute("id", zooID);
 
 
-        req.getRequestDispatcher("listAnimals.jsp").forward(req, resp);
+        req.getRequestDispatcher("listAnimals").forward(req, resp);
 
 
     }

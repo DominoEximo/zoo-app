@@ -26,7 +26,7 @@
 <body>
 <div class="container">
       <h2>Select a Zoo</h2>
-      <form action= "animals" method="GET">
+      <form action= "animalServlet" method="GET">
         <div class="form-group ui-widget">
           <label for="name">Name of Zoo:</label>
           <input type="text" class="form-control" id="name" placeholder="Name of Zoo" name="name">

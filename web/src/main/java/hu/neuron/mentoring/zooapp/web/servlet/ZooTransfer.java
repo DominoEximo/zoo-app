@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,14 +17,13 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/zoo/ZooTransfer")
 public class ZooTransfer extends HttpServlet {
-
+    @Autowired
+    ZooDaoService zooDaoService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
-        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
 
 
         Integer id = Integer.parseInt(req.getParameter("zooID"));
@@ -41,11 +41,11 @@ public class ZooTransfer extends HttpServlet {
             req.setAttribute("currentZoo", currentZoo.get(0));
         }
         if (source.equals("animal")) {
-            req.getRequestDispatcher("/createAnimal.jsp").forward(req, resp);
+            req.getRequestDispatcher("createAnimal").forward(req, resp);
         } else if (source.equals("cleaner")) {
-            req.getRequestDispatcher("/createCleaner.jsp").forward(req, resp);
+            req.getRequestDispatcher("createCleaner").forward(req, resp);
         } else if (source.equals("gondozoo")) {
-            req.getRequestDispatcher("/createGondoZoo.jsp").forward(req, resp);
+            req.getRequestDispatcher("createGondoZoo").forward(req, resp);
         }
 
     }

@@ -16,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,13 +24,15 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/zoo/AddCleaner")
 public class AddCleaner extends HttpServlet {
-
+    @Autowired
+    ZooDaoService zooDaoService;
+    @Autowired
+    GondoZooDaoService gondoZooDaoService;
+    @Autowired
+    CleanerDaoService cleanerDaoService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ZooDaoService zooDaoService= DaoController.getInstance().getZooDaoService();
-        GondoZooDaoService gondoZooDaoService = DaoController.getInstance().getGondoZooDaoService();
-        CleanerDaoService cleanerDaoService = DaoController.getInstance().getCleanerDaoService();
 
         String name = req.getParameter("name");
         Date appointmentDate = java.sql.Date.valueOf((req.getParameter("appointmentDate")));
@@ -78,7 +81,7 @@ public class AddCleaner extends HttpServlet {
         employees.addAll(cleanerDaoService.findByZoo(currentZoo.get(0).getId()));
         req.setAttribute("employees", employees);
         req.setAttribute("id", zooID);
-        req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);
+        req.getRequestDispatcher("listEmployees").forward(req, resp);
     }
 
     @Override

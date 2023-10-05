@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,12 +17,11 @@ import java.util.List;
 @WebServlet(urlPatterns = "/zoo/reserveServlet")
 public class ReserveServlet extends HttpServlet {
 
+    @Autowired
+    ZooDaoService zooDaoService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
-
-        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
 
         String name = req.getParameter("name");
 
@@ -36,7 +36,7 @@ public class ReserveServlet extends HttpServlet {
 
         req.setAttribute("currentZoo", currentZoo.get(0));
 
-        req.getRequestDispatcher("/createReservation.jsp").forward(req, resp);
+        req.getRequestDispatcher("createReservation").forward(req, resp);
 
     }
 

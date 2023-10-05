@@ -21,6 +21,10 @@ public class PageController {
         return "zooSelect.jsp";
     }
 
+    @GetMapping("/animals")
+    public String animalSelect(Model model) {
+        return "animals.jsp";
+    }
     @GetMapping("/zooList")
     public String zooList(Model model) {
         model.addAttribute("zoos",zooDaoService.getAll());
@@ -42,5 +46,37 @@ public class PageController {
         return "createZoo.jsp";
     }
 
+
+    @GetMapping("/listAnimals")
+    public String animals(Model model) {
+        return "listAnimals.jsp";
+    }
+
+    @GetMapping("/listReservations")
+    public String listReservations(Model model) {
+        return "listReservations.jsp";
+    }
+
+    @GetMapping("/createAnimal")
+    public String createAnimal(Model model) {
+        return "createAnimal.jsp";
+    }
+
+    @GetMapping("/createCleaner")
+    public String createCleaner(Model model) {
+        return "createCleaner.jsp";
+    }
+
+    @GetMapping("/createGondoZoo")
+    public String createGondoZoo(Model model) {
+        return "createGondoZoo.jsp";
+    }
+
+    @GetMapping("/createReservation")
+    public String createReservation(Model model) {
+        return "createReservation.jsp";
+    }
+    @GetMapping("/payForReserve")
+    public String payForReserve(Model model){return "payForReserve.jsp";}
 
 }

@@ -18,6 +18,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,14 +27,15 @@ import java.util.List;
 @WebServlet(urlPatterns = "/zoo/AddGondoZoo")
 public class AddGondoZoo extends HttpServlet {
 
+    @Autowired
+    ZooDaoService zooDaoService;
+    @Autowired
+    GondoZooDaoService gondoZooDaoService;
+    @Autowired
+    CleanerDaoService cleanerDaoService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
-
-        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
-        GondoZooDaoService gondoZooDaoService = DaoController.getInstance().getGondoZooDaoService();
-        CleanerDaoService cleanerDaoService = DaoController.getInstance().getCleanerDaoService();
 
 
         String name = req.getParameter("name");
@@ -117,7 +119,7 @@ public class AddGondoZoo extends HttpServlet {
         req.setAttribute("id", zooID);
 
 
-        req.getRequestDispatcher("/listEmployee.jsp").forward(req, resp);
+        req.getRequestDispatcher("listEmployees").forward(req, resp);
     }
 
     @Override
