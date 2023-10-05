@@ -1,7 +1,8 @@
-package hu.neuron.mentoring.zooapp.core;
+package hu.neuron.mentoring.zooapp.core.entity;
 
+import hu.neuron.mentoring.zooapp.core.CleanedArea;
 import jakarta.persistence.*;
-import java.util.ArrayList;
+
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;

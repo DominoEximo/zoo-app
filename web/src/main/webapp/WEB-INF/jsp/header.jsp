@@ -19,8 +19,8 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="zooList">Home</a></li>
-            <li><a href="animals.jsp">Animals</a></li>
-            <li><a href="zooSelect.jsp">Employees</a></li>
+            <li><a href="animals">Animals</a></li>
+            <li><a href="zooSelect">Employees</a></li>
             <li><a href="listReservationsServlet">Reservations</a></li>
 
         </ul>

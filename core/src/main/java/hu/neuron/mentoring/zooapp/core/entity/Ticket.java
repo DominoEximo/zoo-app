@@ -1,5 +1,7 @@
-package hu.neuron.mentoring.zooapp.core;
+package hu.neuron.mentoring.zooapp.core.entity;
 
+import hu.neuron.mentoring.zooapp.core.enums.TicketType;
+import hu.neuron.mentoring.zooapp.core.enums.TicketVariant;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;

@@ -3,10 +3,10 @@ package hu.neuron.mentoring.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.AnimalDaoService;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
-import hu.neuron.mentoring.zooapp.core.Animal;
+import hu.neuron.mentoring.zooapp.core.entity.Animal;
 import hu.neuron.mentoring.zooapp.web.controller.DaoController;
-import hu.neuron.mentoring.zooapp.core.Species;
-import hu.neuron.mentoring.zooapp.core.Zoo;
+import hu.neuron.mentoring.zooapp.core.enums.Species;
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import jakarta.servlet.ServletException;
 
 import jakarta.servlet.annotation.WebServlet;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@WebServlet(urlPatterns = "/AddAnimal")
+@WebServlet(urlPatterns = "/zoo/AddAnimal")
 public class AddAnimal extends HttpServlet {
 
     @Override

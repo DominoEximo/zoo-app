@@ -1,5 +1,7 @@
 package hu.neuron.mentoring.zooapp.core;
 
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
+
 import java.util.Objects;
 
 public class Job {

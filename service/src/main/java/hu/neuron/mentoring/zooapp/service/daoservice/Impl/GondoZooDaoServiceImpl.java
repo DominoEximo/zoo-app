@@ -2,16 +2,15 @@ package hu.neuron.mentoring.zooapp.service.daoservice.Impl;
 
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.GondoZooDaoService;
 import hu.neuron.mentoring.zooapp.core.dao.GondoZooDao;
-import hu.neuron.mentoring.zooapp.core.Employee;
-import hu.neuron.mentoring.zooapp.core.GondoZoo;
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
+import hu.neuron.mentoring.zooapp.core.entity.GondoZoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
 @Service
-@Transactional
 public class GondoZooDaoServiceImpl implements GondoZooDaoService {
 
     @Autowired

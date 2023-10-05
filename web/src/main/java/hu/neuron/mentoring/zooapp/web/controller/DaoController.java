@@ -1,5 +1,6 @@
 package hu.neuron.mentoring.zooapp.web.controller;
 
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,19 +12,19 @@ public class DaoController {
     private static DaoController instance = null;
 
     @Autowired
-    private ZooDaoService zooDaoService;
+    ZooDaoService zooDaoService;
 
     @Autowired
-    private GondoZooDaoService gondoZooDaoService;
+    GondoZooDaoService gondoZooDaoService;
 
     @Autowired
-    private CleanerDaoService cleanerDaoService;
+    CleanerDaoService cleanerDaoService;
 
     @Autowired
-    private AnimalDaoService animalDaoService;
+    AnimalDaoService animalDaoService;
 
     @Autowired
-    private ReservationDaoService reservationDaoService;
+    ReservationDaoService reservationDaoService;
 
 
     public static synchronized DaoController getInstance(){
@@ -39,9 +40,6 @@ public class DaoController {
         return zooDaoService;
     }
 
-    public void setZooDaoService(ZooDaoService zooDaoService) {
-        this.zooDaoService = zooDaoService;
-    }
 
     public GondoZooDaoService getGondoZooDaoService() {
         return gondoZooDaoService;
@@ -81,5 +79,8 @@ public class DaoController {
     }
 
 
+    public void saveZoo(Zoo zoo){
+        zooDaoService.save(zoo);
+    }
 
 }

@@ -2,20 +2,22 @@ package hu.neuron.mentoring.zooapp.web.servlet;
 
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.web.controller.DaoController;
-import hu.neuron.mentoring.zooapp.core.Director;
-import hu.neuron.mentoring.zooapp.core.Zoo;
+import hu.neuron.mentoring.zooapp.core.entity.Director;
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.sql.*;
 
-@WebServlet("/AddZoo")
+@WebServlet(name = "AddZoo", urlPatterns = "/zoo/AddZoo")
 public class AddZooServlet extends HttpServlet {
-
+    @Autowired
+    ZooDaoService zooDaoService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -32,8 +34,6 @@ public class AddZooServlet extends HttpServlet {
 
         Zoo newZoo = new Zoo(name);
         newZoo.setDirector(new Director(directorName, birthDate, appointmentDate, gender,newZoo));
-
-        ZooDaoService zooDaoService = DaoController.getInstance().getZooDaoService();
 
         zooDaoService.save(newZoo);
 

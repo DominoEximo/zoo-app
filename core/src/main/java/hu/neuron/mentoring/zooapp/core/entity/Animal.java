@@ -1,5 +1,6 @@
-package hu.neuron.mentoring.zooapp.core;
+package hu.neuron.mentoring.zooapp.core.entity;
 
+import hu.neuron.mentoring.zooapp.core.enums.Species;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

@@ -4,10 +4,10 @@ package hu.neuron.mentoring.zooapp.web.servlet;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.CleanerDaoService;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.GondoZooDaoService;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
-import hu.neuron.mentoring.zooapp.core.Employee;
-import hu.neuron.mentoring.zooapp.core.GondoZoo;
-import hu.neuron.mentoring.zooapp.core.Species;
-import hu.neuron.mentoring.zooapp.core.Zoo;
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
+import hu.neuron.mentoring.zooapp.core.entity.GondoZoo;
+import hu.neuron.mentoring.zooapp.core.enums.Species;
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 
 import java.sql.*;
 
@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/AddGondoZoo")
+@WebServlet(urlPatterns = "/zoo/AddGondoZoo")
 public class AddGondoZoo extends HttpServlet {
 
     @Override

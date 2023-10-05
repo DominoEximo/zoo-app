@@ -3,7 +3,7 @@ package hu.neuron.mentoring.zooapp.web.servlet;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.AnimalDaoService;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.web.controller.DaoController;
-import hu.neuron.mentoring.zooapp.core.Zoo;
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/animals")
+@WebServlet(urlPatterns = "/zoo/animals")
 public class AnimalServlet extends HttpServlet {
 
 

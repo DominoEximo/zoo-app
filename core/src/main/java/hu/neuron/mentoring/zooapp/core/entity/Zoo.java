@@ -1,15 +1,9 @@
-package hu.neuron.mentoring.zooapp.core;
+package hu.neuron.mentoring.zooapp.core.entity;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Logger;
 
-
-
-import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import jakarta.persistence.*;
 

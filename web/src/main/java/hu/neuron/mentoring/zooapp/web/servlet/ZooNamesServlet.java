@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet (name = "ZooNames",urlPatterns = "/ZooNames")
+@WebServlet (name = "ZooNames",urlPatterns = "/zoo/ZooNames")
 public class ZooNamesServlet extends HttpServlet {
 
     @Override

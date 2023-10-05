@@ -1,11 +1,10 @@
 package hu.neuron.mentoring.zooapp.service.daoservice.DaoService;
 
-import hu.neuron.mentoring.zooapp.core.Animal;
-import org.springframework.stereotype.Service;
+import hu.neuron.mentoring.zooapp.core.entity.Animal;
 
 import java.util.List;
 
-@Service
+
 public interface AnimalDaoService {
 
     List<Animal> getAll();

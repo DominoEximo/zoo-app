@@ -1,9 +1,9 @@
-package hu.neuron.mentoring.zooapp.core;
+package hu.neuron.mentoring.zooapp.core.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
+
 @Entity
 public class Director extends Employee implements Serializable {
 

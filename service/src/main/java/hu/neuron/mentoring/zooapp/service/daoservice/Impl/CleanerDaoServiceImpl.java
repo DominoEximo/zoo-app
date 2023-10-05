@@ -1,17 +1,15 @@
 package hu.neuron.mentoring.zooapp.service.daoservice.Impl;
 
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.CleanerDaoService;
-import hu.neuron.mentoring.zooapp.core.Cleaner;
+import hu.neuron.mentoring.zooapp.core.entity.Cleaner;
 import hu.neuron.mentoring.zooapp.core.dao.CleanerDao;
-import hu.neuron.mentoring.zooapp.core.Employee;
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class CleanerDaoServiceImpl implements CleanerDaoService {
 
     @Autowired

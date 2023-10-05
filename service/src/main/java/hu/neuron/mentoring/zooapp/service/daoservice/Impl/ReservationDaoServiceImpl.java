@@ -2,15 +2,13 @@ package hu.neuron.mentoring.zooapp.service.daoservice.Impl;
 
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ReservationDaoService;
 import hu.neuron.mentoring.zooapp.core.dao.ReservationDao;
-import hu.neuron.mentoring.zooapp.core.Reservation;
+import hu.neuron.mentoring.zooapp.core.entity.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class ReservationDaoServiceImpl implements ReservationDaoService {
 
     @Autowired

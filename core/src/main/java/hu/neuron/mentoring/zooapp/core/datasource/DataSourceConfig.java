@@ -1,4 +1,4 @@
-package hu.neuron.mentoring.zooapp.core;
+package hu.neuron.mentoring.zooapp.core.datasource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +13,10 @@ import java.util.Properties;
 
 @ComponentScan(basePackages = "hu.neuron.mentoring.zooapp.*")
 @Configuration
-public class Main {
+public class DataSourceConfig {
 
     @Bean
-    public DataSource h2DataSource() {
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/zoo3");
@@ -29,10 +29,10 @@ public class Main {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory =
                 new LocalContainerEntityManagerFactoryBean();
-        factory.setDataSource(h2DataSource());
+        factory.setDataSource(dataSource());
         factory.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         Properties properties = new Properties();
-        properties.setProperty("jakarta.persistence.schema-generation.database.action", "none");
+        properties.setProperty("jakarta.persistence.schema-generation.database.action", "validate");
         factory.setJpaProperties(properties);
         factory.setPackagesToScan("hu.neuron.mentoring.zooapp.*");
         return factory;

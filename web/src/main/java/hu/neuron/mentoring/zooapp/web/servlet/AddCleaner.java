@@ -7,9 +7,9 @@ import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.CleanerDaoServic
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.GondoZooDaoService;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.core.CleanedArea;
-import hu.neuron.mentoring.zooapp.core.Cleaner;
-import hu.neuron.mentoring.zooapp.core.Employee;
-import hu.neuron.mentoring.zooapp.core.Zoo;
+import hu.neuron.mentoring.zooapp.core.entity.Cleaner;
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import hu.neuron.mentoring.zooapp.web.controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/AddCleaner")
+@WebServlet(urlPatterns = "/zoo/AddCleaner")
 public class AddCleaner extends HttpServlet {
 
     @Override

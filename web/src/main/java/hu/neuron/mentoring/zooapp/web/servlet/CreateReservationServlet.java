@@ -1,8 +1,12 @@
 package hu.neuron.mentoring.zooapp.web.servlet;
 
+import hu.neuron.mentoring.zooapp.core.entity.Reservation;
+import hu.neuron.mentoring.zooapp.core.entity.Ticket;
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
+import hu.neuron.mentoring.zooapp.core.enums.TicketType;
+import hu.neuron.mentoring.zooapp.core.enums.TicketVariant;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ReservationDaoService;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
-import hu.neuron.mentoring.zooapp.core.*;
 import hu.neuron.mentoring.zooapp.web.controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,7 +19,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/createReservationServlet")
+@WebServlet(urlPatterns = "/zoo/createReservationServlet")
 public class CreateReservationServlet extends HttpServlet {
 
     @Override

@@ -1,4 +1,4 @@
-package hu.neuron.mentoring.zooapp.web;
+package hu.neuron.mentoring.zooapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,12 +11,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "hu.neuron.mentoring")
 @EnableAutoConfiguration
-@ComponentScan(basePackages={"hu.neuron.mentoring"})
-@EnableJpaRepositories(basePackages="hu.neuron.mentoring")
+@ComponentScan
+@EnableJpaRepositories
 @EnableTransactionManagement
-@EntityScan(basePackages="hu.neuron.mentoring")
+@EntityScan
 @ServletComponentScan
 public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {

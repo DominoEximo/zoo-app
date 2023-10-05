@@ -1,10 +1,8 @@
-package hu.neuron.mentoring.zooapp.core;
+package hu.neuron.mentoring.zooapp.core.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 import java.util.Objects;
-import java.util.logging.LogManager;
 
 
 import jakarta.persistence.*;

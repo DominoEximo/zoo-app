@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/listReservationsServlet")
+@WebServlet(urlPatterns = "/zoo/listReservationsServlet")
 public class ListReservationsServlet extends HttpServlet {
 
     @Override

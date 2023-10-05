@@ -3,8 +3,8 @@ package hu.neuron.mentoring.zooapp.web.servlet;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.CleanerDaoService;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.GondoZooDaoService;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
-import hu.neuron.mentoring.zooapp.core.Employee;
-import hu.neuron.mentoring.zooapp.core.Zoo;
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import hu.neuron.mentoring.zooapp.web.controller.DaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/removeEmployee")
+@WebServlet(urlPatterns = "/zoo/removeEmployee")
 public class RemoveEmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,4 +1,4 @@
-package hu.neuron.mentoring.zooapp.core;
+package hu.neuron.mentoring.zooapp.core.enums;
 
 public enum TicketType {
 

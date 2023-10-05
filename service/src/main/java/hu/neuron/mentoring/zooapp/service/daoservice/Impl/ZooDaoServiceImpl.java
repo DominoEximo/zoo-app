@@ -2,15 +2,13 @@ package hu.neuron.mentoring.zooapp.service.daoservice.Impl;
 
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import hu.neuron.mentoring.zooapp.core.dao.ZooDao;
-import hu.neuron.mentoring.zooapp.core.Zoo;
+import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class ZooDaoServiceImpl implements ZooDaoService {
 
     @Autowired
@@ -28,7 +26,7 @@ public class ZooDaoServiceImpl implements ZooDaoService {
     @Override
     public Zoo findById(int id) {
         Zoo zoo = null;
-        zoo = zooDao.findById(id).get();
+        zoo = zooDao.findById(id).orElseGet(null);
         return zoo;
     }
 

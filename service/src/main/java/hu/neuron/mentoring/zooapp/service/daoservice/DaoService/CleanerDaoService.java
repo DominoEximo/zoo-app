@@ -1,12 +1,12 @@
 package hu.neuron.mentoring.zooapp.service.daoservice.DaoService;
 
-import hu.neuron.mentoring.zooapp.core.Cleaner;
-import hu.neuron.mentoring.zooapp.core.Employee;
-import org.springframework.stereotype.Service;
+import hu.neuron.mentoring.zooapp.core.entity.Cleaner;
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
+
 
 import java.util.List;
 
-@Service
+
 public interface CleanerDaoService {
 
     List<Cleaner> getAll();

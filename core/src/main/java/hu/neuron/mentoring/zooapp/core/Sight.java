@@ -1,5 +1,9 @@
 package hu.neuron.mentoring.zooapp.core;
 
+import hu.neuron.mentoring.zooapp.core.entity.Animal;
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
+import hu.neuron.mentoring.zooapp.core.enums.Species;
+
 import java.util.List;
 import java.util.Objects;
 

@@ -1,12 +1,10 @@
 package hu.neuron.mentoring.zooapp.web.controller;
 
 
-import hu.neuron.mentoring.zooapp.core.Zoo;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,6 +14,7 @@ public class PageController {
 
     @Autowired
     ZooDaoService zooDaoService;
+
 
     @GetMapping("/zooSelect")
     public String zooSelect(Model model) {
@@ -33,7 +32,7 @@ public class PageController {
         return "index";
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/listEmployees")
     public String employees(Model model) {
         return "listEmployee.jsp";
     }
@@ -43,6 +42,5 @@ public class PageController {
         return "createZoo.jsp";
     }
 
-    @GetMapping("/deleteZoo")
-    public String deleteZoo(Model model) {return "DeleteZooServlet";}
+
 }

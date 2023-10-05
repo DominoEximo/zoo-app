@@ -1,12 +1,12 @@
 package hu.neuron.mentoring.zooapp.service.daoservice.DaoService;
 
-import hu.neuron.mentoring.zooapp.core.Employee;
-import hu.neuron.mentoring.zooapp.core.GondoZoo;
-import org.springframework.stereotype.Service;
+import hu.neuron.mentoring.zooapp.core.entity.Employee;
+import hu.neuron.mentoring.zooapp.core.entity.GondoZoo;
+
 
 import java.util.List;
 
-@Service
+
 public interface GondoZooDaoService {
 
     List<GondoZoo> getAll();
