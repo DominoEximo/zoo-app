@@ -18,7 +18,7 @@ public class PageController {
 
     @GetMapping("/zooSelect")
     public String zooSelect(Model model) {
-        return "zooSelect.jsp";
+        return "zooSelect.jsf";
     }
 
     @GetMapping("/animals")
@@ -78,5 +78,8 @@ public class PageController {
     }
     @GetMapping("/payForReserve")
     public String payForReserve(Model model){return "payForReserve.jsp";}
+
+    @GetMapping("/home")
+    public String home(Model model){return "test.xhtml";}
 
 }
