@@ -80,6 +80,6 @@ public class PageController {
     public String payForReserve(Model model){return "payForReserve.jsp";}
 
     @GetMapping("/home")
-    public String home(Model model){return "test.xhtml";}
+    public String home(Model model){return "/test.xhtml";}
 
 }

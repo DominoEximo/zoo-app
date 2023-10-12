@@ -1,22 +1,32 @@
 package hu.neuron.mentoring.zooapp.beans;
 
-import jakarta.faces.annotation.View;
+
+
+
+
+
 import org.springframework.stereotype.Component;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import org.springframework.stereotype.Controller;
 
 
-@Component
-@View("request")
-public class HelloWorld {
+import java.io.Serializable;
 
+
+@Controller("helloWorld")
+public class HelloWorld implements Serializable {
+
+
+    private String message = "Hello World";
     public HelloWorld() {
-        System.out.println("HelloWorld started!");
+
     }
 
     public String getMessage() {
-        return "Hello World!";
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 

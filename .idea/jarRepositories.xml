@@ -21,5 +21,10 @@
       <option name="name" value="PrimeFaces Maven Repository" />
       <option name="url" value="http://repository.primefaces.org" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="prime-repo" />
+      <option name="name" value="PrimeFaces Maven Repository" />
+      <option name="url" value="https://repository.primefaces.org" />
+    </remote-repository>
   </component>
 </project>
