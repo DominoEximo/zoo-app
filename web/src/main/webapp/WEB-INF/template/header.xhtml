@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:body>
+<ui:composition>
+
+    <div style="background-color: #0f0f0f;color: #005b41 ; margin: 0" class="card">
+        <p:sidebar  widgetVar="sidebar1">
+            <p:menu>
+
+                <p:submenu label="Navigations">
+                    <p:menuitem value="Home" outcome="index" icon="pi pi-home"/>
+                    <p:menuitem value="Zoos" outcome="zooList" icon="pi pi-upload"/>
+                    <p:menuitem value="Employees" outcome="employeeList" icon="pi pi-user"/>
+                    <p:menuitem value="Animals" outcome="test" icon="pi pi-star-fill"/>
+                    <p:menuitem value="Reservations" outcome="test" icon="pi pi-envelope"/>
+                </p:submenu>
+            </p:menu>
+
+        </p:sidebar>
+        <p:commandButton icon="pi pi-list" type="button" onclick="PF('sidebar1').show()" style="background-color: #0f0f0f; border: #0f0f0f " />
+
+
+    </div>
+</ui:composition>
+</h:body>
+</html>

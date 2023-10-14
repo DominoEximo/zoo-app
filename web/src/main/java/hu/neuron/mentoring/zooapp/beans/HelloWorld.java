@@ -1,11 +1,5 @@
 package hu.neuron.mentoring.zooapp.beans;
 
-
-
-
-
-
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 

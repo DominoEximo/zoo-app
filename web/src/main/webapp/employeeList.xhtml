@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <ui:insert name="header">
+        <ui:include src="/WEB-INF/template/header.xhtml"/>
+    </ui:insert>
+</h:head>
+
+<h:body>
+    <div class="card">
+        <h:form>
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+
+        <h5 class="mt-0">Single</h5>
+        <div class="field col-12 md:col-4">
+            <p:outputLabel value="Zoo" for="@next"/>
+            <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
+                            completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
+        </div>
+
+            <p:commandButton value="Search"  update="@form">
+                <p:ajax event="click" action="#{autoCompleteView.setupCurrentZooByName}" update="@form"/>
+            </p:commandButton>
+
+
+    <div class="card">
+
+
+            <p:dataTable id="employees" var="employee" value="#{employeeView.getEmployees(autoCompleteView.currentZoo.id)}" rowKey="#{employee.id}"
+                         selection="#{employeeView.selectedEmployee}" selectionMode="single">
+                <f:facet name="header">
+                    Employees
+                </f:facet>
+                <p:column headerText="Name">
+                    <h:outputText value="#{employee.name}" />
+                </p:column>
+                <p:column headerText="ID">
+                    <h:outputText value="#{employee.id}" />
+                </p:column>
+
+            </p:dataTable>
+
+            <p:contextMenu for="employees">
+                <p:menuitem value="Delete" update="employees" icon="pi pi-times"
+                            action="#{zooView.deleteZoo}"/>
+            </p:contextMenu>
+    </div>
+    </h:form>
+    </div>
+</h:body>
+</html>

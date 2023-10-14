@@ -4,8 +4,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<div class="card">
+
+</div>
+</h:head>
+<ui:insert name="header">
+    <ui:include src="/WEB-INF/template/header.xhtml"></ui:include>
+</ui:insert>
+<h:body>
+
+    <div style="position: absolute ; top: 30%;text-align: center; right: 45%">
+        <h1>Welcome</h1>
+        <span>Press the button below to add a Zoo!</span>
+        <h:form>
+            <h5 class="mt-0">Basic</h5>
+            <h:panelGrid id="grid" cellpadding="7" columns="2" styleClass="mb-3">
+                <p:outputLabel for="name" value="Name"/>
+                <p:inputText id="name" value="#{zooView.zooName}"/>
+
+                <p:outputLabel for="director" value="Director"/>
+                <h:inputText id="director" value="#{zooView.directorName}" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+
+                <p:outputLabel for="birthDate" value="Birth Date"/>
+                <p:datePicker pattern="yyyy-MM-dd" id="birthDate" value="#{zooView.birthDate}"
+                              monthNavigator="true" yearNavigator="true"/>
+
+                <p:outputLabel for="appointmentDate" value="Appointment Date"/>
+                <p:datePicker pattern="yyyy-MM-dd" id="appointmentDate" value="#{zooView.appointmentDate}"
+                              monthNavigator="true" yearNavigator="true"/>
+
+                <p:outputLabel for="gender" value="Gender"/>
+                <h:inputText id="gender" value="#{zooView.gender}" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+
+            </h:panelGrid>
+            <p:commandButton value="Add" action="#{zooView.addZoo()}" styleClass="mt-3" />
+
+        </h:form>
+    </div>
+</h:body>
 </html>

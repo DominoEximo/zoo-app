@@ -23,7 +23,7 @@ public class Animal implements Serializable{
     @Column(name = "gender")
     private Character gender;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade =  CascadeType.ALL)
     private Zoo zoo;
 
 
