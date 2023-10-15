@@ -1,5 +1,6 @@
 package hu.neuron.mentoring.zooapp.beans;
 
+import hu.neuron.mentoring.zooapp.core.entity.Director;
 import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import jakarta.faces.view.ViewScoped;
@@ -24,9 +25,9 @@ public class ZooView implements Serializable {
 
     private String directorName;
 
-    private Date birthDate;
+    private String birthDate;
 
-    private Date appointmentDate;
+    private String appointmentDate;
 
     private String gender;
 
@@ -45,6 +46,7 @@ public class ZooView implements Serializable {
 
     public void addZoo(){
         Zoo newZoo = new Zoo(zooName);
+        newZoo.setDirector(new Director(directorName,java.sql.Date.valueOf(birthDate),java.sql.Date.valueOf(appointmentDate),gender.charAt(0),newZoo));
         zooDaoService.save(newZoo);
     }
 }

@@ -57,11 +57,12 @@ public class AutoCompleteView implements Serializable {
     }
 
     public void setupCurrentZooByName(){
-        List<Zoo> zoos = zooDaoService.getAll();
-        List<Zoo> current = zoos.stream().filter(zoo -> zoo.getName().equals(zooName)).toList();
 
-        currentZoo.setId(current.get(0).getId());
+        for (Zoo zoo : zooDaoService.getAll() ){
+            if (zoo.getName().equals(zooName)){
+                currentZoo.setId(zoo.getId());
+            }
+        }
 
-        System.out.println(10);
     }
 }

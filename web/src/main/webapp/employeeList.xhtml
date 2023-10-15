@@ -17,22 +17,20 @@
         <h:form>
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
 
-        <h5 class="mt-0">Single</h5>
         <div class="field col-12 md:col-4">
             <p:outputLabel value="Zoo" for="@next"/>
             <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
                             completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
         </div>
 
-            <p:commandButton value="Search"  update="@form">
-                <p:ajax event="click" action="#{autoCompleteView.setupCurrentZooByName}" update="@form"/>
-            </p:commandButton>
+            <p:commandButton value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="employees"/>
+
 
 
     <div class="card">
 
 
-            <p:dataTable id="employees" var="employee" value="#{employeeView.getEmployees(autoCompleteView.currentZoo.id)}" rowKey="#{employee.id}"
+            <p:dataTable id="employees" var="employee" value="#{employeeView.getEmployees(autoCompleteView.currentZoo.getId())}" rowKey="#{employee.id}"
                          selection="#{employeeView.selectedEmployee}" selectionMode="single">
                 <f:facet name="header">
                     Employees
