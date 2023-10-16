@@ -17,14 +17,16 @@
         <h:form>
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
 
-            <div class="field col-12 md:col-4">
-                <p:outputLabel value="Zoo" for="@next"/>
-                <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
-                                completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
+            <div style="justify-content: center ; text-align: center; margin: 10px">
+                <div  class="field col-12 md:col-4">
+                    <p:outputLabel style="margin-right: 5px" value="Zoo" for="@next"/>
+                    <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
+                                    completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
+                </div>
+
+                <p:commandButton style="margin-top: 10px" value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="animals"/>
+
             </div>
-
-            <p:commandButton value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="animals"/>
-
 
 
             <div class="card">

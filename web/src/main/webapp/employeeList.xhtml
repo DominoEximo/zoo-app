@@ -15,15 +15,16 @@
 <h:body>
     <div class="card">
         <h:form>
-            <p:message id="msgs"/>
+            <div style="justify-content: center ; text-align: center; margin: 10px">
+                <div  class="field col-12 md:col-4">
+                    <p:outputLabel style="margin-right: 5px" value="Zoo" for="@next"/>
+                    <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
+                                    completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
+                </div>
 
-            <div class="field col-12 md:col-4">
-                <p:outputLabel value="Zoo" for="@next"/>
-                <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
-                                completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
+                <p:commandButton style="margin-top: 10px" value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="@form"/>
+
             </div>
-
-                <p:commandButton value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="@form"/>
 
 
 

@@ -46,7 +46,6 @@ public class ZooView implements Serializable {
 
     public void addZoo(){
         Zoo newZoo = new Zoo(zooName);
-        newZoo.setDirector(new Director(directorName,java.sql.Date.valueOf(birthDate),java.sql.Date.valueOf(appointmentDate),gender.charAt(0),newZoo));
         zooDaoService.save(newZoo);
     }
 }
