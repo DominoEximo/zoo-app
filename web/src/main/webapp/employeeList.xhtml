@@ -12,7 +12,7 @@
     </ui:insert>
 </h:head>
 
-<h:body>
+<h:body style="background: darkslategrey; color: cornsilk">
     <div class="card">
         <h:form>
             <div style="justify-content: center ; text-align: center; margin: 10px">
@@ -22,7 +22,7 @@
                                     completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
                 </div>
 
-                <p:commandButton style="margin-top: 10px" value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="@form"/>
+                <h:commandButton style="margin-top: 10px" value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="@form"/>
 
             </div>
 

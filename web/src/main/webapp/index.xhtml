@@ -14,13 +14,12 @@
 <ui:insert name="header">
     <ui:include src="/WEB-INF/template/header.xhtml"></ui:include>
 </ui:insert>
-<h:body>
+<h:body style="background: darkslategrey; color: cornsilk">
 
     <div style="position: absolute ; top: 20%;text-align: center; right: 40%">
         <h1>Welcome</h1>
         <span>Press the button below to add a Zoo!</span>
         <h:form>
-            <h5 class="mt-0">Basic</h5>
             <h:panelGrid id="grid" cellpadding="7" columns="2" styleClass="mb-3">
                 <p:outputLabel for="name" value="Name"/>
                 <p:inputText id="name" value="#{zooView.zooName}"/>

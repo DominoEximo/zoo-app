@@ -15,8 +15,6 @@
 <h:body style="background: darkslategrey; color: cornsilk">
     <div class="card">
         <h:form>
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
-
             <div style="justify-content: center ; text-align: center; margin: 10px">
                 <div  class="field col-12 md:col-4">
                     <p:outputLabel style="margin-right: 5px" value="Zoo" for="@next"/>
@@ -24,31 +22,35 @@
                                     completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
                 </div>
 
-                <h:commandButton style="margin-top: 10px" value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="animals"/>
+                <h:commandButton style="margin-top: 10px" value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="reservations"/>
 
             </div>
+
 
 
             <div class="card">
 
 
-                <p:dataTable id="animals" var="animal" value="#{animalView.getAnimals(autoCompleteView.currentZoo.getId())}" rowKey="#{animal.id}"
-                             selection="#{animalView.selectedAnimal}" selectionMode="single">
+                <p:dataTable id="reservations" var="reservation" value="#{reservationView.getReservation(autoCompleteView.currentZoo.getId())}" rowKey="#{reservation.id}"
+                             selection="#{reservationView.selectedReservation}" selectionMode="single">
                     <f:facet name="header">
-                        Animals
+                        Reservations
                     </f:facet>
                     <p:column headerText="Name">
-                        <h:outputText value="#{animal.name}" />
+                        <h:outputText value="#{reservation.name}" />
                     </p:column>
-                    <p:column headerText="ID">
-                        <h:outputText value="#{animal.id}" />
+                    <p:column headerText="Visit Date">
+                        <h:outputText value="#{reservation.visitDate}" />
+                    </p:column>
+                    <p:column headerText="Price">
+                        <h:outputText value="#{reservation.price}" />
                     </p:column>
 
                 </p:dataTable>
 
-                <p:contextMenu for="animals">
-                    <p:menuitem value="Delete" update="animals" icon="pi pi-times"
-                                action="#{animalView.deleteAnimal()}"/>
+                <p:contextMenu for="reservations">
+                    <p:menuitem value="Delete" update="reservations" icon="pi pi-times"
+                                action="#{reservationView.deleteReservation()}"/>
                 </p:contextMenu>
             </div>
         </h:form>

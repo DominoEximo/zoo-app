@@ -19,7 +19,7 @@ public class AutoCompleteView implements Serializable {
     @Autowired
     private ZooDaoService zooDaoService;
 
-    private Zoo currentZoo;
+    private Zoo currentZoo = new Zoo();
 
     public List<String> completeText(String query) {
         String queryLowerCase = query.toLowerCase();
