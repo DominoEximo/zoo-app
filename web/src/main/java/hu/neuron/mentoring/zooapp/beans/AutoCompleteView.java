@@ -2,6 +2,8 @@ package hu.neuron.mentoring.zooapp.beans;
 
 import hu.neuron.mentoring.zooapp.core.entity.Zoo;
 import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

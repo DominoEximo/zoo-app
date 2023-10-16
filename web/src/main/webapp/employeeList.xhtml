@@ -15,41 +15,41 @@
 <h:body>
     <div class="card">
         <h:form>
-        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+            <p:message id="msgs"/>
 
-        <div class="field col-12 md:col-4">
-            <p:outputLabel value="Zoo" for="@next"/>
-            <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
-                            completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
-        </div>
+            <div class="field col-12 md:col-4">
+                <p:outputLabel value="Zoo" for="@next"/>
+                <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
+                                completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
+            </div>
 
-            <p:commandButton value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="employees"/>
-
-
-
-    <div class="card">
+                <p:commandButton value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="@form"/>
 
 
-            <p:dataTable id="employees" var="employee" value="#{employeeView.getEmployees(autoCompleteView.currentZoo.getId())}" rowKey="#{employee.id}"
-                         selection="#{employeeView.selectedEmployee}" selectionMode="single">
-                <f:facet name="header">
-                    Employees
-                </f:facet>
-                <p:column headerText="Name">
-                    <h:outputText value="#{employee.name}" />
-                </p:column>
-                <p:column headerText="ID">
-                    <h:outputText value="#{employee.id}" />
-                </p:column>
 
-            </p:dataTable>
+            <div class="card">
 
-            <p:contextMenu for="employees">
-                <p:menuitem value="Delete" update="employees" icon="pi pi-times"
-                            action="#{zooView.deleteZoo}"/>
-            </p:contextMenu>
-    </div>
-    </h:form>
+
+                    <p:dataTable id="employees" var="employee" value="#{employeeView.getEmployees(autoCompleteView.currentZoo.getId())}" rowKey="#{employee.id}"
+                                 selection="#{employeeView.selectedEmployee}" selectionMode="single">
+                        <f:facet name="header">
+                            Employees
+                        </f:facet>
+                        <p:column headerText="Name">
+                            <h:outputText value="#{employee.name}" />
+                        </p:column>
+                        <p:column headerText="ID">
+                            <h:outputText value="#{employee.id}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:contextMenu for="employees">
+                        <p:menuitem value="Delete" update="employees" icon="pi pi-times"
+                                    action="#{employeeView.deleteEmployee()}"/>
+                    </p:contextMenu>
+            </div>
+        </h:form>
     </div>
 </h:body>
 </html>
