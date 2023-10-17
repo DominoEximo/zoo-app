@@ -39,7 +39,7 @@
                         <p:datePicker pattern="yy-MM-dd" id="visitDate" value="#{reservationView.visitDate}"
                                       monthNavigator="true" yearNavigator="true"/>
 
-                        <h5 class="mt-0">Line Direction</h5>
+                        <h5 class="mt-0">Type</h5>
                         <p:selectOneRadio id="type" value="#{reservationView.ticketType}" layout="lineDirection">
                             <f:selectItem itemLabel="Adult" itemValue="ADULT"/>
                             <f:selectItem itemLabel="Kid" itemValue="KID"/>
@@ -47,7 +47,7 @@
                             <f:selectItem itemLabel="Group" itemValue="GROUP"/>
                         </p:selectOneRadio>
 
-                        <h5 class="mt-0">Line Direction</h5>
+                        <h5 class="mt-0">Variant</h5>
                         <p:selectOneRadio id="variant" value="#{reservationView.ticketVariant}" layout="lineDirection">
                             <f:selectItem itemLabel="Full day" itemValue="FULL_DAY"/>
                             <f:selectItem itemLabel="Afternoon" itemValue="AFTERNOON"/>
