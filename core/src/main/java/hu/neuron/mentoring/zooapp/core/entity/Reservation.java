@@ -25,7 +25,7 @@ public class Reservation implements Serializable {
     private Integer discount;
     @Column(name = "price")
     private Integer price;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Zoo zoo;
 
     public  Reservation(){};

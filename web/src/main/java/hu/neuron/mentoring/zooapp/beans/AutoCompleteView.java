@@ -5,13 +5,15 @@ import hu.neuron.mentoring.zooapp.service.daoservice.DaoService.ZooDaoService;
 import jakarta.faces.view.ViewScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.context.annotation.SessionScope;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller("autoCompleteView")
-@ViewScoped
+@SessionScope
 public class AutoCompleteView implements Serializable {
 
     private String zooName;

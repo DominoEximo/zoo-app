@@ -25,7 +25,7 @@ public abstract class Employee implements Serializable {
     @Column(name = "gender")
     private Character gender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Zoo zoo;
 
     public Employee() {

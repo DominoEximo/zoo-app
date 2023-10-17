@@ -8,7 +8,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import java.io.Serializable;
-import java.sql.*;
+
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -25,9 +26,9 @@ public class ZooView implements Serializable {
 
     private String directorName;
 
-    private String birthDate;
+    private Date birthDate;
 
-    private String appointmentDate;
+    private Date appointmentDate;
 
     private String gender;
 
@@ -46,6 +47,11 @@ public class ZooView implements Serializable {
 
     public void addZoo(){
         Zoo newZoo = new Zoo(zooName);
+
+        java.sql.Date sqlBirthDate = new java.sql.Date(birthDate.getTime());
+        java.sql.Date sqlAppDate = new java.sql.Date(appointmentDate.getTime());
+
+        newZoo.setDirector(new Director(directorName,sqlBirthDate,sqlAppDate,gender.charAt(0),newZoo));
         zooDaoService.save(newZoo);
     }
 }

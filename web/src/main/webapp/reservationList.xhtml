@@ -15,15 +15,48 @@
 <h:body style="background: darkslategrey; color: cornsilk">
     <div class="card">
         <h:form>
-            <div style="justify-content: center ; text-align: center; margin: 10px">
-                <div  class="field col-12 md:col-4">
-                    <p:outputLabel style="margin-right: 5px" value="Zoo" for="@next"/>
-                    <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
-                                    completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
+            <div style="text-align: center">
+                <div style="justify-content: center ; text-align: center; margin: 10px; display: inline-block; align-items:center ">
+                    <div  class="field col-12 md:col-4">
+                        <p:outputLabel style="margin-right: 5px" value="Zoo" for="@next"/>
+                        <p:autoComplete id="zoo" value="#{autoCompleteView.zooName}"
+                                        completeMethod="#{autoCompleteView.completeText}" scrollHeight="250"/>
+                    </div>
+
+                    <h:commandButton style="margin-top: 10px" value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="@form"/>
+
                 </div>
+                <div style="justify-content: center ; text-align: center; margin: 10px; display: inline-block">
+                    <h:panelGrid id="grid" cellpadding="7" columns="2" styleClass="mb-3">
+                        <p:outputLabel for="name" value="Name"/>
+                        <p:inputText id="name" value="#{reservationView.name}"/>
 
-                <h:commandButton style="margin-top: 10px" value="Search"  action="#{autoCompleteView.setupCurrentZooByName}" update="reservations"/>
+                        <p:outputLabel for="reservationDate" value="Reservation Date"/>
+                        <p:datePicker pattern="yy-MM-dd" id="reservationDate" value="#{reservationView.reservationDate}"
+                                      monthNavigator="true" yearNavigator="true"/>
 
+                        <p:outputLabel for="visitDate" value="Visit Date"/>
+                        <p:datePicker pattern="yy-MM-dd" id="visitDate" value="#{reservationView.visitDate}"
+                                      monthNavigator="true" yearNavigator="true"/>
+
+                        <h5 class="mt-0">Line Direction</h5>
+                        <p:selectOneRadio id="type" value="#{reservationView.ticketType}" layout="lineDirection">
+                            <f:selectItem itemLabel="Adult" itemValue="ADULT"/>
+                            <f:selectItem itemLabel="Kid" itemValue="KID"/>
+                            <f:selectItem itemLabel="Retired" itemValue="RETIRED"/>
+                            <f:selectItem itemLabel="Group" itemValue="GROUP"/>
+                        </p:selectOneRadio>
+
+                        <h5 class="mt-0">Line Direction</h5>
+                        <p:selectOneRadio id="variant" value="#{reservationView.ticketVariant}" layout="lineDirection">
+                            <f:selectItem itemLabel="Full day" itemValue="FULL_DAY"/>
+                            <f:selectItem itemLabel="Afternoon" itemValue="AFTERNOON"/>
+                            <f:selectItem itemLabel="Forenoon" itemValue="FORENOON"/>
+                        </p:selectOneRadio>
+
+                    </h:panelGrid>
+                    <h:commandButton value="Add" action="#{reservationView.createReservation(autoCompleteView.currentZoo.id)}" update="reservations" styleClass="mt-3" />
+                </div>
             </div>
 
 
